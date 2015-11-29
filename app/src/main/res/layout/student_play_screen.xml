@@ -3,4 +3,99 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:layout_weight="50">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|bottom">
+
+            <TextView android:id="@+id/audio_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="100sp"
+                android:hint="@string/audio_minutes"
+                android:layout_gravity="bottom|center_horizontal"/>
+            <TextView android:id="@+id/time_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="100sp"
+                android:hint=":"
+                android:layout_gravity="bottom|center_horizontal"/>
+            <TextView android:id="@+id/audio_seconds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="100sp"
+                android:hint="@string/audio_seconds"
+                android:layout_gravity="bottom|center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:layout_weight="50">
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@null"
+            android:paddingTop="20dip"
+            android:src="@drawable/PlayButton"
+            android:layout_weight="30"/>
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            android:layout_weight="70">
+
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal|bottom"
+                android:paddingLeft="30dip"
+                android:paddingRight="20dip"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:layout_marginBottom="-20dp"
+                android:layout_marginLeft="-20dp"
+                android:layout_marginRight="-20dp"
+                android:layout_marginTop="-20dp"
+                android:src="@drawable/DeleteButton"
+                android:layout_weight="1"/>
+
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal|bottom"
+                android:paddingLeft="20dip"
+                android:paddingRight="30dip"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:layout_marginBottom="-20dp"
+                android:layout_marginLeft="-20dp"
+                android:layout_marginRight="-20dp"
+                android:layout_marginTop="-20dp"
+                android:src="@drawable/SendButton"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

@@ -4,4 +4,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="audio_minutes">00</string>
+    <string name="audio_seconds">00</string>
 </resources>
