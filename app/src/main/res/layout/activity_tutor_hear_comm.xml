@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aw="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.90"
+        android:background="#009cff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/audio_name_tutor"
+            android:id="@+id/textView"
+            android:background="@android:color/transparent"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="50dp"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="544dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.10"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.20">
+
+            <!--<org.firezenk.audiowaves.Visualizer
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                aw:aw_format="vertical_lines"
+                aw:aw_gravity="center"
+                aw:aw_width="100"
+                aw:aw_height="200"
+                aw:aw_num_waves="10"
+                aw:aw_line_with="30"
+                aw:aw_line_min_with="30"
+                aw:aw_line_height="30"
+                aw:aw_line_min_height="30"
+                aw:aw_line_spacing="10"
+                aw:aw_line_border_radius="50"
+                aw:aw_ball_diameter="30"
+                aw:aw_color_uniform="@color/YOUR_COLOR_HERE"
+                aw:aw_color_is_gradient="true"
+                aw:aw_color_gradient_start="@color/YOUR_START_COLOR"
+                aw:aw_color_gradient_end="@color/YOUR_END_COLOR" />-->
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.31"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/audio_end_time"
+                android:id="@+id/textView3"
+                android:layout_weight="0.20"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textSize="25dp"
+                android:paddingRight="10dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.30"
+            android:paddingLeft="40dp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/audio_current_time"
+                android:id="@+id/textView2"
+                android:layout_weight="0.16"
+                android:textSize="45dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.10"
+            android:weightSum="1">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton"
+                android:background="@null"
+                android:src="@drawable/play_button_tutor"
+                android:layout_alignBottom="@+id/imageButton2"
+                android:paddingLeft="20dp"
+                android:layout_alignParentStart="true" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton2"
+                android:background="@null"
+                android:src="@drawable/comment_button"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="48dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

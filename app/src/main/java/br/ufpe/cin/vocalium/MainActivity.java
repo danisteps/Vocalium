@@ -48,7 +48,7 @@ public final class MainActivity extends AppCompatActivity {
                             _track = new VorbisFileOutputStream("/mnt/sdcard/voz.ogg");
                         } catch (IOException ignored) {
                         }
-                        //_track = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
+                        //_track = new AudioTrack(AudioUtils.AudioPlayerManager.STREAM_MUSIC, SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
                         //_track.play();
 
                         _record = new AudioRecord(MediaRecorder.AudioSource.VOICE_RECOGNITION, SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize);

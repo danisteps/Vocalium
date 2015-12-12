@@ -10,7 +10,7 @@ apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
-    maven { url 'https://github.com/FireZenk/maven-repo/raw/master/'}
+    maven { url 'https://github.com/FireZenk/maven-repo/raw/master/' }
 }
 
 android {
@@ -25,7 +25,8 @@ android {
         versionName "1.0"
     }
 
-    sourceSets.main.jni.srcDirs = [] // disable automatic ndk-build call, which ignore our Android.mk
+    sourceSets.main.jni.srcDirs = []
+    // disable automatic ndk-build call, which ignore our Android.mk
     sourceSets.main.jniLibs.srcDir 'src/main/libs'
 
     // call regular ndk-build(.cmd) script from app directory
@@ -55,8 +56,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.+'
+    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'org.firezenk:audiowaves:1.1@aar'
+    compile 'com.android.support:design:23.1.1'
 }
 
 def getNdkDir() {

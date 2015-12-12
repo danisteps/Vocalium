@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="br.ufpe.cin.vocalium"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.ufpe.cin.vocalium">
 
-    <uses-sdk android:minSdkVersion="16"/>
+    <uses-sdk android:minSdkVersion="16" />
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,5 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".StudentRecord"
+            android:label="@string/title_activity_student_record"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".TutorHearComm"
+            android:label="@string/title_activity_tutor_hear_comm"
+            android:theme="@style/AppTheme"></activity>
     </application>
+
 </manifest>

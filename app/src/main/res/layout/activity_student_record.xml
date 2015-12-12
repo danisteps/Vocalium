@@ -50,7 +50,7 @@
             android:layout_gravity="center_horizontal|bottom"
             android:background="@null"
             android:paddingTop="20dip"
-            android:src="@drawable/PlayButton"
+            android:src="@drawable/play_button"
             android:layout_weight="30"/>
 
 
@@ -75,7 +75,7 @@
                 android:layout_marginLeft="-20dp"
                 android:layout_marginRight="-20dp"
                 android:layout_marginTop="-20dp"
-                android:src="@drawable/DeleteButton"
+                android:src="@drawable/delete_button"
                 android:layout_weight="1"/>
 
 
@@ -92,7 +92,7 @@
                 android:layout_marginLeft="-20dp"
                 android:layout_marginRight="-20dp"
                 android:layout_marginTop="-20dp"
-                android:src="@drawable/SendButton"
+                android:src="@drawable/send_button"
                 android:layout_weight="1"/>
 
         </LinearLayout>
