@@ -35,7 +35,7 @@ public class AudioPlayerManager {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {@Override
                                             public void onCompletion(MediaPlayer arg0) {
                                                 Intent tutorChecklist = new Intent(context,TutorChecklist.class);
-                                                startActivity(tutorChecklist);}});
+                                                context.startActivity(tutorChecklist);}});
     }
     public void Release ()
     {
