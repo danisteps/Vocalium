@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Vector;
 
+import br.ufpe.cin.vocalium.TutorChecklist;
+
 public class AudioPlayerManager {
     private MediaPlayer mediaPlayer;
     private Context context;
@@ -27,6 +29,15 @@ public class AudioPlayerManager {
         mediaPlayer.start();
 
         videoLength = ConvertMilisToCalendar(mediaPlayer.getDuration());
+
+        mediaPlayer.setOnCompletionListener(new OnCompletionListener() {@Override
+                                            public void onCompletion(MediaPlayer arg0) {
+                                                Intent tutorChecklist = new Intent(MyRecording.this,TutorChecklist.class);
+                                                startActivity(tutorChecklist);}});
+    }
+    public void Release ()
+    {
+        mediaPlayer.release();
     }
 
     public void PlayVideo ()
@@ -47,12 +58,16 @@ public class AudioPlayerManager {
     }
     public void AddComment (String text)
     {
-        //the current the of the video is given in miliseconds, so we have to convert
-        Calendar currentTime = ConvertMilisToCalendar(mediaPlayer.getCurrentPosition());
+        //make sure it's not playing
+        if(!mediaPlayer.isPlaying())
+        {
+            //the current the of the video is given in miliseconds, so we have to convert
+            Calendar currentTime = ConvertMilisToCalendar(mediaPlayer.getCurrentPosition());
 
-        AudioComment newComment = new AudioComment(currentTime, text);
+            AudioComment newComment = new AudioComment(currentTime, text);
 
-        comments.add(newComment);
+            comments.add(newComment);
+        }
     }
 
 

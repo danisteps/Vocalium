@@ -14,4 +14,5 @@
     <string name="audio_seconds">00</string>
     <string name="title_activity_student_record">StudentRecord</string>
     <string name="title_activity_tutor_hear_comm">TutorHearComm</string>
+    <string name="title_activity_tutor_checklist">TutorChecklist</string>
 </resources>

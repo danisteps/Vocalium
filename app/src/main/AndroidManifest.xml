@@ -30,6 +30,10 @@
         <activity
             android:name=".TutorHearComm"
             android:label="@string/title_activity_tutor_hear_comm"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".TutorChecklist"
+            android:label="@string/title_activity_tutor_checklist"
             android:theme="@style/AppTheme"></activity>
     </application>
 
