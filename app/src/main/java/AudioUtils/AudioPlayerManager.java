@@ -2,8 +2,10 @@ package AudioUtils; /**
  * Created by Delio on 12/12/15.
  */
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.content.Intent;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -18,21 +20,21 @@ public class AudioPlayerManager {
     private Vector<AudioComment> comments;
 
     public AudioPlayerManager(Context cntxt, String audioPath) throws IOException {
-        comments = new Vector<AudioComment>();
+        comments = new Vector<>();
 
         Uri audioPathUri = Uri.parse(audioPath);
 
         context = cntxt;
         mediaPlayer = MediaPlayer.create(context, audioPathUri);              //create player from file audiopath
-        mediaPlayer.setAudioStreamType(AudioPlayerManager.STREAM_MUSIC);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.prepare();
         mediaPlayer.start();
 
         videoLength = ConvertMilisToCalendar(mediaPlayer.getDuration());
 
-        mediaPlayer.setOnCompletionListener(new OnCompletionListener() {@Override
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {@Override
                                             public void onCompletion(MediaPlayer arg0) {
-                                                Intent tutorChecklist = new Intent(MyRecording.this,TutorChecklist.class);
+                                                Intent tutorChecklist = new Intent(context,TutorChecklist.class);
                                                 startActivity(tutorChecklist);}});
     }
     public void Release ()
