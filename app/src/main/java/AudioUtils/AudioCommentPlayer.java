@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.content.Intent;
+import br.ufpe.cin.vocalium.R;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -25,16 +26,16 @@ public class AudioCommentPlayer implements Runnable{
     private final AudioCommentPlayer audioCommentPlayer;
     private final Activity activity;
 
-    public AudioCommentPlayer(Context cntxt, String audioPath, Vector<AudioComment> cmmts, Activity activity) throws IOException {
+    public AudioCommentPlayer(Context cntxt, int audioPath, Vector<AudioComment> cmmts, Activity activity) throws IOException {
         comments = cmmts;
         audioCommentPlayer = this;
         this.activity = activity;
 
-        Uri audioPathUri = Uri.parse("R.raw.surpass");
+        audioPath = R.raw.surpass;
         //Uri audioPathUri = Uri.parse(audioPath);
 
         context = cntxt;
-        mediaPlayer = MediaPlayer.create(context, audioPathUri);              //create player from file audiopath
+        mediaPlayer = MediaPlayer.create(context, audioPath);              //create player from file audiopath
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.prepareAsync();
 

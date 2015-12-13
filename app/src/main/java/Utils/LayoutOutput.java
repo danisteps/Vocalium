@@ -2,6 +2,8 @@ package Utils;
 import android.app.Activity;
 import android.widget.TextView;
 
+import br.ufpe.cin.vocalium.R;
+
 /**
  * Created by Délio on 12/12/2015.
  */
