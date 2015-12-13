@@ -1,6 +1,7 @@
 package AudioUtils; /**
  * Created by Delio on 12/12/15.
  */
+import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -22,10 +23,12 @@ public class AudioCommentPlayer implements Runnable{
     private Calendar videoLength;
     private Vector<AudioComment> comments;
     private final AudioCommentPlayer audioCommentPlayer;
+    private final Activity activity;
 
-    public AudioCommentPlayer(Context cntxt, String audioPath, Vector<AudioComment> cmmts) throws IOException {
+    public AudioCommentPlayer(Context cntxt, String audioPath, Vector<AudioComment> cmmts, Activity activity) throws IOException {
         comments = cmmts;
         audioCommentPlayer = this;
+        this.activity = activity;
 
         Uri audioPathUri = Uri.parse("R.raw.surpass");
         //Uri audioPathUri = Uri.parse(audioPath);
@@ -104,6 +107,6 @@ public class AudioCommentPlayer implements Runnable{
     }
     private void SetComment(int id)
     {
-        LayoutOutput.getInstance().comment = comments.elementAt(id).GetCommentText();
+        LayoutOutput.getInstance().ChangeStudentCommentText(comments.elementAt(id).GetCommentText(), activity);
     }
 }

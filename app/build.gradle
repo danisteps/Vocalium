@@ -30,7 +30,7 @@ android {
     sourceSets.main.jniLibs.srcDir 'src/main/libs'
 
     // call regular ndk-build(.cmd) script from app directory
-    task ndkBuild(type: Exec) {
+    task ndkBuild (type:Exec) {
         workingDir file('src/main')
         commandLine getNdkBuildCmd()
     }
@@ -39,7 +39,7 @@ android {
         compileTask -> compileTask.dependsOn ndkBuild
     }
 
-    task cleanNative(type: Exec) {
+    task cleanNative(type:Exec) {
         workingDir file('src/main')
         commandLine getNdkBuildCmd(), 'clean'
     }
@@ -51,6 +51,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 

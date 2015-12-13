@@ -1,4 +1,6 @@
 package Utils;
+import android.app.Activity;
+import android.widget.TextView;
 
 /**
  * Created by Délio on 12/12/2015.
@@ -11,10 +13,12 @@ public class LayoutOutput {
     }
 
     private LayoutOutput() {
-        comment = "";
     }
 
     //-----------------AudioCommentPlayer--------------------
-    public String comment;
+    public void ChangeStudentCommentText (String text, Activity activity) {
+        TextView textView = (TextView)activity.findViewById(R.id.studentCommentText);        ///find e r?
+        textView.setText(text);
+    }
 
 }
