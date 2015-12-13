@@ -9,33 +9,46 @@ import android.content.Intent;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
+import Utils.LayoutOutput;
 import br.ufpe.cin.vocalium.TutorChecklist;
 
-public class AudioPlayerManager {
+public class AudioCommentPlayer implements Runnable{
     private MediaPlayer mediaPlayer;
     private Context context;
     private Calendar videoLength;
     private Vector<AudioComment> comments;
+    private final AudioCommentPlayer audioCommentPlayer;
 
-    public AudioPlayerManager(Context cntxt, String audioPath) throws IOException {
-        comments = new Vector<>();
+    public AudioCommentPlayer(Context cntxt, String audioPath, Vector<AudioComment> cmmts) throws IOException {
+        comments = cmmts;
+        audioCommentPlayer = this;
 
-        Uri audioPathUri = Uri.parse(audioPath);
+        Uri audioPathUri = Uri.parse("R.raw.surpass");
+        //Uri audioPathUri = Uri.parse(audioPath);
 
         context = cntxt;
         mediaPlayer = MediaPlayer.create(context, audioPathUri);              //create player from file audiopath
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.prepare();
-        mediaPlayer.start();
+        mediaPlayer.prepareAsync();
+
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer player) {
+                player.start();                                 //starts the media player
+                new Thread(audioCommentPlayer).start();         //starts the comment management
+            }
+        });
 
         videoLength = ConvertMilisToCalendar(mediaPlayer.getDuration());
 
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {@Override
-                                            public void onCompletion(MediaPlayer arg0) {
-                                                Intent tutorChecklist = new Intent(context,TutorChecklist.class);
-                                                context.startActivity(tutorChecklist);}});
+        /*mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {@Override
+                                                                                    public void onCompletion(MediaPlayer arg0) {
+            Intent tutorChecklist = new Intent(context,TutorChecklist.class);
+            context.startActivity(tutorChecklist);}});*/
     }
     public void Release ()
     {
@@ -58,20 +71,6 @@ public class AudioPlayerManager {
             mediaPlayer.pause();
         }
     }
-    public void AddComment (String text)
-    {
-        //make sure it's not playing
-        if(!mediaPlayer.isPlaying())
-        {
-            //the current the of the video is given in miliseconds, so we have to convert
-            Calendar currentTime = ConvertMilisToCalendar(mediaPlayer.getCurrentPosition());
-
-            AudioComment newComment = new AudioComment(currentTime, text);
-
-            comments.add(newComment);
-        }
-    }
-
 
     private Calendar ConvertMilisToCalendar (int milis)
     {
@@ -89,5 +88,22 @@ public class AudioPlayerManager {
         else if (date1.get(Calendar.SECOND) > date2.get(Calendar.SECOND)) return 1;
         else if (date1.get(Calendar.SECOND) < date2.get(Calendar.SECOND)) return -1;
         else return 0;
+    }
+
+    @Override
+    public void run() {
+        int commentNumber = 0;
+        while(commentNumber < comments.size() && comments.elementAt(commentNumber).GetCommentTime().getTimeInMillis() < mediaPlayer.getDuration())
+        {
+            if(comments.elementAt(commentNumber).GetCommentTime().getTimeInMillis() > mediaPlayer.getCurrentPosition())
+            {
+                SetComment(commentNumber);
+                commentNumber ++;
+            }
+        }
+    }
+    private void SetComment(int id)
+    {
+        LayoutOutput.getInstance().comment = comments.elementAt(id).GetCommentText();
     }
 }
