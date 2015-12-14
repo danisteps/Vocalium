@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.Vector;
 
 import AudioUtils.AudioComment;
@@ -20,18 +21,9 @@ public class StudentListenComment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_listen_comment);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        setContentView(R.layout.activity_student_listen_comment);
+
         Vector<AudioComment> comments = CreateComments();
         try {
             AudioCommentPlayer player = new AudioCommentPlayer(getApplicationContext(), 0, comments, this);
@@ -43,11 +35,11 @@ public class StudentListenComment extends AppCompatActivity {
     private Vector<AudioComment> CreateComments ()
     {
         Calendar time1 = Calendar.getInstance();
-        time1.setTimeInMillis(10000);
+        time1.setTimeInMillis(4000);
         Calendar time2 = Calendar.getInstance();
-        time1.setTimeInMillis(20000);
+        time2.setTimeInMillis(7000);
         Calendar time3 = Calendar.getInstance();
-        time1.setTimeInMillis(30000);
+        time3.setTimeInMillis(40000);
 
         String text1 = "Muito bom aqui";
         String text2 = "está aprendendo";

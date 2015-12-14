@@ -7,6 +7,8 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.content.Intent;
+import android.util.Log;
+
 import br.ufpe.cin.vocalium.R;
 
 import java.io.IOException;
@@ -21,7 +23,7 @@ import br.ufpe.cin.vocalium.TutorChecklist;
 public class AudioCommentPlayer implements Runnable{
     private MediaPlayer mediaPlayer;
     private Context context;
-    private Calendar videoLength;
+    private int videoLength;
     private Vector<AudioComment> comments;
     private final AudioCommentPlayer audioCommentPlayer;
     private final Activity activity;
@@ -37,17 +39,18 @@ public class AudioCommentPlayer implements Runnable{
         context = cntxt;
         mediaPlayer = MediaPlayer.create(context, audioPath);              //create player from file audiopath
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.prepareAsync();
+        mediaPlayer.start();
 
-        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        /*mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer player) {
                 player.start();                                 //starts the media player
                 new Thread(audioCommentPlayer).start();         //starts the comment management
             }
-        });
+        });*/
+        (new Thread(audioCommentPlayer)).start();         //starts the comment management
 
-        videoLength = ConvertMilisToCalendar(mediaPlayer.getDuration());
+        videoLength = mediaPlayer.getDuration();
 
         /*mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {@Override
                                                                                     public void onCompletion(MediaPlayer arg0) {
@@ -97,17 +100,37 @@ public class AudioCommentPlayer implements Runnable{
     @Override
     public void run() {
         int commentNumber = 0;
-        while(commentNumber < comments.size() && comments.elementAt(commentNumber).GetCommentTime().getTimeInMillis() < mediaPlayer.getDuration())
+        Log.i("AUDIO_DEBUG", "" + comments.size() + " / " + comments.elementAt(0).GetCommentTime().getTimeInMillis() + " / " + videoLength);
+        while(commentNumber < comments.size() && comments.elementAt(commentNumber).GetCommentTime().getTimeInMillis() < videoLength)
         {
-            if(comments.elementAt(commentNumber).GetCommentTime().getTimeInMillis() > mediaPlayer.getCurrentPosition())
+            Log.i("AUDIO_DEBUG", "" + comments.size() + " / " + comments.elementAt(commentNumber).GetCommentTime().getTimeInMillis() + " / " + videoLength + " / " + mediaPlayer.getCurrentPosition());
+            if(comments.elementAt(commentNumber).GetCommentTime().getTimeInMillis() < mediaPlayer.getCurrentPosition())
             {
-                SetComment(commentNumber);
+                RunUiAction runUiAction = new RunUiAction(commentNumber);
+                activity.runOnUiThread(new Thread(runUiAction));
+
                 commentNumber ++;
             }
         }
     }
-    private void SetComment(int id)
+    public void SetComment(int id)
     {
         LayoutOutput.getInstance().ChangeStudentCommentText(comments.elementAt(id).GetCommentText(), activity);
+    }
+
+
+    //this class is only to change ui stuff inside thread, otherwise it's forbidden
+    class RunUiAction implements Runnable {
+        final int commentId;
+
+        public RunUiAction (int id)
+        {
+            commentId = id;
+        }
+
+        @Override
+        public void run() {
+            SetComment(commentId);
+        }
     }
 }
