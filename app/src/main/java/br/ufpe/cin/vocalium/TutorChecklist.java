@@ -1,29 +1,56 @@
 package br.ufpe.cin.vocalium;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
+
+import java.io.File;
+import java.io.IOException;
+
+import AudioUtils.AudioPlayerManager;
+import Utils.FileManager;
+import Utils.ServerConnection;
+import Utils.UserInformation;
 
 public class TutorChecklist extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_checklist);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        final Context context = getApplicationContext();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        UserInformation user = UserInformation.getInstance();
+
+        user.SetLogin("dlc");
+        user.SetStudentId(1);
+        user.SetTeacherId(1);
+        user.SetTeacherName("De");
+        user.SetStudentName("Lc");
+
+
+        new Thread(new Runnable() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void run() {
+                ServerConnection.getInstance().GetFile(context, 1);
             }
-        });
-    }
+        }).start();
 
+
+
+        /*REMEMBER!!! Only call this after complete download!!
+        String path = context.getFilesDir() + "/1.mp3";
+
+        try {
+            AudioPlayerManager player = new AudioPlayerManager(context, path);
+        } catch (IOException e) {
+            Log.e("CONNECTION_ERROR", "Problem loading file");
+        }
+        */
+    }
 }
+
+
+//context.getResources().openRawResource(fileId)

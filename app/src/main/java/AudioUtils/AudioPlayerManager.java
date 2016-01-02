@@ -27,7 +27,6 @@ public class AudioPlayerManager {
         context = cntxt;
         mediaPlayer = MediaPlayer.create(context, audioPathUri);              //create player from file audiopath
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.prepare();
         mediaPlayer.start();
 
         videoLength = ConvertMilisToCalendar(mediaPlayer.getDuration());

@@ -41,21 +41,16 @@ public class AudioCommentPlayer implements Runnable{
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.start();
 
-        /*mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer player) {
-                player.start();                                 //starts the media player
-                new Thread(audioCommentPlayer).start();         //starts the comment management
-            }
-        });*/
         (new Thread(audioCommentPlayer)).start();         //starts the comment management
 
         videoLength = mediaPlayer.getDuration();
 
-        /*mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {@Override
-                                                                                    public void onCompletion(MediaPlayer arg0) {
+        //after the video has completed, call this function
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {@Override public void onCompletion(MediaPlayer arg0) {
+            Release();
             Intent tutorChecklist = new Intent(context,TutorChecklist.class);
-            context.startActivity(tutorChecklist);}});*/
+            tutorChecklist.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);     //needs to call another activity from outside the current one
+            context.startActivity(tutorChecklist);}});
     }
     public void Release ()
     {
