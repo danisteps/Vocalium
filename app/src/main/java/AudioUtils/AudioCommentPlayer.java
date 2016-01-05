@@ -24,20 +24,22 @@ public class AudioCommentPlayer implements Runnable{
     private MediaPlayer mediaPlayer;
     private Context context;
     private int videoLength;
-    private Vector<AudioComment> comments;
+    private AudioComment comments;
     private final AudioCommentPlayer audioCommentPlayer;
     private final Activity activity;
 
-    public AudioCommentPlayer(Context cntxt, int audioPath, Vector<AudioComment> cmmts, Activity activity) throws IOException {
+    public AudioCommentPlayer(Context cntxt, String audioPath, AudioComment cmmts, Activity activity) throws IOException {
         comments = cmmts;
         audioCommentPlayer = this;
         this.activity = activity;
 
-        audioPath = R.raw.surpass;
-        //Uri audioPathUri = Uri.parse(audioPath);
+        //this one is temporary
+        audioPath = context.getFilesDir() + "/1.mp3";
+
+        Uri audioPathUri = Uri.parse(audioPath);
 
         context = cntxt;
-        mediaPlayer = MediaPlayer.create(context, audioPath);              //create player from file audiopath
+        mediaPlayer = MediaPlayer.create(context, audioPathUri);              //create player from file audiopath
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.start();
 
@@ -57,7 +59,7 @@ public class AudioCommentPlayer implements Runnable{
         mediaPlayer.release();
     }
 
-    public void PlayVideo ()
+    public void start ()
     {
         //can only play if is not playing already
         if(!mediaPlayer.isPlaying())
@@ -65,7 +67,7 @@ public class AudioCommentPlayer implements Runnable{
             mediaPlayer.start();
         }
     }
-    public void PauseVideo ()
+    public void pause ()
     {
         //only pause if it's playing
         if(mediaPlayer.isPlaying())
@@ -94,6 +96,7 @@ public class AudioCommentPlayer implements Runnable{
 
     @Override
     public void run() {
+        /*REESCREVER ISSO, MUDEI A ESTRUTURA!!!
         int commentNumber = 0;
         Log.i("AUDIO_DEBUG", "" + comments.size() + " / " + comments.elementAt(0).GetCommentTime().getTimeInMillis() + " / " + videoLength);
         while(commentNumber < comments.size() && comments.elementAt(commentNumber).GetCommentTime().getTimeInMillis() < videoLength)
@@ -107,10 +110,11 @@ public class AudioCommentPlayer implements Runnable{
                 commentNumber ++;
             }
         }
+        */
     }
     public void SetComment(int id)
     {
-        LayoutOutput.getInstance().ChangeStudentCommentText(comments.elementAt(id).GetCommentText(), activity);
+        LayoutOutput.getInstance().ChangeStudentCommentText(comments.getCommentText(id), activity);
     }
 
 

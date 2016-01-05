@@ -12,20 +12,17 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-
-import AudioUtils.AudioPlayerManager;
-import okio.BufferedSink;
 
 
 /**
  * Created by Délio on 02/01/2016.
  */
+
+
 public class ServerConnection {
     private static ServerConnection instance = new ServerConnection();
 
@@ -39,16 +36,33 @@ public class ServerConnection {
     }
     //----------------------------------------------------------
 
+    public static enum FileType
+    {
+        Sound,
+        Comment
+    }
+
     private final OkHttpClient client;
     private final String soundUrl = "http://192.168.1.113/Vocalium/";
     public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");
 
     //this must be called inside a thread!!!
-    public void GetFile(final Context context, final int soundId) {
-        String path = soundUrl + "Sound/" + FileManager.GetRelativeFilePath() + soundId + ".mp3";
-        Request request = new Request.Builder().url(path).build();
+    public void GetFile(final Context context, final String fileName, final FileType fileType) {
 
-        Log.e("CONNECTION_ERROR", path);
+        String filePath = "";
+
+        if(fileType == FileType.Sound)
+        {
+            filePath = soundUrl + "Sound/" + FileManager.GetRelativeFilePath()+ fileName + ".mp3";
+        }
+        else if(fileType == FileType.Comment)
+        {
+            filePath = soundUrl + "Comment/" + FileManager.GetRelativeFilePath()+ fileName + ".txt";
+        }
+
+        Request request = new Request.Builder().url(filePath).build();
+
+        Log.e("CONNECTION_ERROR", filePath);
 
         //-------On fail--------------
         client.newCall(request).enqueue(new Callback() {
@@ -66,7 +80,7 @@ public class ServerConnection {
                 }
                 Log.e("CONNECTION_ERROR", "Connection succesful");
                 try {
-                    FileManager.SaveFile(context, response.body().bytes(), soundId);
+                    FileManager.SaveSound(context, response.body().bytes(), fileName);
 
                 } catch (IOException e) {
                     Log.e("CONNECTION_ERROR", "Error saving file");
@@ -75,22 +89,32 @@ public class ServerConnection {
         });
     }
 
-    public void PostFile(final Context context, final int tempId)
+    public void PostFile(final Context context, final String fileName, final FileType fileType)
     {
-        String postType;
-        postType = "sound";
+        String fileTypeString = "";
+        String filePath = "";
+        if(fileType == FileType.Sound)
+        {
+           filePath = context.getFilesDir() + "/"+ fileName + ".mp3";
+            fileTypeString = "sound";
+        }
+        else if(fileType == FileType.Comment)
+        {
+            filePath = context.getFilesDir() + "/"+ fileName + ".txt";
+            fileTypeString = "comment";
+        }
 
         UserInformation user = UserInformation.getInstance();
 
         //still have to find the id of the file
-        final File file = new File(context.getFilesDir() + "/"+ tempId + ".mp3");
+        final File file = new File(filePath);
 
         //verifyFileExists(file);
 
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
         builder = builder.addFormDataPart("teacher", "" + user.GetTeacherId());
         builder = builder.addFormDataPart("student", "" + user.GetStudentId());
-        builder = builder.addFormDataPart("post_type", postType);
+        builder = builder.addFormDataPart("post_type", fileTypeString);
         builder = builder.addFormDataPart("file", "sound", RequestBody.create(MEDIA_TYPE_MARKDOWN, file));
         RequestBody requestBody = builder.build();
 

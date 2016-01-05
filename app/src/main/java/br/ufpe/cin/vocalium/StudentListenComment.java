@@ -25,15 +25,15 @@ public class StudentListenComment extends AppCompatActivity {
 
         setContentView(R.layout.activity_student_listen_comment);
 
-        Vector<AudioComment> comments = CreateComments();
+        AudioComment comments = CreateComments();
         try {
-            AudioCommentPlayer player = new AudioCommentPlayer(getApplicationContext(), 0, comments, this);
+            AudioCommentPlayer player = new AudioCommentPlayer(getApplicationContext(), "", comments, this);
         } catch (IOException e) {
             LayoutOutput.getInstance().ChangeStudentCommentText("Cannot open media", this);
         }
     }
 
-    private Vector<AudioComment> CreateComments ()
+    private AudioComment CreateComments ()
     {
         int audioId = UserInformation.getInstance().GetAudioId();
 
@@ -49,15 +49,11 @@ public class StudentListenComment extends AppCompatActivity {
         String text3 = "Parabéns";
 
 
-        AudioComment comment1 = new AudioComment(audioId, time1, text1);
-        AudioComment comment2 = new AudioComment(audioId, time2, text2);
-        AudioComment comment3 = new AudioComment(audioId, time3, text3);
+        AudioComment comment = new AudioComment(audioId);
+        comment.addComment(time1, text1);
+        comment.addComment(time2, text2);
+        comment.addComment(time3, text3);
 
-        Vector<AudioComment> commentVector = new Vector<>();
-        commentVector.add(comment1);
-        commentVector.add(comment2);
-        commentVector.add(comment3);
-
-        return commentVector;
+        return comment;
     }
 }

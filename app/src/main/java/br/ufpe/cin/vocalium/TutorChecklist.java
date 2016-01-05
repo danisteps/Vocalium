@@ -35,21 +35,25 @@ public class TutorChecklist extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ServerConnection.getInstance().PostFile(context, 1);
+                //ServerConnection.getInstance().PostFile(context, "1", ServerConnection.FileType.Sound);
+                //ServerConnection.getInstance().GetFile(context, "1", ServerConnection.FileType.Sound);
             }
         }).start();
 
 
+        /*String filePath = context.getFilesDir() + "/1.mp3";
+        File file = new File(filePath);
+        file.delete();*/
 
-        /*REMEMBER!!! Only call this after complete download!!
+        /*//REMEMBER!!! Only call this after complete download!!
         String path = context.getFilesDir() + "/1.mp3";
 
         try {
             AudioPlayerManager player = new AudioPlayerManager(context, path);
         } catch (IOException e) {
             Log.e("CONNECTION_ERROR", "Problem loading file");
-        }
-        */
+        }*/
+
     }
 }
 

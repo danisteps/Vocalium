@@ -1,31 +1,53 @@
 package AudioUtils;
 
+import android.support.v4.util.Pair;
+
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Vector;
 
 /**
  * Created by Delio on 12/12/15.
  */
 public class AudioComment implements Serializable {
     private int audioId;
-    private Calendar commentTime;
-    private String commentText;
+    private Vector<Calendar> commentTime;
+    private Vector<String> commentText;
 
-    public AudioComment(int id, Calendar time, String text)
+    public AudioComment(int id)
     {
         audioId = id;
-        commentTime = time;
-        commentText = text;
+        commentTime = new Vector<>();
+        commentText = new Vector<>();
+    }
+    public void addComment(Calendar time, String text)
+    {
+        commentTime.add(time);
+        commentText.add(text);
+    }
+    public void removeAt (int index)
+    {
+        commentText.removeElementAt(index);
+        commentTime.removeElementAt(index);
     }
 
-    public int GetAudioId () { return audioId; }
-    public Calendar GetCommentTime ()
+    public int getAudioId () { return audioId; }
+    public Calendar getCommentTime (int index)
     {
-        return commentTime;
+        return commentTime.get(index);
     }
-    public String GetCommentText ()
+    public String getCommentText (int index)
     {
-        return commentText;
+        return commentText.get(index);
+    }
+    public Pair <String, Calendar> get (int index)
+    {
+        return new Pair<>(commentText.get(index), commentTime.get(index));
+    }
+
+    public void sort ()
+    {
+        //ver algorítmos de sort!!
     }
 
 }

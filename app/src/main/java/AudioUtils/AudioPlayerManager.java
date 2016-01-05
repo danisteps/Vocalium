@@ -42,7 +42,7 @@ public class AudioPlayerManager {
         mediaPlayer.release();
     }
 
-    public void PlayVideo ()
+    public void start ()
     {
         //can only play if is not playing already
         if(!mediaPlayer.isPlaying())
@@ -50,7 +50,7 @@ public class AudioPlayerManager {
             mediaPlayer.start();
         }
     }
-    public void PauseVideo ()
+    public void pause ()
     {
         //only pause if it's playing
         if(mediaPlayer.isPlaying())

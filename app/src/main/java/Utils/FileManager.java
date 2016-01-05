@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Reader;
 
+import AudioUtils.AudioComment;
+
 /**
  * Created by Délio on 02/01/2016.
  */
@@ -20,7 +22,7 @@ public class FileManager {
     }
 
 
-    public static void SaveFile (Context context, byte[] fileBytes, int soundId) throws IOException {
+    public static void SaveSound(Context context, byte[] fileBytes, String soundId) throws IOException {
 
         BufferedOutputStream bufferedOutputStream;
         FileOutputStream outputStream;
@@ -31,6 +33,11 @@ public class FileManager {
         //writes the file downloaded into the file we created
         bufferedOutputStream.write(fileBytes, 0, fileBytes.length);
         bufferedOutputStream.close();
+    }
+
+    public static File SaveComment(Context context, AudioComment comment)
+    {
+        return new File("");
     }
 
     public static void RenameFile (Context context, File file, String name)
