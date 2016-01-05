@@ -15,6 +15,7 @@ import java.util.Vector;
 import AudioUtils.AudioComment;
 import AudioUtils.AudioCommentPlayer;
 import Utils.LayoutOutput;
+import Utils.UserInformation;
 
 public class StudentListenComment extends AppCompatActivity {
 
@@ -34,6 +35,8 @@ public class StudentListenComment extends AppCompatActivity {
 
     private Vector<AudioComment> CreateComments ()
     {
+        int audioId = UserInformation.getInstance().GetAudioId();
+
         Calendar time1 = Calendar.getInstance();
         time1.setTimeInMillis(4000);
         Calendar time2 = Calendar.getInstance();
@@ -46,9 +49,9 @@ public class StudentListenComment extends AppCompatActivity {
         String text3 = "Parabéns";
 
 
-        AudioComment comment1 = new AudioComment(time1, text1);
-        AudioComment comment2 = new AudioComment(time2, text2);
-        AudioComment comment3 = new AudioComment(time3, text3);
+        AudioComment comment1 = new AudioComment(audioId, time1, text1);
+        AudioComment comment2 = new AudioComment(audioId, time2, text2);
+        AudioComment comment3 = new AudioComment(audioId, time3, text3);
 
         Vector<AudioComment> commentVector = new Vector<>();
         commentVector.add(comment1);

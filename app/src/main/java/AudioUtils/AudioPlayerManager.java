@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Vector;
 
+import Utils.UserInformation;
 import br.ufpe.cin.vocalium.TutorChecklist;
 
 public class AudioPlayerManager {
@@ -65,7 +66,7 @@ public class AudioPlayerManager {
             //the current the of the video is given in miliseconds, so we have to convert
             Calendar currentTime = ConvertMilisToCalendar(mediaPlayer.getCurrentPosition());
 
-            AudioComment newComment = new AudioComment(currentTime, text);
+            AudioComment newComment = new AudioComment(UserInformation.getInstance().GetAudioId(), currentTime, text);
 
             comments.add(newComment);
         }

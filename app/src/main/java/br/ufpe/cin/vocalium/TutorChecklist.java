@@ -27,6 +27,7 @@ public class TutorChecklist extends AppCompatActivity {
         user.SetLogin("dlc");
         user.SetStudentId(1);
         user.SetTeacherId(1);
+        user.SetAudioId(1);
         user.SetTeacherName("De");
         user.SetStudentName("Lc");
 
@@ -34,7 +35,7 @@ public class TutorChecklist extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ServerConnection.getInstance().GetFile(context, 1);
+                ServerConnection.getInstance().PostFile(context, 1);
             }
         }).start();
 

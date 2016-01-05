@@ -33,6 +33,12 @@ public class FileManager {
         bufferedOutputStream.close();
     }
 
+    public static void RenameFile (Context context, File file, String name)
+    {
+        File newFile = new File(context.getFilesDir() + "/"+ name + ".mp3");
+        file.renameTo(newFile);
+    }
+
 
 
     public static String GetFilePath (Context context)

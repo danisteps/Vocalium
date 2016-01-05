@@ -27,8 +27,10 @@ public class UserInformation {
     private String curStudentName;
     private int curStudentId;
 
+    private int audioId;
     private int numberOfAudios;
     private UserType userType;
+
     //-------------Sets----------
     public void SetTeacherName(String name)
     {
@@ -46,13 +48,12 @@ public class UserInformation {
     {
         this.curStudentId = id;
     }
+    public void SetAudioId (int id) {audioId = id;}
     public void SetLogin (String login)
     {
         this.login = login;
     }
     public void SetUserType (UserType user) {userType = user;}
-
-
 
     public void IncreaseNumberOfAudios ()
     {
@@ -80,5 +81,6 @@ public class UserInformation {
     {
         return curStudentName;
     }
+    public int GetAudioId () { return audioId; }
     public UserType GetUserType () { return userType; }
 }
