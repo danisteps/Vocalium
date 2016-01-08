@@ -45,6 +45,10 @@ public class AudioComment implements Serializable {
         return new Pair<>(commentText.get(index), commentTime.get(index));
     }
 
+    public int size ()
+    {
+        return commentTime.size();
+    }
     public void sort ()
     {
         //ver algorítmos de sort!!

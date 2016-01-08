@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -19,8 +18,7 @@
         <activity
             android:name=".MainActivity"
             android:label="Main Activity"
-            android:theme="@style/AppTheme"
-        />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".StudentRecord"
             android:label="@string/title_activity_student_record"
@@ -32,9 +30,10 @@
         <activity
             android:name=".TutorChecklist"
             android:label="@string/title_activity_tutor_checklist"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,15 +44,38 @@
         </activity>
         <activity
             android:name="com.dropbox.client2.android.AuthActivity"
-            android:launchMode="singleTask"
-            android:configChanges="orientation|keyboard">
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask" >
             <intent-filter>
+
                 <!-- Change this to be db- followed by your app key -->
                 <data android:scheme="db-w9thy6lc0kptfqz" />
+
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".StudentSound1"
+            android:label="@string/title_activity_student_sound1"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".SendRecord"
+            android:label="@string/title_activity_send_record"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".PerfilStudent"
+            android:label="@string/title_activity_perfil_student"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".PerfilStudentScreen"
+            android:label="@string/title_activity_perfil_student_screen"
+            android:theme="@style/AppTheme" >
         </activity>
     </application>
 

@@ -64,7 +64,6 @@ public class ServerConnection {
 
         Log.e("CONNECTION_ERROR", filePath);
 
-        //-------On fail--------------
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException throwable) {
@@ -80,7 +79,7 @@ public class ServerConnection {
                 }
                 Log.e("CONNECTION_ERROR", "Connection succesful");
                 try {
-                    FileManager.SaveSound(context, response.body().bytes(), fileName);
+                    FileManager.SaveFile(context, response.body().bytes(), fileName, fileType);
 
                 } catch (IOException e) {
                     Log.e("CONNECTION_ERROR", "Error saving file");
@@ -93,15 +92,18 @@ public class ServerConnection {
     {
         String fileTypeString = "";
         String filePath = "";
+        String fileServerName = "";
         if(fileType == FileType.Sound)
         {
-           filePath = context.getFilesDir() + "/"+ fileName + ".mp3";
+            filePath = context.getFilesDir() + "/"+ fileName + ".mp3";
             fileTypeString = "sound";
+            fileServerName = "sound";
         }
         else if(fileType == FileType.Comment)
         {
             filePath = context.getFilesDir() + "/"+ fileName + ".txt";
             fileTypeString = "comment";
+            fileServerName = "comment";
         }
 
         UserInformation user = UserInformation.getInstance();
@@ -115,7 +117,7 @@ public class ServerConnection {
         builder = builder.addFormDataPart("teacher", "" + user.GetTeacherId());
         builder = builder.addFormDataPart("student", "" + user.GetStudentId());
         builder = builder.addFormDataPart("post_type", fileTypeString);
-        builder = builder.addFormDataPart("file", "sound", RequestBody.create(MEDIA_TYPE_MARKDOWN, file));
+        builder = builder.addFormDataPart("file", fileServerName, RequestBody.create(MEDIA_TYPE_MARKDOWN, file));
         RequestBody requestBody = builder.build();
 
         Request request = new Request.Builder().url(soundUrl).post(requestBody).build();
@@ -140,7 +142,8 @@ public class ServerConnection {
                 else
                 {
                     int newSoundId = Integer.parseInt(responseString);
-                    //FileManager.RenameFile(context, file, "" + newSoundId);
+
+                    //FileManager.RenameFile(context, file, "" + newSoundId, fileType);
                 }
             }
 

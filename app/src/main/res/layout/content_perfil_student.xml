@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:showIn="@layout/activity_perfil_student"
+    tools:context="br.ufpe.cin.vocalium.PerfilStudent">
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="#ff5401"
+        android:text="Perfil"
+        android:textColor="#fff"
+        android:id="@+id/perfilButton"
+        android:layout_alignTop="@+id/gravar_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Gravar"
+        android:textColor="#fff"
+        android:background="#ff5401"
+        android:id="@+id/gravar_button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+</RelativeLayout>

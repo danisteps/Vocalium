@@ -18,10 +18,10 @@ public class AudioPlayerManager {
     private MediaPlayer mediaPlayer;
     private Context context;
     private Calendar videoLength;
-    private Vector<AudioComment> comments;
+    private AudioComment comments;
 
     public AudioPlayerManager(Context cntxt, String audioPath) throws IOException {
-        comments = new Vector<>();
+        comments = new AudioComment(UserInformation.getInstance().GetAudioId());
 
         Uri audioPathUri = Uri.parse(audioPath);
 
@@ -66,10 +66,15 @@ public class AudioPlayerManager {
             //the current the of the video is given in miliseconds, so we have to convert
             Calendar currentTime = ConvertMilisToCalendar(mediaPlayer.getCurrentPosition());
 
-            AudioComment newComment = new AudioComment(UserInformation.getInstance().GetAudioId(), currentTime, text);
-
-            comments.add(newComment);
+            comments.addComment(currentTime, text);
         }
+    }
+
+    public void seekPercentage(double percentage)
+    {
+        int newPosition = (int)(mediaPlayer.getDuration() * 100 / percentage);
+
+        mediaPlayer.seekTo(newPosition);
     }
 
 

@@ -16,4 +16,9 @@
     <string name="title_activity_tutor_hear_comm">TutorHearComm</string>
     <string name="title_activity_tutor_checklist">TutorChecklist</string>
     <string name="title_activity_student_listen_comment">StudentListenComment</string>
+    <string name="title_activity_student_sound1">StudentSound1</string>
+    <string name="title_activity_student_sound2">StudentSound2</string>
+    <string name="title_activity_send_record">SendRecord</string>
+    <string name="title_activity_perfil_student">PerfilStudent</string>
+    <string name="title_activity_perfil_student_screen">PerfilStudentScreen</string>
 </resources>
