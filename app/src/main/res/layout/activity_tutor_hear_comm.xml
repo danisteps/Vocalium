@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aw="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
@@ -7,14 +8,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.90"
+        android:layout_weight="0.94"
         android:background="#009cff">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/audio_name_tutor"
-            android:id="@+id/textView"
+            android:id="@+id/audio_name_tutor_textview"
             android:background="@android:color/transparent"
             android:textAlignment="center"
             android:textColor="#ffffff"
@@ -31,33 +32,35 @@
         android:layout_weight="0.10"
         android:weightSum="1">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.20">
 
-            <!--<org.firezenk.audiowaves.Visualizer
+            <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                aw:aw_format="vertical_lines"
-                aw:aw_gravity="center"
-                aw:aw_width="100"
-                aw:aw_height="200"
-                aw:aw_num_waves="10"
-                aw:aw_line_with="30"
-                aw:aw_line_min_with="30"
-                aw:aw_line_height="30"
-                aw:aw_line_min_height="30"
-                aw:aw_line_spacing="10"
-                aw:aw_line_border_radius="50"
-                aw:aw_ball_diameter="30"
-                aw:aw_color_uniform="@color/YOUR_COLOR_HERE"
-                aw:aw_color_is_gradient="true"
-                aw:aw_color_gradient_start="@color/YOUR_START_COLOR"
-                aw:aw_color_gradient_end="@color/YOUR_END_COLOR" />-->
+                android:layout_weight="30"/>
 
-        </RelativeLayout>
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tutor_hear_comment_progress_bar"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_weight="8"
+                android:max="1000" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="30"/>
+
+        </LinearLayout>
+
 
         <RelativeLayout
             android:orientation="horizontal"
@@ -67,17 +70,18 @@
             android:layout_weight="0.31"
             android:weightSum="1">
 
-            <TextView
+            <Chronometer
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/audio_end_time"
-                android:id="@+id/textView3"
+                android:id="@+id/audio_end_time_chronometer"
                 android:layout_weight="0.20"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:textSize="25dp"
-                android:paddingRight="10dp" />
+                android:paddingRight="10dp"
+                android:textColor="@color/background_floating_material_dark" />
         </RelativeLayout>
 
         <LinearLayout
@@ -88,32 +92,61 @@
             android:paddingLeft="40dp"
             android:weightSum="1">
 
-            <TextView
+            <Chronometer
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/audio_current_time"
-                android:id="@+id/textView2"
+                android:id="@+id/audio_current_time_chronometer"
                 android:layout_weight="0.16"
-                android:textSize="45dp" />
+                android:textSize="45dp"
+                android:textColor="@color/material_deep_teal_500" />
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.10"
-            android:weightSum="1">
+            android:weightSum="100">
 
-            <ImageButton
+
+            <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageButton"
-                android:background="@null"
-                android:src="@drawable/play_button_tutor"
-                android:layout_alignBottom="@+id/imageButton2"
-                android:paddingLeft="20dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true" />
+                android:layout_weight="30"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.10"
+                android:weightSum="100">
+
+                    <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"/>
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageButton"
+                        android:background="@null"
+                        android:src="@drawable/play_button_tutor"
+                        android:layout_weight="5"
+                        android:contentDescription="play" />
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"/>
+
+            </LinearLayout>
+
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -121,11 +154,17 @@
                 android:id="@+id/imageButton2"
                 android:background="@null"
                 android:src="@drawable/comment_button"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="48dp" />
-        </RelativeLayout>
+                android:layout_marginTop="48dp"
+                android:layout_weight="5"
+                android:contentDescription="comment" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="30" />
+
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
