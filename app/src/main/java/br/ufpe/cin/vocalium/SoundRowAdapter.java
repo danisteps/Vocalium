@@ -1,6 +1,7 @@
 package br.ufpe.cin.vocalium;
 
 import android.content.Context;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,28 +14,28 @@ import android.widget.TextView;
 public class SoundRowAdapter extends BaseAdapter {
 
     private Context context;
-    private String[] audioNames;
-    private static LayoutInflater inflater = null;
+    private Pair<Integer, String>[] sounds;
+    private static LayoutInflater inflater;
 
-    public SoundRowAdapter (Context context, String[] names)
+    public SoundRowAdapter (Context context, Pair<Integer, String>[] sounds)
     {
         this.context = context;
-        audioNames = names;
+        this.sounds = sounds;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     @Override
     public int getCount() {
-        return audioNames.length;
+        return sounds.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return audioNames[position];
+        return sounds[position].second;
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return sounds[position].first;
     }
 
     @Override
@@ -42,10 +43,10 @@ public class SoundRowAdapter extends BaseAdapter {
         View vi = convertView;
         if(vi == null)
         {
-            inflater.inflate(R.layout.sound_row, null);
+            vi = inflater.inflate(R.layout.sound_row, null);
         }
         TextView text = (TextView) vi.findViewById(R.id.textViewSoundRow);
-        text.setText(audioNames[position]);
+        text.setText(sounds[position].second);
 
         return vi;
     }

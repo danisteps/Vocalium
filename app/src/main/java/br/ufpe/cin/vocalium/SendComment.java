@@ -19,7 +19,7 @@ import Utils.ServerConnection;
 import Utils.UserInformation;
 
 public class SendComment extends AppCompatActivity {
-    private final static Class nextActivity = TutorChecklist.class;
+    private final static Class nextActivity = TutorSoundList.class;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -6,7 +6,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "br.ufpe.cin.vocalium.PerfilStudent"/>
+        className = "br.ufpe.cin.vocalium.ProfileStudent"/>
       <point      
         x = "500"      
         y = "100"/>

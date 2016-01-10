@@ -18,10 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import java.io.File;
 import java.io.IOException;
 
 import AudioUtils.AudioPlayerManager;
+import Utils.FileManager;
 import Utils.LayoutOutput;
+import Utils.ServerConnection;
 import Utils.UserInformation;
 
 public class TutorHearComm extends AppCompatActivity {
@@ -37,17 +40,25 @@ public class TutorHearComm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_hear_comm);
 
-        CreateUser();
 
 
         
         UserInformation user = UserInformation.getInstance();
         //change start text
         TextView audioName = (TextView)findViewById(R.id.audio_name_tutor_textview);
-        audioName.setText(user.GetStudentName());
+
+        int itemNumber = getIntent().getIntExtra(TutorSoundList.EXTRA_INTENT_MESSAGE, -1);
+        if(itemNumber != -1)
+        {
+            audioName.setText("Áudio " + itemNumber);
+        }
+        else {
+            audioName.setText(user.GetStudentName());
+        }
 
         //---------------------Audio Player-----------------
-        String path = getFilesDir() + "/1.mp3";
+        String path = getFilesDir() + "/";
+        path += user.GetAudioId() + FileManager.getExtension(ServerConnection.FileType.Sound);
 
         player = null;
         try {
@@ -171,15 +182,5 @@ public class TutorHearComm extends AppCompatActivity {
         finish();
     }
 
-    private void CreateUser ()
-    {
-        UserInformation user = UserInformation.getInstance();
-        user.SetLogin("dlc");
-        user.SetStudentId(1);
-        user.SetTeacherId(1);
-        user.SetAudioId(1);
-        user.SetTeacherName("De");
-        user.SetStudentName("Lc");
-    }
 
 }

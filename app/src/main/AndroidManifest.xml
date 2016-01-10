@@ -22,6 +22,7 @@
         <meta-data
             android:name="com.parse.CLIENT_KEY"
             android:value="@string/parse_client_key" />
+
         <activity
             android:name=".MainActivity"
             android:label="Main Activity"
@@ -34,11 +35,6 @@
             android:name=".TutorHearComm"
             android:label="@string/title_activity_tutor_hear_comm"
             android:theme="@style/AppTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".TutorChecklist"
@@ -61,7 +57,7 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name=".PerfilStudent"
+            android:name=".ProfileStudent"
             android:label="@string/title_activity_perfil_student"
             android:theme="@style/AppTheme" >
         </activity>
@@ -76,6 +72,15 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity android:name=".LoginScreen" >
+        </activity>
+        <activity android:name=".TutorSoundList"
+            android:label="@string/title_activity_tutor_sound_list"
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

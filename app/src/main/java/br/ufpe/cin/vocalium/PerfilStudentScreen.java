@@ -1,6 +1,5 @@
 package br.ufpe.cin.vocalium;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,12 +14,9 @@ public class PerfilStudentScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil_student_screen);
+        setContentView(R.layout.activity_profile_student_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        listView = (ListView) findViewById(R.id.listViewPerfilStudentScreen);
-        listView.setAdapter(new SoundRowAdapter(this, new String[] {"Áudio1, Áudio2, Áudio3"}));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

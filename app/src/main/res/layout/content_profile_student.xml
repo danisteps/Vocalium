@@ -7,8 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:showIn="@layout/activity_perfil_student"
-    tools:context="br.ufpe.cin.vocalium.PerfilStudent">
+    tools:showIn="@layout/activity_profile_student"
+    tools:context="br.ufpe.cin.vocalium.ProfileStudent">
 
     <Button
         android:layout_width="150dp"
