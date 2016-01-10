@@ -3,13 +3,14 @@
     xmlns:aw="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#ffffff">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.94"
-        android:background="#009cff">
+        android:layout_height="wrap_content"
+        android:background="#009cff"
+        android:minHeight="80dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,150 +22,161 @@
             android:textColor="#ffffff"
             android:textSize="50sp"
             android:layout_gravity="center"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:minHeight="40dp"
+            android:maxHeight="60dp" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="544dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.10"
-        android:weightSum="1">
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView"
+        android:fillViewport="true"
+        android:measureAllChildren="false">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.20">
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="30"/>
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/tutor_hear_comment_progress_bar"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_weight="8"
-                android:max="1000" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="30"/>
-
-        </LinearLayout>
-
-
-        <RelativeLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.31"
+            android:id="@+id/linear_layout_base_size"
             android:weightSum="1">
-
-            <Chronometer
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/audio_end_time"
-                android:id="@+id/audio_end_time_chronometer"
-                android:layout_weight="0.20"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:textSize="25dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/background_floating_material_dark" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.30"
-            android:paddingLeft="40dp"
-            android:weightSum="1">
-
-            <Chronometer
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/audio_current_time"
-                android:id="@+id/audio_current_time_chronometer"
-                android:layout_weight="0.16"
-                android:textSize="45dp"
-                android:textColor="@color/material_deep_teal_500" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.10"
-            android:weightSum="100">
-
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="30"/>
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.10"
-                android:weightSum="100">
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.18"
+                android:minHeight="60dp">
 
-                    <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"/>
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageButton"
-                        android:background="@null"
-                        android:src="@drawable/play_button_tutor"
-                        android:layout_weight="5"
-                        android:contentDescription="play" />
                 <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"/>
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tutor_hear_comment_progress_bar"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_weight="8"
+                    android:max="1000" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="30"/>
 
             </LinearLayout>
 
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="50" />
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.23"
+                android:weightSum="1"
+                android:minHeight="20dp">
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageButton2"
-                android:background="@null"
-                android:src="@drawable/comment_button"
-                android:layout_marginTop="48dp"
-                android:layout_weight="5"
-                android:contentDescription="comment" />
+                <Chronometer
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/audio_end_time"
+                    android:id="@+id/audio_end_time_chronometer"
+                    android:layout_weight="0.20"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="25dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/background_floating_material_dark" />
+            </RelativeLayout>
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="30" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.22"
+                android:paddingLeft="40dp"
+                android:weightSum="1"
+                android:minHeight="40dp">
 
+                <Chronometer
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/audio_current_time"
+                    android:id="@+id/audio_current_time_chronometer"
+                    android:layout_weight="0.16"
+                    android:textSize="45dp"
+                    android:textColor="@color/material_deep_teal_500" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.19"
+                android:weightSum="100"
+                android:minHeight="60dp">
+
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"/>
+
+                <ImageButton
+                    android:layout_width="83dp"
+                    android:layout_height="76dp"
+                    android:id="@+id/play_button_tutor"
+                    android:background="@drawable/play_button_tutor"
+                    android:contentDescription="play"
+                    android:layout_marginTop="25dp"/>
+
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:id="@+id/comment_button_tutor_hear"
+                    android:background="@drawable/comment_button_small"
+                    android:src="@null"
+                    android:layout_marginTop="40dp"
+                    android:contentDescription="comment"
+                    android:layout_weight="28.99" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/layout_text_field_insertion"
+                android:layout_weight="0.18"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:minHeight="60dp">
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/send_button_small"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
 
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

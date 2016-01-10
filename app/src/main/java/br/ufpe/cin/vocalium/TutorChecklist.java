@@ -62,12 +62,9 @@ public class TutorChecklist extends AppCompatActivity {
     {
         int audioId = UserInformation.getInstance().GetAudioId();
 
-        Calendar time1 = Calendar.getInstance();
-        time1.setTimeInMillis(4000);
-        Calendar time2 = Calendar.getInstance();
-        time2.setTimeInMillis(7000);
-        Calendar time3 = Calendar.getInstance();
-        time3.setTimeInMillis(40000);
+        int time1 = 4000;
+        int time2 = 7000;
+        int time3 = 40000;
 
         String text1 = "Muito bom aqui";
         String text2 = "está aprendendo";

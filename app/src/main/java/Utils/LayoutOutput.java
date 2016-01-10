@@ -1,8 +1,19 @@
 package Utils;
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Chronometer;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import AudioUtils.AudioPlayerManager;
@@ -46,6 +57,74 @@ public class LayoutOutput {
 
         Chronometer currentChronometer = (Chronometer) activity.findViewById(R.id.audio_end_time_chronometer);
         currentChronometer.setText(String.format("%02d:%02d", minutes, seconds));
+    }
+    public static EditText enableCommentView(Activity activity)
+    {
+        EditText commentView = new EditText(activity);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        commentView.setLayoutParams(layoutParams);
+        commentView.setPadding(10, 6, 10, 7);
+
+        commentView.setGravity(Gravity.TOP);
+
+        RelativeLayout insertionPoint = (RelativeLayout) activity.findViewById(R.id.layout_text_field_insertion);
+        insertionPoint.addView(commentView);
+
+
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            insertionPoint.setBackground(activity.getDrawable( R.drawable.rounded_corners));
+        } else {
+            insertionPoint.setBackground(activity.getResources().getDrawable(R.drawable.rounded_corners));
+        }
+
+        return commentView;
+    }
+    public static void disableCommentView(Activity activity)
+    {
+        View view = activity.getCurrentFocus();
+
+        if(view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
+        RelativeLayout insertionPoint = (RelativeLayout) activity.findViewById(R.id.layout_text_field_insertion);
+        insertionPoint.removeAllViews();
+
+        insertionPoint.setBackground(null);
+    }
+    public static ImageButton showSendButton(Activity activity)
+    {
+        ImageButton sendButton = new ImageButton(activity);
+        RelativeLayout insertionPoint = (RelativeLayout) activity.findViewById(R.id.layout_text_field_insertion);
+
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            sendButton.setBackground(activity.getDrawable( R.drawable.send_button_small));
+        } else {
+            sendButton.setBackground(activity.getResources().getDrawable(R.drawable.send_button_small));
+        }
+
+        sendButton.setLayoutParams(layoutParams);
+
+        insertionPoint.addView(sendButton);
+
+        return sendButton;
+    }
+    public static void hideSendButton(Activity activity)
+    {
+        RelativeLayout insertionPoint = (RelativeLayout) activity.findViewById(R.id.layout_text_field_insertion);
+        insertionPoint.removeAllViews();
     }
 
 

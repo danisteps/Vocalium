@@ -88,7 +88,7 @@ public class ServerConnection {
         });
     }
 
-    public void PostFile(final Context context, final String fileName, final FileType fileType)
+    public int PostFile(final Context context, final String fileName, final FileType fileType)
     {
         String fileTypeString = "";
         String filePath = "";
@@ -141,15 +141,16 @@ public class ServerConnection {
                 }
                 else
                 {
-                    int newSoundId = Integer.parseInt(responseString);
+                    int newId = Integer.parseInt(responseString);
 
-                    //FileManager.RenameFile(context, file, "" + newSoundId, fileType);
+                    return newId;
                 }
             }
 
         } catch (IOException e) {
             Log.e("POST_ERROR", "Error executing post");
         }
+        return 0;
     }
 
 

@@ -72,13 +72,13 @@ public class AudioPlayerManager {
             mediaPlayer.pause();
         }
     }
-    public void AddComment (String text)
+    public void addComment (String text)
     {
         //make sure it's not playing
         if(!mediaPlayer.isPlaying())
         {
             //the current the of the video is given in miliseconds, so we have to convert
-            Calendar currentTime = ConvertMilisToCalendar(mediaPlayer.getCurrentPosition());
+            int currentTime = mediaPlayer.getCurrentPosition();
 
             comments.addComment(currentTime, text);
         }
@@ -99,6 +99,10 @@ public class AudioPlayerManager {
     {
         return mediaPlayer.getDuration();
     }
+    public boolean isPlaying()
+    {
+        return mediaPlayer.isPlaying();
+    }
     private void update()
     {
         if(updateType == UpdateType.TutorHearComment)
@@ -112,6 +116,10 @@ public class AudioPlayerManager {
         updateType = UpdateType.TutorHearComment;
         update();
     }
+    public AudioComment getComments ()
+    {
+        return comments;
+    }
 
 
 
@@ -121,16 +129,6 @@ public class AudioPlayerManager {
         currentTime.setTimeInMillis(milis);
 
         return currentTime;
-    }
-    private int CalendarIsGreater (Calendar date1, Calendar date2)
-    {
-        if(date1.get(Calendar.HOUR_OF_DAY) > date2.get(Calendar.HOUR_OF_DAY)) return 1;
-        else if (date1.get(Calendar.HOUR_OF_DAY) < date2.get(Calendar.HOUR_OF_DAY)) return -1;
-        else if (date1.get(Calendar.MINUTE) > date2.get(Calendar.MINUTE)) return 1;
-        else if (date1.get(Calendar.MINUTE) < date2.get(Calendar.MINUTE)) return -1;
-        else if (date1.get(Calendar.SECOND) > date2.get(Calendar.SECOND)) return 1;
-        else if (date1.get(Calendar.SECOND) < date2.get(Calendar.SECOND)) return -1;
-        else return 0;
     }
     public static float getMediaCurrentPercentage(MediaPlayer mediaPlayer)
     {

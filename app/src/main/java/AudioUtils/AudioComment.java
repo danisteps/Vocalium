@@ -1,6 +1,7 @@
 package AudioUtils;
 
 import android.support.v4.util.Pair;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -11,7 +12,7 @@ import java.util.Vector;
  */
 public class AudioComment implements Serializable {
     private int audioId;
-    private Vector<Calendar> commentTime;
+    private Vector<Integer> commentTime;
     private Vector<String> commentText;
 
     public AudioComment(int id)
@@ -20,10 +21,11 @@ public class AudioComment implements Serializable {
         commentTime = new Vector<>();
         commentText = new Vector<>();
     }
-    public void addComment(Calendar time, String text)
+    public void addComment(int time, String text)
     {
-        commentTime.add(time);
-        commentText.add(text);
+        int position = findPosition(time);
+        commentTime.insertElementAt(time, position);
+        commentText.insertElementAt(text, position);
     }
     public void removeAt (int index)
     {
@@ -32,7 +34,7 @@ public class AudioComment implements Serializable {
     }
 
     public int getAudioId () { return audioId; }
-    public Calendar getCommentTime (int index)
+    public int getCommentTime (int index)
     {
         return commentTime.get(index);
     }
@@ -40,18 +42,41 @@ public class AudioComment implements Serializable {
     {
         return commentText.get(index);
     }
-    public Pair <String, Calendar> get (int index)
+    public Pair <Integer, String> get (int index)
     {
-        return new Pair<>(commentText.get(index), commentTime.get(index));
+        return new Pair<>(commentTime.get(index), commentText.get(index));
     }
 
     public int size ()
     {
         return commentTime.size();
     }
-    public void sort ()
+    public int findPosition (int time)
     {
-        //ver algorítmos de sort!!
+        if(commentTime.size() == 0 || time < commentTime.get(0))
+        {
+            return 0;
+        }
+        else if(time > commentTime.lastElement())
+        {
+            return commentTime.size();
+        }
+        for(int i = 0; i < commentText.size() ; i ++)
+        {
+            if(time < commentTime.get(i))
+            {
+                return i;
+            }
+        }
+        return commentTime.size();
     }
 
+    public static void debugComment(AudioComment comment)
+    {
+        for(int i = 0; i < comment.size(); i ++)
+        {
+            Log.e("COMMENT_ERROR", "commentText "+ i+ ": " + comment.getCommentText(i));
+            Log.e("COMMENT_ERROR", "commentTime "+ i+ ": " + comment.getCommentTime(i));
+        }
+    }
 }
