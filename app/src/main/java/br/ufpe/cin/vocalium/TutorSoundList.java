@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,7 +19,7 @@ import Utils.UserInformation;
 
 public class TutorSoundList extends AppCompatActivity {
     private final static Class backActivity = TutorStudentList.class;
-    private final static Class nextActivity = TutorHearComm.class;
+    private final static Class nextActivity = DownloadTutor.class;
     public final static String EXTRA_INTENT_MESSAGE = "br.ufpe.cin.vocalium.AUDIO_NUMBER_MESSAGE";
 
     @Override
@@ -40,6 +41,7 @@ public class TutorSoundList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
                 int soundId = (int) adapter.getItemIdAtPosition(position);
+                Log.e("POST_ERROR", "Clicado no item: " + position + ", com id : " + soundId);
 
                 UserInformation.getInstance().SetAudioId(soundId);
                 changeActivity(position + 1);

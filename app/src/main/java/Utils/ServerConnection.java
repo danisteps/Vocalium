@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 
 /**
@@ -34,6 +36,10 @@ public class ServerConnection {
         client = new OkHttpClient();
 
     }
+
+    private Method callbackFunction;
+    private Object callbackObject;
+    private boolean callbackSet = false;
     //----------------------------------------------------------
 
     public static enum FileType
@@ -80,6 +86,8 @@ public class ServerConnection {
                 Log.e("CONNECTION_ERROR", "Connection succesful");
                 try {
                     FileManager.SaveFile(context, response.body().bytes(), fileName, fileType);
+
+                    callback();
 
                 } catch (IOException e) {
                     Log.e("CONNECTION_ERROR", "Error saving file");
@@ -144,6 +152,7 @@ public class ServerConnection {
                     int newId = Integer.parseInt(responseString);
 
                     DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId);
+                    callback();
                     return newId;
                 }
             }
@@ -155,12 +164,25 @@ public class ServerConnection {
     }
 
 
-    private void verifyFileExists (File file)
+
+    public void setCallback (Method callbackMethod, Object callbackObject)
     {
-        try {
-            BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-        } catch (FileNotFoundException e) {
-            Log.e("POST_ERROR", "File not found");
+        this.callbackFunction = callbackMethod;
+        this.callbackObject = callbackObject;
+        callbackSet = true;
+    }
+    private void callback ()
+    {
+        if(callbackSet)
+        {
+            try {
+                callbackFunction.invoke(callbackObject, null);
+            } catch (IllegalAccessException e) {
+                Log.e("POST_ERROR", "Error on callback");
+            } catch (InvocationTargetException e) {
+                Log.e("POST_ERROR", "Error on callback");
+            }
+            callbackSet = false;
         }
     }
 }

@@ -88,6 +88,8 @@
         </activity>
         <activity android:name=".TutorStudentList" >
         </activity>
+        <activity android:name=".DownloadTutor" >
+        </activity>
     </application>
 
 </manifest>

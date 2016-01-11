@@ -42,7 +42,7 @@ public class TutorHearComm extends AppCompatActivity {
         setContentView(R.layout.activity_tutor_hear_comm);
 
 
-        
+
         
         UserInformation user = UserInformation.getInstance();
         //change start text
@@ -60,6 +60,8 @@ public class TutorHearComm extends AppCompatActivity {
         //---------------------Audio Player-----------------
         String path = getFilesDir() + "/";
         path += user.GetAudioId() + FileManager.getExtension(ServerConnection.FileType.Sound);
+
+
 
         player = null;
         try {
@@ -188,9 +190,7 @@ public class TutorHearComm extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         player.Release();
-        Intent intent = new Intent(this, backActivity);
-        startActivity(intent);
-        finish();
+        super.onBackPressed();
     }
 
 }

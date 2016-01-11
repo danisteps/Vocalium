@@ -21,7 +21,10 @@ public class TutorStudentList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_tutor_student_list);
+
+
 
         ListView listView = (ListView) findViewById(R.id.list_view_tutor_student_list);
         inflateListView(listView);
@@ -61,5 +64,10 @@ public class TutorStudentList extends AppCompatActivity {
     {
         Intent intent = new Intent(this, nextActivity);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

@@ -1,6 +1,8 @@
 package Utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -9,6 +11,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import AudioUtils.AudioComment;
 
@@ -91,6 +95,34 @@ public class FileManager {
         inputStream.close();
 
         return audioComment;
+    }
+    public static void verifyOrCreateTutor (String path, final String fileName, final Activity object, final Method onFinishFunction)
+    {
+        File file = new File(path);
+        if(!file.exists())
+        {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("POST_ERROR", "Downloading!!");
+                    ServerConnection server = ServerConnection.getInstance();
+                    server.setCallback(onFinishFunction, object);
+
+                    server.GetFile(object, fileName, ServerConnection.FileType.Sound);
+                }
+            }).start();
+        }
+        else
+        {
+            Log.e("POST_ERROR", "Already exists!!");
+            try {
+                onFinishFunction.invoke(object, null);
+            } catch (IllegalAccessException e) {
+                Log.e("POST_ERROR", "problem calling function");
+            } catch (InvocationTargetException e) {
+                Log.e("POST_ERROR", "problem calling function");
+            }
+        }
     }
 
 
