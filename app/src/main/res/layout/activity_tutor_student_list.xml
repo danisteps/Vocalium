@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/audio_name_tutor"
-            android:id="@+id/audio_name_tutor_textview"
+            android:id="@+id/student_name_tutor_textview"
             android:background="@android:color/transparent"
             android:textAlignment="center"
             android:textColor="#ffffff"
@@ -32,7 +32,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/list_view_tutor_sound_list"
+            android:id="@+id/list_view_tutor_student_list"
             android:layout_gravity="center_horizontal" />
 
     </ScrollView>

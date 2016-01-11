@@ -143,7 +143,7 @@ public class ServerConnection {
                 {
                     int newId = Integer.parseInt(responseString);
 
-                    DatabaseManager.saveNewSoundId(user.GetTutorId(), user.GetStudentId(), newId);
+                    DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId);
                     return newId;
                 }
             }

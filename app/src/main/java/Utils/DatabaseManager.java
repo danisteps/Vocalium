@@ -56,14 +56,7 @@ public class DatabaseManager {
     }
 
 
-    public static void saveNewSoundId(int tutorId, int studentId, int soundId)
-    {
-        ParseObject obj = new ParseObject("Sound");
-        obj.put("TutorId", tutorId);
-        obj.put("StudentId", studentId);
-        obj.put("SoundId", soundId);
-        obj.saveInBackground();
-    }
+
 /*------------NEVER CALL THIS AGAIN!!!------------------
     public static void createSingletonClass(Context context)
     {Parse.enableLocalDatastore(context);
@@ -178,6 +171,36 @@ public class DatabaseManager {
         return results.get(0);
     }
 
+    public static List<ParseObject> getStudentsFromTutor(int id)
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Student");
+        query.whereEqualTo("TutorId", id);
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    public static List<ParseObject> getSounds (int tutorId, int studentId)
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Sound");
+        query.whereEqualTo("TutorId", tutorId).whereEqualTo("StudentId", studentId);
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
 
 
 
@@ -231,12 +254,12 @@ public class DatabaseManager {
         obj.put("LoginType", typeName);
         obj.saveInBackground();
     }
-    public static void saveSong(int tutorId, int studentId, int songId)
+    public static void saveSound(int tutorId, int studentId, int soundId)
     {
-        ParseObject obj = new ParseObject("Song");
-        obj.put("SongId", songId);
-        obj.put("StudentId", studentId);
+        ParseObject obj = new ParseObject("Sound");
         obj.put("TutorId", tutorId);
+        obj.put("StudentId", studentId);
+        obj.put("SoundId", soundId);
         obj.saveInBackground();
     }
 
@@ -256,4 +279,24 @@ public class DatabaseManager {
     //DatabaseManager.signUpStudent("marco", "Marco Araujo", "321654".hashCode(), 1);
     //DatabaseManager.signUpStudent("olindo", "Olindo Tobias", "0123".hashCode(), 1);
     //DatabaseManager.signUpStudent("rafael", "Rafael Tajares", "54321".hashCode(), 1);
+
+    /*
+    private void poupulateSounds()
+    {
+        DatabaseManager.saveSound(1, 4, 1);
+        DatabaseManager.saveSound(1, 4, 2);
+        DatabaseManager.saveSound(1, 4, 3);
+        DatabaseManager.saveSound(1, 5, 0);
+        DatabaseManager.saveSound(1, 5, 4);
+        DatabaseManager.saveSound(1, 5, 5);
+        DatabaseManager.saveSound(1, 6, 6);
+        DatabaseManager.saveSound(1, 6, 7);
+        DatabaseManager.saveSound(1, 6, 8);
+        DatabaseManager.saveSound(1, 6, 9);
+        DatabaseManager.saveSound(1, 6, 10);
+        DatabaseManager.saveSound(1, 7, 11);
+        DatabaseManager.saveSound(1, 7, 12);
+        DatabaseManager.saveSound(1, 7, 13);
+    }
+    */
 }

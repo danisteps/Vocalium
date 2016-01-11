@@ -7,10 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.parse.ParseObject;
+
+import java.util.List;
+
+import Utils.DatabaseManager;
 import Utils.UserInformation;
 
 public class TutorSoundList extends AppCompatActivity {
+    private final static Class backActivity = TutorStudentList.class;
     private final static Class nextActivity = TutorHearComm.class;
     public final static String EXTRA_INTENT_MESSAGE = "br.ufpe.cin.vocalium.AUDIO_NUMBER_MESSAGE";
 
@@ -21,58 +28,49 @@ public class TutorSoundList extends AppCompatActivity {
         int i = 0;
 
 
-        CreateUser();
+        TextView textView = (TextView) findViewById(R.id.audio_name_tutor_textview);
+        textView.setText(UserInformation.getInstance().GetStudentName());
 
         ListView listView = (ListView) findViewById(R.id.list_view_tutor_sound_list);
-        listView.setAdapter(new SoundRowAdapter(this, new Pair[] {
-                new Pair(1, "Audio " + (++i)),
-                new Pair(2, "Audio " + (++i)),
-                new Pair(3, "Audio " + (++i)),
-                new Pair(4, "Audio " + (++i)),
-                new Pair(5, "Audio " + (++i)),
-                new Pair(6, "Audio " + (++i)),
-                new Pair(7, "Audio " + (++i)),
-                new Pair(8, "Audio " + (++i)),
-                new Pair(9, "Audio " + (++i)),
-                new Pair(10, "Audio " + (++i)),
-                new Pair(11, "Audio " + (++i)),
-                new Pair(12, "Audio " + (++i))}));
+        inflateListView(listView);
 
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
-                int soundId = (int)adapter.getItemIdAtPosition(position);
+                int soundId = (int) adapter.getItemIdAtPosition(position);
 
-                updateUserInformation(soundId);
+                UserInformation.getInstance().SetAudioId(soundId);
                 changeActivity(position + 1);
             }
         });
     }
 
 
-
-    private void updateUserInformation(int soundId)
+    private void inflateListView (ListView listView)
     {
-        UserInformation.getInstance().SetAudioId(soundId);
+        Pair<Integer, String>[] elementsPair;
+
+        UserInformation user = UserInformation.getInstance();
+        List<ParseObject> results = DatabaseManager.getSounds(user.GetTutorId(), user.GetStudentId());
+        elementsPair = new Pair[results.size()];
+
+        for(int i = 0; i < results.size(); i ++)
+        {
+            ParseObject sound = results.get(i);
+            elementsPair[i] = new Pair<>(sound.getInt("SoundId"), "Áudio " + (i+1));
+
+        }
+
+        listView.setAdapter(new SoundRowAdapter(this, elementsPair));
     }
+
     private void changeActivity(int itemSelected)
     {
         Intent intent = new Intent(this, nextActivity);
         intent.putExtra(EXTRA_INTENT_MESSAGE, itemSelected);
         startActivity(intent);
-        finish();
     }
 
-
-    private void CreateUser ()
-    {
-        UserInformation user = UserInformation.getInstance();
-        user.SetLogin("dlc");
-        user.SetStudentId(1);
-        user.SetTutorId(1);
-        user.SetTutorName("De");
-        user.SetStudentName("Lc");
-    }
 }
