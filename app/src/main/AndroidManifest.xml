@@ -62,7 +62,7 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name=".PerfilStudentScreen"
+            android:name=".ProfileStudentScreen"
             android:label="@string/title_activity_perfil_student_screen"
             android:theme="@style/AppTheme" >
         </activity>

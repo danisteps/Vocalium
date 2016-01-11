@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import Utils.DatabaseManager;
+import Utils.UserInformation;
 
 public class LoginScreen extends AppCompatActivity {
-    private final static Class nextActivity = TutorStudentList.class;
+    private final static Class nextTutorActivity = TutorStudentList.class;
+    private final static Class nextStudentActivity = ProfileStudent.class;
 
 
 
@@ -45,7 +47,18 @@ public class LoginScreen extends AppCompatActivity {
 
         if(DatabaseManager.login(userName, password.hashCode()))
         {
-            changeActivity();
+            UserInformation user = UserInformation.getInstance();
+            Class nextActivity;
+            if(user.GetUserType() == UserInformation.UserType.Student)
+            {
+                nextActivity = nextStudentActivity;
+            }
+            else
+            {
+                nextActivity = nextTutorActivity;
+            }
+
+            changeActivity(nextActivity);
         }
         else
         {
@@ -59,9 +72,9 @@ public class LoginScreen extends AppCompatActivity {
         alertbox.create();
         alertbox.show();
     }
-    private void changeActivity()
+    private void changeActivity(Class activity)
     {
-        Intent intent = new Intent(this, nextActivity);
+        Intent intent = new Intent(this, activity);
         startActivity(intent);
     }
 

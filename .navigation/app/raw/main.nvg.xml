@@ -22,7 +22,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "br.ufpe.cin.vocalium.PerfilStudentScreen"/>
+        className = "br.ufpe.cin.vocalium.ProfileStudentScreen"/>
       <point      
         x = "600"      
         y = "200"/>

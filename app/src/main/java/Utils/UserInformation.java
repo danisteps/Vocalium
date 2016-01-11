@@ -7,11 +7,7 @@ import com.parse.ParseObject;
 /**
  * Created by Délio on 13/12/2015.
  */
-enum UserType
-{
-    Tutor,
-    Student
-}
+
 public class UserInformation {
     private static UserInformation ourInstance = new UserInformation();
 
@@ -107,5 +103,11 @@ public class UserInformation {
         SetTutorName(object.getString("Name"));
 
         Log.e("DATABASE_ERROR", "login data tutor: " +tutorName + " " + tutorId);
+    }
+
+    public enum UserType
+    {
+        Tutor,
+        Student
     }
 }
