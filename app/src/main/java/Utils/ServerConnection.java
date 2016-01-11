@@ -114,7 +114,7 @@ public class ServerConnection {
         //verifyFileExists(file);
 
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
-        builder = builder.addFormDataPart("teacher", "" + user.GetTeacherId());
+        builder = builder.addFormDataPart("teacher", "" + user.GetTutorId());
         builder = builder.addFormDataPart("student", "" + user.GetStudentId());
         builder = builder.addFormDataPart("post_type", fileTypeString);
         builder = builder.addFormDataPart("file", fileServerName, RequestBody.create(MEDIA_TYPE_MARKDOWN, file));
@@ -143,6 +143,7 @@ public class ServerConnection {
                 {
                     int newId = Integer.parseInt(responseString);
 
+                    DatabaseManager.saveNewSoundId(user.GetTutorId(), user.GetStudentId(), newId);
                     return newId;
                 }
             }

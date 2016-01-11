@@ -3,15 +3,12 @@ package Utils;
 import android.content.Context;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Reader;
 
 import AudioUtils.AudioComment;
 
@@ -102,7 +99,7 @@ public class FileManager {
     {
         UserInformation user = UserInformation.getInstance();
 
-        String path = context.getFilesDir().getAbsolutePath() + "/Sound/" + user.GetTeacherId() + "/" + user.GetStudentId() + "/";
+        String path = context.getFilesDir().getAbsolutePath() + "/Sound/" + user.GetTutorId() + "/" + user.GetStudentId() + "/";
 
         return path;
     }
@@ -110,7 +107,7 @@ public class FileManager {
     public static String GetRelativeFilePath ()
     {
         UserInformation user = UserInformation.getInstance();
-        return user.GetTeacherId() + "/" + user.GetStudentId() + "/";
+        return user.GetTutorId() + "/" + user.GetStudentId() + "/";
     }
 
     public static String getExtension(ServerConnection.FileType type)

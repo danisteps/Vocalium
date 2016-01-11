@@ -1,11 +1,15 @@
 package Utils;
 
+import android.util.Log;
+
+import com.parse.ParseObject;
+
 /**
  * Created by Délio on 13/12/2015.
  */
 enum UserType
 {
-    Teacher,
+    Tutor,
     Student
 }
 public class UserInformation {
@@ -21,8 +25,8 @@ public class UserInformation {
     //-----------------------Attributes--------------
     private String login;
 
-    private String teacherName;
-    private int teacherId;
+    private String tutorName;
+    private int tutorId;
 
     private String curStudentName;
     private int curStudentId;
@@ -32,13 +36,13 @@ public class UserInformation {
     private UserType userType;
 
     //-------------Sets----------
-    public void SetTeacherName(String name)
+    public void SetTutorName(String name)
     {
-        this.teacherName = name;
+        this.tutorName = name;
     }
-    public void SetTeacherId(int id)
+    public void SetTutorId(int id)
     {
-        this.teacherId = id;
+        this.tutorId = id;
     }
     public void SetStudentName (String name)
     {
@@ -65,13 +69,13 @@ public class UserInformation {
     {
         return login;
     }
-    public String GetTeacherName()
+    public String GetTutorName()
     {
-        return teacherName;
+        return tutorName;
     }
-    public int GetTeacherId()
+    public int GetTutorId()
     {
-        return teacherId;
+        return tutorId;
     }
     public int GetStudentId ()
     {
@@ -83,4 +87,25 @@ public class UserInformation {
     }
     public int GetAudioId () { return audioId; }
     public UserType GetUserType () { return userType; }
+
+    //---------------methods-----------------
+    public void populateStudentInformation(ParseObject object, String tutorName)
+    {
+        SetUserType(UserType.Student);
+        SetTutorName(tutorName);
+        SetTutorId(object.getInt("TutorId"));
+        SetStudentId(object.getInt("StudentId"));
+        SetStudentName(object.getString("StudentName"));
+
+
+        Log.e("DATABASE_ERROR", "login data student: " + this.tutorName + " " + tutorId +" / " +  curStudentName + " " + curStudentId);
+    }
+    public void populateTutorInformation(ParseObject object) {
+
+        SetUserType(UserType.Tutor);
+        SetTutorId(object.getInt("TutorId"));
+        SetTutorName(object.getString("Name"));
+
+        Log.e("DATABASE_ERROR", "login data tutor: " +tutorName + " " + tutorId);
+    }
 }

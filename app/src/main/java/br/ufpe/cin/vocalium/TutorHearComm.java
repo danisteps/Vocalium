@@ -29,6 +29,7 @@ import Utils.UserInformation;
 
 public class TutorHearComm extends AppCompatActivity {
     private final static Class nextActivity = SendComment.class;
+    private final static Class backActivity = TutorSoundList.class;
 
     private AudioPlayerManager player;
     private boolean commentViewEnabled = false;
@@ -41,7 +42,7 @@ public class TutorHearComm extends AppCompatActivity {
         setContentView(R.layout.activity_tutor_hear_comm);
 
 
-
+        
         
         UserInformation user = UserInformation.getInstance();
         //change start text
@@ -67,6 +68,7 @@ public class TutorHearComm extends AppCompatActivity {
             Log.e("CONNECTION_ERROR", "Problem loading file");
         }
         player.startUpdateTutorHearComment(this);
+        player.setCompletionListenerTutorHearComment(this);
         //---------------------end PLayer--------------------
 
 
@@ -146,8 +148,7 @@ public class TutorHearComm extends AppCompatActivity {
             }
         }
     }
-    private void showSendButton()
-    {
+    private void showSendButton() {
         ImageButton sendButton = LayoutOutput.showSendButton(this);
         sendButton.setOnClickListener(sendButtonListener);
     }
@@ -174,13 +175,22 @@ public class TutorHearComm extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    private void changeActivity()
+    public void changeActivity()
     {
+        player.Release();
         Intent intent = new Intent(this, nextActivity);
         intent.putExtra(EXTRA_INTENT_MESSAGE, player.getComments());
         startActivity(intent);
         finish();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        player.Release();
+        Intent intent = new Intent(this, backActivity);
+        startActivity(intent);
+        finish();
+    }
 
 }

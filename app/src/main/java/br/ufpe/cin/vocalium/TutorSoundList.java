@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import Utils.UserInformation;
 
@@ -73,8 +71,8 @@ public class TutorSoundList extends AppCompatActivity {
         UserInformation user = UserInformation.getInstance();
         user.SetLogin("dlc");
         user.SetStudentId(1);
-        user.SetTeacherId(1);
-        user.SetTeacherName("De");
+        user.SetTutorId(1);
+        user.SetTutorName("De");
         user.SetStudentName("Lc");
     }
 }

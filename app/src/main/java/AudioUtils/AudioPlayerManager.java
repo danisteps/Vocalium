@@ -25,6 +25,8 @@ public class AudioPlayerManager {
     private Calendar videoLength;
     private AudioComment comments;
     private Activity activity;
+    private boolean released;
+    private boolean inUse;
 
     private UpdateType updateType;
 
@@ -37,22 +39,29 @@ public class AudioPlayerManager {
         mediaPlayer = MediaPlayer.create(context, audioPathUri);              //create player from file audiopath
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         start();
+        released = false;
+        inUse = true;
 
         videoLength = ConvertMilisToCalendar(mediaPlayer.getDuration());
 
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer arg0) {
-                Release();
-                Intent tutorChecklist = new Intent(context, TutorChecklist.class);
-                context.startActivity(tutorChecklist);
-            }
-        });
+
 
     }
     public void Release ()
     {
+        released = true;
+        while (inUse);              //wait for mediaPlayer to be freed, it wont take long so there is no problem in a while
         mediaPlayer.release();
+    }
+
+    public void setCompletionListenerTutorHearComment(final TutorHearComm activity)
+    {
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer arg0) {
+            activity.changeActivity();
+        }
+    });
     }
 
     public void start ()
@@ -149,14 +158,16 @@ public class AudioPlayerManager {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (mediaPlayer.isPlaying())
+                while (!released && mediaPlayer.isPlaying())
                 {
+                    inUse = true;
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             LayoutOutput.getInstance().UpdateTutorHearComment(mediaPlayer, activity);
                         }
                     });
+                    inUse = false;
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {

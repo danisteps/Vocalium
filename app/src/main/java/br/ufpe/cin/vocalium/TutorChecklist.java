@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
 import AudioUtils.AudioComment;
 import AudioUtils.AudioPlayerManager;
+import Utils.DatabaseManager;
 import Utils.FileManager;
 import Utils.ServerConnection;
 import Utils.UserInformation;
@@ -26,12 +30,6 @@ public class TutorChecklist extends AppCompatActivity {
 
         UserInformation user = UserInformation.getInstance();
 
-        user.SetLogin("dlc");
-        user.SetStudentId(1);
-        user.SetTeacherId(1);
-        user.SetAudioId(1);
-        user.SetTeacherName("De");
-        user.SetStudentName("Lc");
 
 
         new Thread(new Runnable() {

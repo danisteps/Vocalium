@@ -4,4 +4,6 @@
     android:layout_height="match_parent"
     tools:context="br.ufpe.cin.vocalium.LoginScreen">
 
+    <include layout="@layout/content_login_screen"/>
+
 </RelativeLayout>
