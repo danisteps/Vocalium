@@ -1,34 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="br.ufpe.cin.vocalium.TutorChecklist">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="com.example.danielesoarespassos.telachecklist.CheckList">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:id="@+id/CheckList"
+        android:background="#3134fd"
+        android:layout_gravity="fill"
+        android:adjustViewBounds="false"
+        android:layout_alignParentLeft="true"
+        android:tint="#009bff"
+        android:layout_alignRight="@+id/Check"
+        android:layout_alignParentTop="true" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/Check"
+        android:layout_gravity="left|top"
+        android:text="Check List"
+        android:background="#00ffffff"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:gravity="center"
+        android:textColor="#fcf9f9"
+        android:textSize="40dp"
+        android:layout_above="@+id/Ativar" />
 
-    </android.support.design.widget.AppBarLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/editText4"
+        android:background="#ff5a01"
+        android:layout_gravity="right|top"
+        android:adjustViewBounds="false"
+        android:layout_alignParentLeft="true"
+        android:tint="#ff8000"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="60dp"
+        android:layout_alignTop="@+id/CheckList" />
 
-    <include layout="@layout/content_tutor_checklist" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:text="Ativar"
+        android:id="@+id/Ativar"
+        android:layout_gravity="center_horizontal|top"
+        android:checked="false"
+        android:layout_alignTop="@+id/editText4"
+        android:layout_alignBottom="@+id/editText4"
+        android:layout_alignRight="@+id/editText4"
+        android:layout_toRightOf="@+id/editText4"
+        android:layout_marginLeft="10dp"
+        android:layout_alignLeft="@+id/editText4"
+        android:layout_marginRight="10dp"
+        android:textColor="#fbfbfb"
+        android:textSize="20dp"
+        android:singleLine="false"
+        style="@style/AppTheme"
+        android:capitalize="none"
+        android:clickable="false" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView_CheckList"
+        android:layout_below="@+id/editText4"
+        android:layout_marginBottom="100dp"
+        android:fillViewport="true">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ListView_CheckList"
+            android:layout_below="@+id/editText4"
+            android:layout_alignParentLeft="true">
+
+        </ListView>
+    </ScrollView>
+
+    <Button
+        style="@android:style/DeviceDefault.Light.SegmentedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="        enviar         "
+        android:id="@+id/enviar"
+        android:background="#fe6012"
+        android:textColor="#fdfcfc"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/Ativar"
+        android:layout_marginRight="34dp" />
+
+    <Button
+        style="@android:style/DeviceDefault.Light.SegmentedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  add fator  "
+        android:id="@+id/fator"
+        android:background="#484cfc"
+        android:textColor="#fdfdfd"
+        android:layout_alignTop="@+id/enviar"
+        android:layout_toLeftOf="@+id/enviar"
+        android:layout_marginRight="28dp" />
+
+</RelativeLayout>

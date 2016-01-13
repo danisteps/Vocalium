@@ -2,8 +2,12 @@ package br.ufpe.cin.vocalium;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -11,6 +15,7 @@ import com.parse.ParseObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 import AudioUtils.AudioComment;
 import AudioUtils.AudioPlayerManager;
@@ -28,32 +33,35 @@ public class TutorChecklist extends AppCompatActivity {
         setContentView(R.layout.activity_tutor_checklist);
         final Context context = getApplicationContext();
 
-        UserInformation user = UserInformation.getInstance();
+        UserInformation.getInstance().SetTutorId(1);
 
+        ListView listView = (ListView) findViewById(R.id.ListView_CheckList);
+        inflateListView(listView);
 
-
-        new Thread(new Runnable() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void run() {
-                //ServerConnection.getInstance().PostFile(context, "1", ServerConnection.FileType.Sound);
-                //ServerConnection.getInstance().GetFile(context, "1", ServerConnection.FileType.Comment);
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
+
             }
-        }).start();
+        });
 
 
-        /*String filePath = context.getFilesDir() + "/1.mp3";
-        File file = new File(filePath);
-        file.delete();*/
+    }
+    private void inflateListView (ListView listView)
+    {
+        Pair<Integer, String>[] elementsPair;
 
-        /*//REMEMBER!!! Only call this after complete download!!
-        String path = context.getFilesDir() + "/1.mp3";
+        String[] results = DatabaseManager.getRatingNames(UserInformation.getInstance().GetTutorId());
+        elementsPair = new Pair[results.length];
 
-        try {
-            AudioPlayerManager player = new AudioPlayerManager(context, path);
-        } catch (IOException e) {
-            Log.e("CONNECTION_ERROR", "Problem loading file");
-        }*/
+        for(int i = 0; i < results.length; i ++)
+        {
+            String student = results[i];
+            elementsPair[i] = new Pair<>(0, student);
 
+        }
+
+        listView.setAdapter(new SoundRowAdapter(this, elementsPair));
     }
 
     private AudioComment CreateComments ()
