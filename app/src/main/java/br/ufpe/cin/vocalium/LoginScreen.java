@@ -16,8 +16,7 @@ import Utils.UserInformation;
 
 public class LoginScreen extends AppCompatActivity {
     private final static Class nextTutorActivity = TutorStudentList.class;
-    private final static Class nextStudentActivity = ProfileStudent.class;
-
+    private final static Class nextStudentActivity = StudentSoundList.class;
 
 
     @Override
