@@ -6,8 +6,10 @@ import android.util.Log;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -96,7 +98,7 @@ public class FileManager {
 
         return audioComment;
     }
-    public static void verifyOrCreateTutor (String path, final String fileName, final Activity object, final Method onFinishFunction)
+    public static void verifyOrCreateTutor (String path, final String fileName, final Activity object, final Method onFinishFunction, final Method onErrorFunction)
     {
         File file = new File(path);
         if(!file.exists())
@@ -106,6 +108,7 @@ public class FileManager {
                 public void run() {
                     Log.e("POST_ERROR", "Downloading!!");
                     ServerConnection server = ServerConnection.getInstance();
+                    server.setFailureCallback(onErrorFunction, object);
                     server.setCallback(onFinishFunction, object);
 
                     server.GetFile(object, fileName, ServerConnection.FileType.Sound);
@@ -149,5 +152,20 @@ public class FileManager {
         else if (type == ServerConnection.FileType.Sound) extension = ".mp3";
 
         return extension;
+    }
+
+    public static void deleteLocalFile (Context context) {
+        File file = context.getFilesDir();
+
+        File[] files = file.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String filename) {
+                return filename.endsWith(".mp3");
+            }
+        });
+        for(File toDelete : files)
+        {
+            toDelete.delete();
+        }
     }
 }

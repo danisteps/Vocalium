@@ -1,7 +1,9 @@
 package br.ufpe.cin.vocalium;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import Utils.DatabaseManager;
+import Utils.FileManager;
 import Utils.UserInformation;
 
 public class LoginScreen extends AppCompatActivity {
@@ -24,6 +27,8 @@ public class LoginScreen extends AppCompatActivity {
 
 
         DatabaseManager.initializeParse(this);
+
+        DatabaseManager.createDefaultRatingNames(1);
 
         Button loginButton = (Button) findViewById(R.id.login_button);
         final EditText userText = (EditText) findViewById(R.id.text_user_login);
@@ -67,10 +72,29 @@ public class LoginScreen extends AppCompatActivity {
     }
     private void loginFailed ()
     {
-        AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+        final AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         alertbox.setMessage("Nome de usuário e senha não combinam");
-        alertbox.create();
-        alertbox.show();
+        final AlertDialog alert = alertbox.create();
+        alert.show();
+
+        final Handler handler  = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (alert.isShowing()) {
+                    alert.dismiss();
+                }
+            }
+        };
+
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                handler.removeCallbacks(runnable);
+            }
+        });
+
+        handler.postDelayed(runnable, 3000);
     }
     private void changeActivity(Class activity)
     {

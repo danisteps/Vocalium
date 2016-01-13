@@ -21,9 +21,12 @@ public class DownloadTutor extends AppCompatActivity {
         setContentView(R.layout.activity_download_tutor);
 
         Method callFunction = null;
+        Method errorFunction = null;
         try {
             callFunction = this.getClass().getMethod("changeActivity", null);
+            errorFunction = this.getClass().getMethod("backActivity", null);
         } catch (NoSuchMethodException e) {
+            backActivity();
             Log.e("POST_ERROR", "problem calling function");
         }
 
@@ -37,7 +40,7 @@ public class DownloadTutor extends AppCompatActivity {
         String path = getFilesDir() + "/";
         path += user.GetAudioId() + FileManager.getExtension(ServerConnection.FileType.Sound);
 
-        FileManager.verifyOrCreateTutor(path, ""+user.GetAudioId(), this, callFunction);
+        FileManager.verifyOrCreateTutor(path, ""+user.GetAudioId(), this, callFunction, errorFunction);
     }
 
     public void changeActivity ()
@@ -48,5 +51,14 @@ public class DownloadTutor extends AppCompatActivity {
         intent.putExtra(TutorSoundList.EXTRA_INTENT_MESSAGE, itemNumber);
         startActivity(intent);
         finish();
+    }
+    public void backActivity ()
+    {
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

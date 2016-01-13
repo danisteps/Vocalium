@@ -40,6 +40,10 @@ public class ServerConnection {
     private Method callbackFunction;
     private Object callbackObject;
     private boolean callbackSet = false;
+
+    private Method failureCallbackFunction;
+    private Object failureCallbackObject;
+    private boolean failureCallbackSet = false;
     //----------------------------------------------------------
 
     public static enum FileType
@@ -75,12 +79,14 @@ public class ServerConnection {
             public void onFailure(Request request, IOException throwable) {
                 Log.e("CONNECTION_ERROR", "No response");
                 throwable.printStackTrace();
+                failureCallback();
             }
 
             @Override
             public void onResponse(Response response) {
                 if (!response.isSuccessful()) {
                     Log.e("CONNECTION_ERROR", "Response not succesful");
+                    failureCallback();
                     return;
                 }
                 Log.e("CONNECTION_ERROR", "Connection succesful");
@@ -90,6 +96,7 @@ public class ServerConnection {
                     callback();
 
                 } catch (IOException e) {
+                    failureCallback();
                     Log.e("CONNECTION_ERROR", "Error saving file");
                 }
             }
@@ -137,6 +144,7 @@ public class ServerConnection {
             response = client.newCall(request).execute();
 
             if(!response.isSuccessful()) {
+                failureCallback();
                 Log.e("POST_ERROR", "Response not succesful " + response.body().string());
             }
             else
@@ -145,24 +153,50 @@ public class ServerConnection {
                 Log.e("POST_ERROR", "String: " + responseString);
                 if(responseString.compareTo("failed") == 0)
                 {
+                    failureCallback();
                     Log.e("POST_ERROR", "Error on server " + response.body().string());
                 }
                 else
                 {
                     int newId = Integer.parseInt(responseString);
 
-                    DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId);
+                    if(fileType == FileType.Sound)
+                        DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId);
+                    else
+                        DatabaseManager.saveComment(user.GetAudioId(), newId);
                     callback();
                     return newId;
                 }
             }
 
         } catch (IOException e) {
+            failureCallback();
             Log.e("POST_ERROR", "Error executing post");
         }
         return 0;
     }
 
+    public void setFailureCallback (Method callbackMethod, Object callbackObject)
+    {
+        this.failureCallbackFunction = callbackMethod;
+        this.failureCallbackObject = callbackObject;
+        failureCallbackSet = true;
+    }
+    private void failureCallback ()
+    {
+        if(failureCallbackSet)
+        {
+            Log.e("POST_ERROR", "Trying to call error function");
+            try {
+                failureCallbackFunction.invoke(failureCallbackObject, null);
+            } catch (IllegalAccessException e) {
+                Log.e("POST_ERROR", "Error on callback");
+            } catch (InvocationTargetException e) {
+                Log.e("POST_ERROR", "Error on callback");
+            }
+            failureCallbackSet = false;
+        }
+    }
 
 
     public void setCallback (Method callbackMethod, Object callbackObject)
