@@ -33,6 +33,8 @@ public class TutorChecklist extends AppCompatActivity {
         setContentView(R.layout.activity_tutor_checklist);
         final Context context = getApplicationContext();
 
+        DatabaseManager.initializeParse(this);
+
         UserInformation.getInstance().SetTutorId(1);
 
         ListView listView = (ListView) findViewById(R.id.ListView_CheckList);
@@ -61,7 +63,7 @@ public class TutorChecklist extends AppCompatActivity {
 
         }
 
-        listView.setAdapter(new SoundRowAdapter(this, elementsPair));
+        listView.setAdapter(new RatingRowAdapter(this, elementsPair));
     }
 
     private AudioComment CreateComments ()
