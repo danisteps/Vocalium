@@ -56,19 +56,10 @@ public class TutorChecklist extends AppCompatActivity {
     }
     private void inflateListView (ListView listView)
     {
-        Pair<Integer, String>[] elementsPair;
 
         String[] results = DatabaseManager.getRatingNames(UserInformation.getInstance().GetTutorId());
-        elementsPair = new Pair[results.length];
 
-        for(int i = 0; i < results.length; i ++)
-        {
-            String student = results[i];
-            elementsPair[i] = new Pair<>(0, student);
-
-        }
-
-        listView.setAdapter(new RatingRowAdapter(this, elementsPair));
+        listView.setAdapter(new RatingRowAdapter(this, results));
     }
 
     private AudioComment CreateComments ()
