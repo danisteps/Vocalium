@@ -2,10 +2,12 @@ package br.ufpe.cin.vocalium;
 
 import android.content.Context;
 import android.support.v4.util.Pair;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 /**
@@ -14,39 +16,57 @@ import android.widget.TextView;
 public class RatingRowAdapter extends BaseAdapter {
 
     private Context context;
-    private Pair<Integer, String>[] sounds;
+    private Pair<Float, String>[] ratings;
     private static LayoutInflater inflater;
 
-    public RatingRowAdapter (Context context, Pair<Integer, String>[] sounds)
+    public RatingRowAdapter (Context context, String[] ratingNames)
     {
         this.context = context;
-        this.sounds = sounds;
+
+        ratings = new Pair[ratingNames.length];
+
+        for(int i = 0; i < ratingNames.length; i ++)
+        {
+            ratings[i] = new Pair<>(0f, ratingNames[i]);
+        }
+
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     @Override
     public int getCount() {
-        return sounds.length;
+        return ratings.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return sounds[position].second;
+        return ratings[position].second;
     }
 
     @Override
     public long getItemId(int position) {
-        return sounds[position].first;
+        return ratings[position].first.longValue();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if(vi == null)
         {
             vi = inflater.inflate(R.layout.rating_row, null);
         }
         TextView text = (TextView) vi.findViewById(R.id.RatingText);
-        text.setText(sounds[position].second);
+        text.setText(ratings[position].second);
+
+        RatingBar ratingBar = (RatingBar) vi.findViewById(R.id.RatingBar);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                Pair<Float, String> newPair = new Pair<>(rating, ratings[position].second);
+                ratings[position] = newPair;
+                Log.e("COMMENT_ERROR", "rating " + position + " changed to: " + rating);
+            }
+        });
+
 
         return vi;
     }

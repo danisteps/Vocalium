@@ -28,7 +28,7 @@ import Utils.ServerConnection;
 import Utils.UserInformation;
 
 public class TutorHearComm extends AppCompatActivity {
-    private final static Class nextActivity = SendComment.class;
+    private final static Class nextActivity = TutorChecklist.class;
     private final static Class backActivity = TutorSoundList.class;
 
     private AudioPlayerManager player;

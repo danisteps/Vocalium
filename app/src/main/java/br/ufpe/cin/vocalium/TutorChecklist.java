@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -25,6 +26,7 @@ import Utils.ServerConnection;
 import Utils.UserInformation;
 
 public class TutorChecklist extends AppCompatActivity {
+    private final static Class nextActivity = SendComment.class;
 
 
     @Override
@@ -47,6 +49,9 @@ public class TutorChecklist extends AppCompatActivity {
             }
         });
 
+    }
+    private void changeActivity()
+    {
 
     }
     private void inflateListView (ListView listView)

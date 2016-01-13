@@ -464,7 +464,7 @@ public class DatabaseManager {
         obj.put("TutorId", tutorId);
         obj.put("StudentId", studentId);
         obj.saveInBackground();
-    }
+}
     public static boolean requestFromUsername (int tutorId, String username)
     {
         ParseObject student = getInformationByUsername(username);
