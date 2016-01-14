@@ -180,6 +180,7 @@ public class DatabaseManager {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        if(results.size() == 0) return null;
 
         ParseObject result = results.get(0);
 
@@ -318,6 +319,7 @@ public class DatabaseManager {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        if(results.get(0) == null) return -1;
 
         return results.get(0).getInt("Id");
     }
@@ -527,6 +529,40 @@ public class DatabaseManager {
         {
             addRatingName(tutorId, ratingName);
         }
+    }
+
+    //---------------------------Help functions------------------
+    public static LoginType checkObjectType (ParseObject object)
+    {
+        String objName = object.getClassName();
+        if(objName.compareTo("Tutor") == 0)
+        {
+            return LoginType.Tutor;
+        }
+        else if(objName.compareTo("Student") == 0)
+        {
+            return LoginType.Student;
+        }
+        else
+            return null;
+    }
+
+    public static int getIdFromObject (ParseObject object, LoginType type)
+    {
+        if(type == LoginType.Tutor && object.getClassName().compareTo("Tutor") == 0)
+        {
+            return object.getInt("TutorId");
+        }
+        else if (type == LoginType.Student && object.getClassName().compareTo("Student") == 0)
+        {
+            return object.getInt("StudentId");
+        }
+        return -1;
+    }
+
+    public static int getTutorIdFromStudentObject (ParseObject student)
+    {
+        return student.getInt("TutorId");
     }
 
     //-------------------
