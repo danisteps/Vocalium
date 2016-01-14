@@ -103,6 +103,13 @@ public class UserInformation {
 
         Log.e("DATABASE_ERROR", "login data tutor: " +tutorName + " " + tutorId);
     }
+    public void populateTutorInformationForStudent(ParseObject object) {
+
+        SetTutorId(object.getInt("TutorId"));
+        SetTutorName(object.getString("Name"));
+
+        Log.e("DATABASE_ERROR", "populated data tutor: " +tutorName + " " + tutorId);
+    }
 
     public enum UserType
     {

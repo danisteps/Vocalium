@@ -27,7 +27,8 @@ public class LoginScreen extends AppCompatActivity {
 
         DatabaseManager.initializeParse(this);
 
-        DatabaseManager.requestFriendship(1, DatabaseManager.getIdByUsername("danisteps"));
+        //DatabaseManager.unsetTutor(DatabaseManager.getIdByUsername("danisteps"));
+        //DatabaseManager.requestFriendship(1, DatabaseManager.getIdByUsername("danisteps"));
 
         Button loginButton = (Button) findViewById(R.id.login_button);
         final EditText userText = (EditText) findViewById(R.id.text_user_login);

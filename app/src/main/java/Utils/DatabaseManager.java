@@ -343,7 +343,6 @@ public class DatabaseManager {
 
     //------------------------------------------------------------------------------------
 
-    //DEBUG METHODS!!!!!
     public static void signUpTutor(String userName, String name, int passwordHash)
     {
         if(!checkUsernameAvailable(userName))
@@ -380,6 +379,25 @@ public class DatabaseManager {
         signUpInformation(userName, passwordHash, studentId, LoginType.Student);
 
         increaseLastId(LoginType.Student);
+    }
+    public static void setStudentTutor (int studentId, int tutorId)
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Student");
+        query.whereEqualTo("StudentId", studentId);
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(results.size() > 0)
+        {
+            ParseObject student = results.get(0);
+            student.put("TutorId", tutorId);
+            student.saveInBackground();
+        }
     }
     private static void signUpInformation (String userName, int passwordHash, int id, LoginType type)
     {
@@ -530,6 +548,17 @@ public class DatabaseManager {
             addRatingName(tutorId, ratingName);
         }
     }
+    public static void deleteRequest (ParseObject request)
+    {
+        if(request.getClassName().compareTo("Request") == 0)
+        {
+            try {
+                request.delete();
+            } catch (ParseException e) {
+                Log.e("DATABASE_ERROR", "error deleting object");
+            }
+        }
+    }
 
     //---------------------------Help functions------------------
     public static LoginType checkObjectType (ParseObject object)
@@ -565,6 +594,33 @@ public class DatabaseManager {
         return student.getInt("TutorId");
     }
 
+    public static ParseObject getTutorObjectFromRequest (ParseObject request)
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Tutor");
+        query.whereEqualTo("TutorId", request.getInt("TutorId"));
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(results.size() > 0)
+            return results.get(0);
+        else
+            return null;
+    }
+    public static String getTutorNameFromObject (ParseObject tutor)
+    {
+        return tutor.getString("Name");
+    }
+    public static int getTutorIdFromObject (ParseObject tutor)
+    {
+        return tutor.getInt("TutorId");
+    }
+
     //-------------------
 
     public static void initializeParse(Context context)
@@ -576,6 +632,26 @@ public class DatabaseManager {
     }
 
 
+    public static void unsetTutor(int studentId)
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Student");
+        query.whereEqualTo("StudentId", studentId);
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(results.size() > 0)
+        {
+            ParseObject student = results.get(0);
+            student.put("TutorId", -1);
+            student.saveInBackground();
+        }
+    }
     //DatabaseManager.signUpTutor("joao", "João da silva", "123456".hashCode());
     //DatabaseManager.signUpStudent("creuza", "Creuza ana", "987654".hashCode(), 1);
     //DatabaseManager.signUpStudent("marco", "Marco Araujo", "321654".hashCode(), 1);
