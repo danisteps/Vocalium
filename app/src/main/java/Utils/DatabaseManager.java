@@ -35,7 +35,7 @@ public class DatabaseManager {
 
         if(result.getString("LoginType").compareTo("Tutor") == 0)
         {
-            ParseObject tutorInformation = getInformation(result.getInt("id"), LoginType.Tutor);
+            ParseObject tutorInformation = getInformation(result.getInt("Id"), LoginType.Tutor);
 
             if(tutorInformation == null) return false;
 
@@ -44,11 +44,17 @@ public class DatabaseManager {
         }
 
 
-        ParseObject studentInformation = getInformation(result.getInt("id"), LoginType.Student);
+        ParseObject studentInformation = getInformation(result.getInt("Id"), LoginType.Student);
         if(studentInformation == null) return false;
-        ParseObject tutorInformation = getInformation(result.getInt("id"), LoginType.Tutor);
-        if(tutorInformation == null) return false;
-        String tutorName = tutorInformation.getString("Name");
+
+        int tutorId = studentInformation.getInt("TutorId");
+        String tutorName = "";
+        if(tutorId != -1)
+        {
+            ParseObject tutorInformation = getInformation(studentInformation.getInt("TutorId"), LoginType.Tutor);
+            if(tutorInformation == null) return false;
+            tutorName = tutorInformation.getString("Name");
+        }
 
         UserInformation.getInstance().populateStudentInformation(studentInformation, tutorName);
 
@@ -139,16 +145,20 @@ public class DatabaseManager {
     private static ParseObject getInformation(int id, LoginType type)
     {
         String tableName = "";
+        String condition = "";
         switch (type)
         {
             case Tutor:
                 tableName = "Tutor";
+                condition = "TutorId";
                 break;
             case Student:
                 tableName = "Student";
+                condition = "StudentId";
         }
 
         ParseQuery<ParseObject> query=ParseQuery.getQuery(tableName);
+        query.whereEqualTo(condition, id);
 
         List<ParseObject> results = null;
         try {
@@ -450,7 +460,10 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
-        return results.get(0);
+        if(results.size() > 0)
+            return results.get(0);
+        else
+            return null;
     }
     public static boolean checkRatingName (int tutorId, String name)
     {
