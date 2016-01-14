@@ -28,7 +28,7 @@ public class FileManager {
     }
 
     public final static String COMMENT_TEMP_NAME = "temp_comment";
-    private final static String COMMENT_TEMP_PATH = "/" + COMMENT_TEMP_NAME + ".txt";
+    private final static String COMMENT_TEMP_PATH = "/" + COMMENT_TEMP_NAME + FileManager.getExtension(ServerConnection.FileType.Comment);
 
 
     public static void SaveFile(Context context, byte[] fileBytes, String fileName, ServerConnection.FileType type) throws IOException {
@@ -47,7 +47,7 @@ public class FileManager {
     }
 
     public static void saveComment(Context context, AudioComment comment, String commentId) throws IOException {
-        String comPath = context.getFilesDir() + "/" + commentId + ".txt";
+        String comPath = context.getFilesDir() + "/" + commentId + FileManager.getExtension(ServerConnection.FileType.Comment);
         File comFile = new File(comPath);
         FileOutputStream fOutputStream = new FileOutputStream(comFile);
 
@@ -88,7 +88,7 @@ public class FileManager {
     }
 
     public static AudioComment readComment(Context context, String fileName) throws IOException, ClassNotFoundException {
-        File commentFile = new File(context.getFilesDir() + "/" + fileName + ".txt");
+        File commentFile = new File(context.getFilesDir() + "/" + fileName + FileManager.getExtension(ServerConnection.FileType.Comment));
 
         ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(commentFile));
 
@@ -150,6 +150,7 @@ public class FileManager {
         String extension = "";
         if(type == ServerConnection.FileType.Comment) extension = ".txt";
         else if (type == ServerConnection.FileType.Sound) extension = ".mp3";
+        //else if (type == ServerConnection.FileType.Sound) extension = ".ogg";
 
         return extension;
     }
@@ -160,7 +161,7 @@ public class FileManager {
         File[] files = file.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
-                return filename.endsWith(".mp3");
+                return filename.endsWith(getExtension(ServerConnection.FileType.Sound));
             }
         });
         for(File toDelete : files)

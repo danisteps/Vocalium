@@ -20,7 +20,8 @@ public class AudioComment implements Serializable {
     private int audioId;
     private Vector<Integer> commentTime;
     private Vector<String> commentText;
-    private ArrayList<Pair<Float, String>> ratings;
+    private float[] ratingValue;
+    private String[] ratingName;
 
     public AudioComment(int id)
     {
@@ -41,10 +42,13 @@ public class AudioComment implements Serializable {
     }
     public void setRatings(ListAdapter adapter)
     {
-        ratings = new ArrayList<>(adapter.getCount());
+        ratingName = new String[adapter.getCount()];
+        ratingValue = new float[adapter.getCount()];
         for(int i = 0; i < adapter.getCount(); i ++)
         {
-            ratings.add(i, (Pair<Float, String>) adapter.getItem(i));
+            Pair<Float, String> rating = (Pair<Float, String>) adapter.getItem(i);
+            ratingName[i] = rating.second;
+            ratingValue[i] = rating.first;
         }
     }
 

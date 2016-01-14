@@ -63,11 +63,11 @@ public class ServerConnection {
 
         if(fileType == FileType.Sound)
         {
-            filePath = soundUrl + "Sound/" + FileManager.GetRelativeFilePath()+ fileName + ".mp3";
+            filePath = soundUrl + "Sound/" + FileManager.GetRelativeFilePath()+ fileName + FileManager.getExtension(FileType.Sound);
         }
         else if(fileType == FileType.Comment)
         {
-            filePath = soundUrl + "Comment/" + FileManager.GetRelativeFilePath()+ fileName + ".txt";
+            filePath = soundUrl + "Comment/" + FileManager.GetRelativeFilePath()+ fileName + FileManager.getExtension(FileType.Comment);
         }
 
         Request request = new Request.Builder().url(filePath).build();
@@ -110,13 +110,13 @@ public class ServerConnection {
         String fileServerName = "";
         if(fileType == FileType.Sound)
         {
-            filePath = context.getFilesDir() + "/"+ fileName + ".mp3";
+            filePath = context.getFilesDir() + "/"+ fileName + FileManager.getExtension(FileType.Sound);
             fileTypeString = "sound";
             fileServerName = "sound";
         }
         else if(fileType == FileType.Comment)
         {
-            filePath = context.getFilesDir() + "/"+ fileName + ".txt";
+            filePath = context.getFilesDir() + "/"+ fileName + FileManager.getExtension(FileType.Comment);
             fileTypeString = "comment";
             fileServerName = "comment";
         }
