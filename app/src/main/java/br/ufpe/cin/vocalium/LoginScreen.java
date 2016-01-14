@@ -27,8 +27,6 @@ public class LoginScreen extends AppCompatActivity {
 
         DatabaseManager.initializeParse(this);
 
-        DatabaseManager.createDefaultRatingNames(1);
-
         Button loginButton = (Button) findViewById(R.id.login_button);
         final EditText userText = (EditText) findViewById(R.id.text_user_login);
         final EditText passwordText = (EditText) findViewById(R.id.text_password_login);

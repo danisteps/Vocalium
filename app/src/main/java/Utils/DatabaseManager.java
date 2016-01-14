@@ -350,7 +350,7 @@ public class DatabaseManager {
 
         increaseLastId(LoginType.Tutor);
     }
-    public static void signUpStudent(String userName, String name, int passwordHash, int tutorId)
+    public static void signUpStudent(String userName, String name, int passwordHash)
     {
         if(!checkUsernameAvailable(userName))
         {
@@ -362,7 +362,7 @@ public class DatabaseManager {
         ParseObject obj = new ParseObject("Student");
         obj.put("StudentName", name);
         obj.put("StudentId", studentId);
-        obj.put("TutorId", tutorId);
+        obj.put("TutorId", -1);
         obj.saveInBackground();
 
         signUpInformation(userName, passwordHash, studentId, LoginType.Student);
@@ -410,6 +410,8 @@ public class DatabaseManager {
     }
     public static void addRatingName (int tutorId, String ratingName)
     {
+        if(!checkRatingName(tutorId, ratingName))
+            return;;
         ParseObject obj = new ParseObject("Rating");
         obj.put("TutorId", tutorId);
         obj.put("RatingName", ratingName);
@@ -449,6 +451,30 @@ public class DatabaseManager {
         }
 
         return results.get(0);
+    }
+    public static boolean checkRatingName (int tutorId, String name)
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Rating");
+        query.whereEqualTo("TutorId", tutorId);
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(results.size() > 15)
+        {
+            return false;
+        }
+        for (ParseObject obj : results)
+        {
+            if(obj.getString("RatingName").compareTo(name) == 0)
+                return false;
+        }
+        return true;
     }
     public static void requestFriendship (int tutorId, int studentId)
     {

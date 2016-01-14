@@ -39,7 +39,7 @@ public class RatingRowAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return ratings[position].second;
+        return ratings[position];
     }
 
     @Override

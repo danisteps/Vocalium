@@ -34,7 +34,10 @@
         android:gravity="center"
         android:textColor="#fcf9f9"
         android:textSize="40dp"
-        android:layout_above="@+id/Ativar" />
+        android:layout_above="@+id/Ativar"
+        android:inputType="none"
+        android:editable="false"
+        android:enabled="false" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -93,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="        enviar         "
-        android:id="@+id/enviar"
+        android:id="@+id/send_button_tutor_checklist"
         android:background="#fe6012"
         android:textColor="#fdfcfc"
         android:layout_alignParentBottom="true"
