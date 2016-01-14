@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -25,6 +26,7 @@ import Utils.ServerConnection;
 import Utils.UserInformation;
 
 public class TutorChecklist extends AppCompatActivity {
+    private final static Class nextActivity = SendComment.class;
 
 
     @Override
@@ -32,6 +34,8 @@ public class TutorChecklist extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_checklist);
         final Context context = getApplicationContext();
+
+        DatabaseManager.initializeParse(this);
 
         UserInformation.getInstance().SetTutorId(1);
 
@@ -45,23 +49,17 @@ public class TutorChecklist extends AppCompatActivity {
             }
         });
 
+    }
+    private void changeActivity()
+    {
 
     }
     private void inflateListView (ListView listView)
     {
-        Pair<Integer, String>[] elementsPair;
 
         String[] results = DatabaseManager.getRatingNames(UserInformation.getInstance().GetTutorId());
-        elementsPair = new Pair[results.length];
 
-        for(int i = 0; i < results.length; i ++)
-        {
-            String student = results[i];
-            elementsPair[i] = new Pair<>(0, student);
-
-        }
-
-        listView.setAdapter(new SoundRowAdapter(this, elementsPair));
+        listView.setAdapter(new RatingRowAdapter(this, results));
     }
 
     private AudioComment CreateComments ()

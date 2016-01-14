@@ -2,10 +2,13 @@ package AudioUtils;
 
 import android.support.v4.util.Pair;
 import android.util.Log;
+import android.widget.RatingBar;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Vector;
+
+import br.ufpe.cin.vocalium.RatingRowAdapter;
 
 /**
  * Created by Delio on 12/12/15.
@@ -14,6 +17,7 @@ public class AudioComment implements Serializable {
     private int audioId;
     private Vector<Integer> commentTime;
     private Vector<String> commentText;
+    private Pair<String, Float>[] ratings;
 
     public AudioComment(int id)
     {
@@ -31,6 +35,10 @@ public class AudioComment implements Serializable {
     {
         commentText.removeElementAt(index);
         commentTime.removeElementAt(index);
+    }
+    public void setRatings(RatingRowAdapter ratings)
+    {
+
     }
 
     public int getAudioId () { return audioId; }

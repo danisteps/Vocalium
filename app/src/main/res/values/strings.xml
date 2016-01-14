@@ -24,6 +24,7 @@
     <string name="title_activity_send_comment">SendComment</string>
     <string name="title_activity_tutor_sound_list">TutorSoundList</string>
     <string name="title_activity_login_screen">LoginScreen</string>
+    <string name="title_activity_student_sound_list">StudentSoundList</string>
     <string name="send_comment_loading_message">Sending data</string>
 
     <string name="parse_app_id">zxGM3g9V6pJYwMLi0x2CdbycTiyi7kjooD6Jzqi9</string>
