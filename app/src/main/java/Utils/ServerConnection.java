@@ -44,6 +44,8 @@ public class ServerConnection {
     private Method failureCallbackFunction;
     private Object failureCallbackObject;
     private boolean failureCallbackSet = false;
+
+    private int lastIdSet = -1;
     //----------------------------------------------------------
 
     public static enum FileType
@@ -159,6 +161,7 @@ public class ServerConnection {
                 else
                 {
                     int newId = Integer.parseInt(responseString);
+                    lastIdSet = newId;
 
                     if(fileType == FileType.Sound)
                         DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId);
@@ -220,5 +223,9 @@ public class ServerConnection {
             failureCallbackSet = false;
             callbackSet = false;
         }
+    }
+    public int getLastIdSet()
+    {
+        return lastIdSet;
     }
 }

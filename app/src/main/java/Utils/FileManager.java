@@ -27,6 +27,8 @@ public class FileManager {
 
     }
 
+    public final static String SOUND_TEMP_NAME = "temp_sound";
+    private final static String SOUND_TEMP_PATH = "/" + SOUND_TEMP_NAME + FileManager.getExtension(ServerConnection.FileType.Sound);
     public final static String COMMENT_TEMP_NAME = "temp_comment";
     private final static String COMMENT_TEMP_PATH = "/" + COMMENT_TEMP_NAME + FileManager.getExtension(ServerConnection.FileType.Comment);
 
