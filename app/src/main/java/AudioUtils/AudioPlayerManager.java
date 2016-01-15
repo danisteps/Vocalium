@@ -61,7 +61,6 @@ public class AudioPlayerManager {
 
     public void setCompletionListenerTutorHearComment(final TutorHearComm activity)
     {
-        Release();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer arg0) {
@@ -71,7 +70,6 @@ public class AudioPlayerManager {
     }
     public void setCompletionListenerStudentListenComment(final StudentListenComment activity)
     {
-        Release();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer arg0) {

@@ -84,7 +84,8 @@ public class RatingRowAdapter extends BaseAdapter {
 
         if(!enabled)
         {
-            ratingBar.setClickable(false);
+            ratingBar.setRating(ratings[position].first);
+            ratingBar.setIsIndicator(true);
         }
 
 

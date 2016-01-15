@@ -22,13 +22,14 @@ public class AudioComment implements Serializable {
     private Vector<String> commentText;
     private float[] ratingValue;
     private String[] ratingName;
-    private boolean ratingEnabled = true;
+    private boolean ratingEnabled;
 
     public AudioComment(int id)
     {
         audioId = id;
         commentTime = new Vector<>();
         commentText = new Vector<>();
+        ratingEnabled = true;
     }
     public void addComment(int time, String text)
     {

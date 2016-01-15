@@ -27,6 +27,7 @@ public class StudentRatingList extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.ListView_CheckList_student);
         inflateListView(listView);
 
+
         Button nextButton = (Button) findViewById(R.id.next_button_rating_student);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +51,7 @@ public class StudentRatingList extends AppCompatActivity {
 
     private void checkComment()
     {
-        if(comment == null && !comment.isEnabled())
+        if(comment == null || !comment.isEnabled())
         {
             changeActivity();
         }
@@ -58,8 +59,6 @@ public class StudentRatingList extends AppCompatActivity {
     }
     private void changeActivity()
     {
-        Intent intent = new Intent(this, nextActivity);
-        startActivity(intent);
         finish();
     }
 }

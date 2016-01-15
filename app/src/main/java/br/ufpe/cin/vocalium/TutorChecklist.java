@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.Switch;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -52,6 +54,18 @@ public class TutorChecklist extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 changeActivity();
+            }
+        });
+
+        Switch enableRating = (Switch)findViewById(R.id.switch_tutor_checklist);
+        enableRating.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    listView.setVisibility(View.VISIBLE);
+                else
+                    listView.setVisibility(View.INVISIBLE);
+                comment.setEnabled(isChecked);
             }
         });
     }

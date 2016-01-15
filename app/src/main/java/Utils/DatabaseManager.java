@@ -693,6 +693,27 @@ public class DatabaseManager {
             student.saveInBackground();
         }
     }
+    public static void invalidateAllComments()
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Sound");
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        for(ParseObject sound : results)
+        {
+            sound.put("CommentId", -1);
+            try {
+                sound.save();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static void eraseComment (ParseObject sound)
     {
