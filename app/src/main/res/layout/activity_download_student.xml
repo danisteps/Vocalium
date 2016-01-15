@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.ufpe.cin.vocalium.DownloadStudent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#009cff"
+        android:minHeight="80dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/audio_name_tutor"
+            android:id="@+id/audio_name_student_download_textview"
+            android:background="@android:color/transparent"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:minHeight="40dp"
+            android:maxHeight="60dp" />
+    </RelativeLayout>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar2"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

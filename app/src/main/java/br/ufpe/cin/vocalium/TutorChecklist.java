@@ -72,26 +72,6 @@ public class TutorChecklist extends AppCompatActivity {
         listView.setAdapter(new RatingRowAdapter(this, results));
     }
 
-    private AudioComment CreateComments ()
-    {
-        int audioId = UserInformation.getInstance().GetAudioId();
-
-        int time1 = 4000;
-        int time2 = 7000;
-        int time3 = 40000;
-
-        String text1 = "Muito bom aqui";
-        String text2 = "está aprendendo";
-        String text3 = "Parabéns";
-
-
-        AudioComment comment = new AudioComment(audioId);
-        comment.addComment(time1, text1);
-        comment.addComment(time2, text2);
-        comment.addComment(time3, text3);
-
-        return comment;
-    }
     private void debugComment(AudioComment comment)
     {
         Log.e("POST_ERROR", "debug comment");

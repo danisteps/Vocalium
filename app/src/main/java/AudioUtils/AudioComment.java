@@ -22,6 +22,7 @@ public class AudioComment implements Serializable {
     private Vector<String> commentText;
     private float[] ratingValue;
     private String[] ratingName;
+    private boolean ratingEnabled = true;
 
     public AudioComment(int id)
     {
@@ -51,6 +52,23 @@ public class AudioComment implements Serializable {
             ratingValue[i] = rating.first;
         }
     }
+    public void setEnabled (boolean enabled)
+    {
+        ratingEnabled = enabled;
+    }
+    public boolean isEnabled ()
+    {
+        return ratingEnabled;
+    }
+    public float[] getRatingValues()
+    {
+        return ratingValue;
+    }
+    public String[] getRatingNames()
+    {
+        return ratingName;
+    }
+
 
     public int getAudioId () { return audioId; }
     public int getCommentTime (int index)

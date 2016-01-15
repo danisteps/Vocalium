@@ -240,6 +240,20 @@ public class DatabaseManager {
         }
         return results.get(0).getString("Name");
     }
+    public static int getCommentId(int soundId)
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Sound");
+        query.whereEqualTo("SoundId", soundId);
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return results.get(0).getInt("CommentId");
+    }
 
     public static List<ParseObject> getStudentsFromTutor(int id)
     {
@@ -260,6 +274,20 @@ public class DatabaseManager {
     {
         ParseQuery<ParseObject> query=ParseQuery.getQuery("Sound");
         query.whereEqualTo("TutorId", tutorId).whereEqualTo("StudentId", studentId);
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+    public static List<ParseObject> getSoundsCommented (int tutorId, int studentId)
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Sound");
+        query.whereEqualTo("TutorId", tutorId).whereEqualTo("StudentId", studentId).whereNotEqualTo("CommentId", -1);
 
         List<ParseObject> results = null;
         try {
@@ -429,12 +457,25 @@ public class DatabaseManager {
         obj.put("TutorId", tutorId);
         obj.put("StudentId", studentId);
         obj.put("SoundId", soundId);
+        obj.put("CommentId", -1);
         obj.saveInBackground();
     }
     public static void saveComment(int soundId, int commentId)
     {
-        ParseObject obj = new ParseObject("Comment");
-        obj.put("SoundId", soundId);
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Sound");
+        query.whereEqualTo("SoundId", soundId);
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(results.size() == 0)
+            return;
+        ParseObject obj = results.get(0);
         obj.put("CommentId", commentId);
         obj.saveInBackground();
     }
@@ -652,6 +693,13 @@ public class DatabaseManager {
             student.saveInBackground();
         }
     }
+
+    public static void eraseComment (ParseObject sound)
+    {
+        sound.put("CommentId", -1);
+        sound.saveInBackground();
+    }
+
     //DatabaseManager.signUpTutor("joao", "João da silva", "123456".hashCode());
     //DatabaseManager.signUpStudent("creuza", "Creuza ana", "987654".hashCode(), 1);
     //DatabaseManager.signUpStudent("marco", "Marco Araujo", "321654".hashCode(), 1);

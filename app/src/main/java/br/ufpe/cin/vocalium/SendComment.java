@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.io.IOException;
 
 import AudioUtils.AudioComment;
+import Utils.DatabaseManager;
 import Utils.FileManager;
 import Utils.ServerConnection;
 import Utils.UserInformation;
@@ -60,6 +61,7 @@ public class SendComment extends AppCompatActivity {
                 }
                 try {
                     FileManager.saveComment(activity, comment, ""+newId);
+                    DatabaseManager.saveComment(UserInformation.getInstance().GetAudioId(), newId);
                 } catch (IOException e) {
                     Log.e("COMMENT_ERROR", "error saving new file");
                 }

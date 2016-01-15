@@ -194,6 +194,7 @@ public class ServerConnection {
             } catch (InvocationTargetException e) {
                 Log.e("POST_ERROR", "Error on callback");
             }
+            callbackSet = false;
             failureCallbackSet = false;
         }
     }
@@ -216,6 +217,7 @@ public class ServerConnection {
             } catch (InvocationTargetException e) {
                 Log.e("POST_ERROR", "Error on callback");
             }
+            failureCallbackSet = false;
             callbackSet = false;
         }
     }

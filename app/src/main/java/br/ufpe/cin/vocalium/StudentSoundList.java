@@ -31,9 +31,9 @@ import Utils.UserInformation;
 public class StudentSoundList extends AppCompatActivity {
 
     //private final static Class backActivity = StudentSoundList.class;
-    private final static Class commentSoundActivity = MainActivity.class;
+    private final static Class commentSoundActivity = DownloadStudent.class;
     private final static Class recordSoundActivity = MainActivity.class;
-    public final static String EXTRA_INTENT_MESSAGE = "br.ufpe.cin.vocalium.AUDIO_ID_MESSAGE";
+    public final static String EXTRA_INTENT_MESSAGE = "br.ufpe.cin.vocalium.AUDIO_NUMBER_MESSAGE";
     private int status;
     FloatingActionButton floatingButton;
 
@@ -60,7 +60,7 @@ public class StudentSoundList extends AppCompatActivity {
                 Log.e("POST_ERROR", "Clicado no item: " + position + ", com id : " + soundId);
 
                 UserInformation.getInstance().SetAudioId(soundId);
-                changeCommentActivity(soundId);
+                changeCommentActivity(position);
             }
         });
 
@@ -121,7 +121,7 @@ public class StudentSoundList extends AppCompatActivity {
         Pair<Integer, String>[] elementsPair;
 
         UserInformation user = UserInformation.getInstance();
-        List<ParseObject> results = DatabaseManager.getSounds(user.GetTutorId(), user.GetStudentId());
+        List<ParseObject> results = DatabaseManager.getSoundsCommented(user.GetTutorId(), user.GetStudentId());
         elementsPair = new Pair[results.size()];
 
         for(int i = 0; i < results.size(); i ++)
@@ -134,10 +134,10 @@ public class StudentSoundList extends AppCompatActivity {
         listView.setAdapter(new SoundRowAdapter(this, elementsPair));
     }
 
-    private void changeCommentActivity(int soundId)
+    private void changeCommentActivity(int soundNumber)
     {
         Intent intent = new Intent(this, commentSoundActivity);
-        intent.putExtra(EXTRA_INTENT_MESSAGE, soundId);
+        intent.putExtra(EXTRA_INTENT_MESSAGE, soundNumber);
         startActivity(intent);
     }
 
@@ -189,7 +189,7 @@ public class StudentSoundList extends AppCompatActivity {
             @Override
             public void run() {
                 //only runs if there is no tutor yet
-                while (status!= 2)
+                while (status != 2)
                 {
                     activity.runOnUiThread(new Runnable() {
                         @Override
@@ -205,4 +205,9 @@ public class StudentSoundList extends AppCompatActivity {
                 }
             }
         }).start();    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

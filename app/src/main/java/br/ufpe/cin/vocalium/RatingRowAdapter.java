@@ -18,6 +18,7 @@ public class RatingRowAdapter extends BaseAdapter {
     private Context context;
     private Pair<Float, String>[] ratings;
     private static LayoutInflater inflater;
+    private boolean enabled = true;
 
     public RatingRowAdapter (Context context, String[] ratingNames)
     {
@@ -28,6 +29,20 @@ public class RatingRowAdapter extends BaseAdapter {
         for(int i = 0; i < ratingNames.length; i ++)
         {
             ratings[i] = new Pair<>(0f, ratingNames[i]);
+        }
+
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+    public RatingRowAdapter (Context context, String[] ratingNames, float[] ratingValue)
+    {
+        enabled = false;
+        this.context = context;
+
+        ratings = new Pair[ratingNames.length];
+
+        for(int i = 0; i < ratingNames.length; i ++)
+        {
+            ratings[i] = new Pair<>(ratingValue[i], ratingNames[i]);
         }
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -66,6 +81,11 @@ public class RatingRowAdapter extends BaseAdapter {
                 Log.e("COMMENT_ERROR", "rating " + position + " changed to: " + rating);
             }
         });
+
+        if(!enabled)
+        {
+            ratingBar.setClickable(false);
+        }
 
 
         return vi;

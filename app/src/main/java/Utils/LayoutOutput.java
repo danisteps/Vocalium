@@ -34,7 +34,7 @@ public class LayoutOutput {
 
     //-----------------AudioCommentPlayer--------------------
     public static void ChangeStudentCommentText (String text, Activity activity) {
-        TextView textView = (TextView)activity.findViewById(R.id.studentCommentText);        ///find e r?
+        TextView textView = (TextView)activity.findViewById(R.id.comment_show_text_student);        ///find e r?
         textView.setText(text);
     }
     //----------------TutorHearComment-----------------------
@@ -126,6 +126,35 @@ public class LayoutOutput {
         RelativeLayout insertionPoint = (RelativeLayout) activity.findViewById(R.id.layout_text_field_insertion);
         insertionPoint.removeAllViews();
     }
+
+    //---------------------------------------Student listen Comment------------------
+    public static void changeEndTimeChronometerStudent(int miliseconds, Activity activity)
+    {
+        int seconds = (int)(miliseconds / 1000) % 60;
+        int minutes = (int)(miliseconds / 60000);
+
+        Chronometer currentChronometer = (Chronometer) activity.findViewById(R.id.audio_end_time_chronometer_student);
+        currentChronometer.setText(String.format("%02d:%02d", minutes, seconds));
+    }
+    public static void changeCommentText(String text, Activity activity)
+    {
+        Log.e("COMMENT_ERROR", "changing comment");
+        TextView commentView = (TextView) activity.findViewById(R.id.comment_show_text_student);
+        commentView.setText(text);
+    }
+    public static void updateStudentListenComment (MediaPlayer mediaPlayer, Activity activity)
+    {
+        ProgressBar bar = (ProgressBar) activity.findViewById(R.id.student_hear_comment_progress_bar);
+        bar.setProgress((int)AudioPlayerManager.getMediaCurrentPercentage(mediaPlayer)*10);
+
+        int currentTime = mediaPlayer.getCurrentPosition();
+        int seconds = (int)(currentTime / 1000) % 60;
+        int minutes = (int)(currentTime / 60000);
+
+        Chronometer currentChronometer = (Chronometer) activity.findViewById(R.id.audio_current_time_chronometer_student);
+        currentChronometer.setText(String.format("%02d:%02d", minutes, seconds));
+    }
+
 
 
 }

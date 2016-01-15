@@ -82,6 +82,7 @@
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -93,6 +94,10 @@
         <activity android:name=".TutorStudentList" >
         </activity>
         <activity android:name=".DownloadTutor" >
+        </activity>
+        <activity android:name=".DownloadStudent" >
+        </activity>
+        <activity android:name=".StudentRatingList" >
         </activity>
     </application>
 

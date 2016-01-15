@@ -98,7 +98,7 @@ public class FileManager {
 
         return audioComment;
     }
-    public static void verifyOrCreateTutor (String path, final String fileName, final Activity object, final Method onFinishFunction, final Method onErrorFunction)
+    public static void verifyOrCreate(String path, final String fileName, final ServerConnection.FileType type, final Activity object, final Method onFinishFunction, final Method onErrorFunction)
     {
         File file = new File(path);
         if(!file.exists())
@@ -111,7 +111,7 @@ public class FileManager {
                     server.setFailureCallback(onErrorFunction, object);
                     server.setCallback(onFinishFunction, object);
 
-                    server.GetFile(object, fileName, ServerConnection.FileType.Sound);
+                    server.GetFile(object, fileName, type);
                 }
             }).start();
         }
@@ -127,6 +127,7 @@ public class FileManager {
             }
         }
     }
+
 
 
 
