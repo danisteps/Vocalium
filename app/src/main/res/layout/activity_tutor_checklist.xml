@@ -78,7 +78,7 @@
         android:layout_height="match_parent"
         android:id="@+id/scrollView_CheckList"
         android:layout_below="@+id/editText4"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="170dp"
         android:fillViewport="true">
 
         <ListView
@@ -90,29 +90,62 @@
 
         </ListView>
     </ScrollView>
-
-    <Button
-        style="@android:style/DeviceDefault.Light.SegmentedButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="        enviar         "
-        android:id="@+id/send_button_tutor_checklist"
-        android:background="#fe6012"
-        android:textColor="#fdfcfc"
+        android:orientation="horizontal"
+        android:id="@+id/layout_send_button"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/Ativar"
-        android:layout_marginRight="34dp" />
+        android:layout_centerHorizontal="true"
+        android:weightSum="1">
+        <Button
+            style="@android:style/DeviceDefault.Light.SegmentedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="enviar"
+            android:id="@+id/send_button_tutor_checklist"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="#fe6012"
+            android:textColor="#fdfcfc"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="55dp"
+            android:textAllCaps="false"/>
+    </LinearLayout>
 
-    <Button
-        style="@android:style/DeviceDefault.Light.SegmentedButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="  add fator  "
-        android:id="@+id/fator"
-        android:background="#484cfc"
-        android:textColor="#fdfdfd"
-        android:layout_alignTop="@+id/send_button_tutor_checklist"
-        android:layout_toLeftOf="@+id/send_button_tutor_checklist"
-        android:layout_marginRight="28dp" />
+        android:orientation="horizontal"
+        android:layout_above="@+id/layout_send_button"
+        android:weightSum="1"
+        android:layout_marginBottom="20dp">
+        <Button
+            style="@android:style/DeviceDefault.Light.SegmentedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  add fator  "
+            android:id="@+id/fator"
+            android:background="@drawable/rounded_corners"
+            android:textColor="#fdfdfd"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="0dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:backgroundTint="#484cfc"
+            android:textAllCaps="false"
+            android:textSize="30dp" />
+    </LinearLayout>
 
 </RelativeLayout>
