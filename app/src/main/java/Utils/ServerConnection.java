@@ -3,7 +3,9 @@ package Utils;
 import android.content.Context;
 import android.util.Log;
 
+import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -18,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.Proxy;
 
 
 /**
@@ -35,6 +38,18 @@ public class ServerConnection {
     private ServerConnection() {
         client = new OkHttpClient();
 
+        client.setAuthenticator(new Authenticator() {
+            @Override
+            public Request authenticate(Proxy proxy, Response response) throws IOException {
+                String credential = Credentials.basic("root", "JustCause");
+                return response.request().newBuilder().header("Authorization", credential).build();
+            }
+
+            @Override
+            public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
+                return null;
+            }
+        });
     }
 
     private Method callbackFunction;
@@ -55,7 +70,7 @@ public class ServerConnection {
     }
 
     private final OkHttpClient client;
-    private final String soundUrl = "http://192.168.1.113/Vocalium/";
+    private final String soundUrl = "http://104.236.69.4/";
     public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");
 
     //this must be called inside a thread!!!
