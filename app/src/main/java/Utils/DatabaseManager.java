@@ -509,6 +509,27 @@ public class DatabaseManager {
         obj.put("RatingName", ratingName);
         obj.saveInBackground();
     }
+    public static void removeRatingName (int tutorId, String ratingName)
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Rating");
+        query.whereEqualTo("TutorId", tutorId).whereEqualTo("RatingName", ratingName);
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(results.size() == 0)
+            return;
+        try {
+            results.get(0).delete();
+        } catch (ParseException e) {
+            Log.e("DATABASE_ERROR", "error deleting rating");
+        }
+    }
     public static String[] getRatingNames (int tutorId)
     {
         ParseQuery<ParseObject> query=ParseQuery.getQuery("Rating");

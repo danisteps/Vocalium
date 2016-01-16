@@ -29,6 +29,8 @@ public class TutorHearComm extends AppCompatActivity {
     private TextView commentView;
     private View.OnClickListener sendButtonListener;
     public final static String EXTRA_INTENT_MESSAGE = "br.ufpe.cin.vocalium.COMMENT_MESSAGE";
+
+    int itemNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,7 @@ public class TutorHearComm extends AppCompatActivity {
         //change start text
         TextView audioName = (TextView)findViewById(R.id.audio_name_tutor_textview);
 
-        int itemNumber = getIntent().getIntExtra(TutorSoundList.EXTRA_INTENT_MESSAGE, -1);
+        itemNumber = getIntent().getIntExtra(TutorSoundList.EXTRA_INTENT_MESSAGE, -1);
         if(itemNumber != -1)
         {
             audioName.setText("Áudio " + itemNumber);
@@ -175,6 +177,7 @@ public class TutorHearComm extends AppCompatActivity {
         player.Release();
         Intent intent = new Intent(this, nextActivity);
         intent.putExtra(EXTRA_INTENT_MESSAGE, player.getComments());
+        intent.putExtra(TutorSoundList.EXTRA_INTENT_MESSAGE, itemNumber);
         startActivity(intent);
         finish();
     }

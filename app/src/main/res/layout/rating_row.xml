@@ -3,7 +3,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/RatingText"
@@ -16,7 +16,9 @@
         android:layout_toRightOf="@+id/RatingBar"
         android:layout_alignBottom="@+id/RatingBar"
         android:layout_alignTop="@+id/RatingBar"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:focusableInTouchMode="false"
+        android:focusable="false" />
 
     <RatingBar
         android:layout_width="wrap_content"
