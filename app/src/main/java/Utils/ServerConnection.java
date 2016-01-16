@@ -22,7 +22,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Proxy;
 
-
 /**
  * Created by Délio on 02/01/2016.
  */
@@ -140,8 +139,20 @@ public class ServerConnection {
 
         UserInformation user = UserInformation.getInstance();
 
-        //still have to find the id of the file
+        //still have to find the id of the file;
         final File file = new File(filePath);
+
+        int size = (int) file.length();
+        byte[] bytes = new byte[size];
+        try {
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            bis.read(bytes, 0, bytes.length);
+            bis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //verifyFileExists(file);
 
@@ -179,7 +190,7 @@ public class ServerConnection {
                     lastIdSet = newId;
 
                     if(fileType == FileType.Sound)
-                        DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId);
+                        DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId, filePath, bytes);
                     else
                         DatabaseManager.saveComment(user.GetAudioId(), newId);
                     callback();
