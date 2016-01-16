@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -472,13 +473,17 @@ public class DatabaseManager {
         obj.put("LoginType", typeName);
         obj.saveInBackground();
     }
-    public static void saveSound(int tutorId, int studentId, int soundId)
+    public static void saveSound(int tutorId, int studentId, int soundId, String filePath, byte[] bytes)
     {
+        ParseFile file = new ParseFile(filePath, bytes);
+        file.saveInBackground();
+
         ParseObject obj = new ParseObject("Sound");
         obj.put("TutorId", tutorId);
         obj.put("StudentId", studentId);
         obj.put("SoundId", soundId);
         obj.put("CommentId", -1);
+        obj.put("SoundFile", file);
         obj.saveInBackground();
     }
     public static void saveComment(int soundId, int commentId)
