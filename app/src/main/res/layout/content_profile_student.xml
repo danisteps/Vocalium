@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#009cff"
+        android:background="#ff5a00"
         android:minHeight="80dp">
 
         <TextView
@@ -34,7 +34,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/list_view_student_sound_list"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:dividerHeight="0dp"
+            android:divider="@null" />
 
     </ScrollView>
 

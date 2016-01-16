@@ -1,86 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="10dp"
-    tools:context="br.ufpe.cin.vocalium.StudentRatingList">
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:id="@+id/CheckList"
-        android:background="#3134fd"
-        android:layout_gravity="fill"
-        android:adjustViewBounds="false"
-        android:layout_alignParentLeft="true"
-        android:tint="#009bff"
-        android:layout_alignRight="@+id/Check"
-        android:layout_alignParentTop="true" />
+    tools:context="br.ufpe.cin.vocalium.StudentRatingList"
+    android:layout_weight="1">
 
     <EditText
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/Check"
         android:layout_gravity="left|top"
         android:text="Check List"
-        android:background="#00ffffff"
+        android:background="#ff5a00"
         android:layout_alignParentRight="false"
-        android:layout_alignParentTop="false"
         android:layout_alignParentLeft="false"
         android:gravity="center"
         android:textColor="#fcf9f9"
         android:textSize="40dp"
-        android:layout_above="@+id/Ativar"
+        android:layout_above="@+id/scrollView_CheckList"
         android:inputType="none"
         android:editable="false"
-        android:enabled="false" />
+        android:enabled="false"
+        android:layout_below="@+id/CheckList"
+        android:layout_weight="0"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:id="@+id/editText4"
-        android:background="#ff5a01"
-        android:layout_gravity="right|top"
-        android:adjustViewBounds="false"
-        android:layout_alignParentLeft="true"
-        android:tint="#ff8000"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="60dp"
-        android:layout_alignTop="@+id/CheckList" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ativar"
-        android:id="@+id/Ativar"
-        android:layout_gravity="center_horizontal|top"
-        android:checked="false"
-        android:layout_alignTop="@+id/editText4"
-        android:layout_alignBottom="@+id/editText4"
-        android:layout_alignRight="@+id/editText4"
-        android:layout_toRightOf="@+id/editText4"
-        android:layout_marginLeft="10dp"
-        android:layout_alignLeft="@+id/editText4"
-        android:layout_marginRight="10dp"
-        android:textColor="#fbfbfb"
-        android:textSize="20dp"
-        android:singleLine="false"
-        style="@style/AppTheme"
-        android:capitalize="none"
-        android:clickable="false" />
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/scrollView_CheckList"
-        android:layout_below="@+id/editText4"
-        android:layout_marginBottom="100dp"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:layout_weight="0.3">
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/ListView_CheckList_student"
-            android:layout_below="@+id/editText4"
+            android:layout_below="@+id/CheckList"
             android:layout_alignParentLeft="true">
 
 
@@ -88,16 +49,30 @@
     </ScrollView>
 
 
-    <Button
-        style="@android:style/DeviceDefault.Light.SegmentedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="  Concluir  "
-        android:id="@+id/next_button_rating_student"
-        android:background="#484cfc"
-        android:textColor="#fdfdfd"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7">
+        <Button
+            style="@android:style/DeviceDefault.Light.SegmentedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="  Concluir  "
+            android:id="@+id/next_button_rating_student"
+            android:textColor="#fdfdfd"
+            android:layout_weight="0.4"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:textAllCaps="false"
+            android:textSize="30dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:backgroundTint="#ff5a00"
+            android:background="@drawable/rounded_corners_blue" />
+    </RelativeLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

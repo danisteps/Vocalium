@@ -131,7 +131,7 @@ public class StudentSoundList extends AppCompatActivity {
 
         }
 
-        listView.setAdapter(new SoundRowAdapter(this, elementsPair));
+        listView.setAdapter(new SoundRowAdapter(this, elementsPair, true));
     }
 
     private void changeCommentActivity(int soundNumber)

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#009cff"
+        android:background="#ff5a00"
         android:minHeight="80dp">
 
         <TextView
@@ -150,7 +150,11 @@
                     android:text="Próximo"
                     android:layout_marginTop="40dp"
                     android:contentDescription="comment"
-                    android:layout_weight="28.99" />
+                    android:layout_weight="28.99"
+                    android:background="@drawable/rounded_corners_orange"
+                    android:textColor="#ffffff"
+                    android:textAllCaps="false"
+                    android:textSize="30dp" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -164,10 +168,11 @@
                 android:layout_height="match_parent"
                 android:id="@+id/layout_text_field_insertion_student"
                 android:layout_weight="0.18"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/rounded_corners"
-                android:minHeight="60dp">
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/rounded_corners_blue"
+                android:minHeight="60dp"
+                android:layout_marginBottom="30dp">
 
                 <TextView
                     android:layout_width="wrap_content"

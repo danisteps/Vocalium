@@ -37,7 +37,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_corners"
+                    android:background="@drawable/rounded_corners_blue"
                     android:layout_marginTop="50dp"
                     android:layout_marginBottom="2dp">
 
@@ -58,7 +58,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_corners">
+                    android:background="@drawable/rounded_corners_blue">
 
                     <EditText
                         android:layout_width="match_parent"

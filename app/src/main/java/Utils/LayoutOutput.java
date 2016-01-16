@@ -4,10 +4,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -61,26 +62,22 @@ public class LayoutOutput {
     public static EditText enableCommentView(Activity activity)
     {
         EditText commentView = new EditText(activity);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        commentView.setLayoutParams(layoutParams);
-        commentView.setPadding(10, 6, 10, 7);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
+        layoutParams.setMargins(40, 10, 40, 50);
+        commentView.setLayoutParams(layoutParams);
+
+        commentView.setTextColor(Color.parseColor("#ffffff"));
         commentView.setGravity(Gravity.TOP);
 
-        RelativeLayout insertionPoint = (RelativeLayout) activity.findViewById(R.id.layout_text_field_insertion);
+        LinearLayout insertionPoint = (LinearLayout) activity.findViewById(R.id.layout_text_field_insertion);
         insertionPoint.addView(commentView);
 
 
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            insertionPoint.setBackground(activity.getDrawable( R.drawable.rounded_corners));
+            commentView.setBackground(activity.getDrawable( R.drawable.rounded_corners_blue));
         } else {
-            insertionPoint.setBackground(activity.getResources().getDrawable(R.drawable.rounded_corners));
+            commentView.setBackground(activity.getResources().getDrawable(R.drawable.rounded_corners_blue));
         }
 
         return commentView;
@@ -94,25 +91,32 @@ public class LayoutOutput {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
-        RelativeLayout insertionPoint = (RelativeLayout) activity.findViewById(R.id.layout_text_field_insertion);
+        LinearLayout insertionPoint = (LinearLayout) activity.findViewById(R.id.layout_text_field_insertion);
         insertionPoint.removeAllViews();
 
         insertionPoint.setBackground(null);
     }
-    public static ImageButton showSendButton(Activity activity)
+    public static Button showSendButton(Activity activity)
     {
-        ImageButton sendButton = new ImageButton(activity);
-        RelativeLayout insertionPoint = (RelativeLayout) activity.findViewById(R.id.layout_text_field_insertion);
+        Button sendButton = new Button(activity);
+        LinearLayout insertionPoint = (LinearLayout) activity.findViewById(R.id.layout_text_field_insertion);
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
-        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        layoutParams.setMargins(30, 20, 30, 0);
+        //layoutParams
+        sendButton.setText("Enviar");
+        sendButton.setTextColor(Color.parseColor("#ffffff"));
+        sendButton.setAllCaps(false);
+        sendButton.setLayoutParams(layoutParams);
+        sendButton.setPadding(0, 15, 0, 15);
+        sendButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP * 50);
 
 
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            sendButton.setBackground(activity.getDrawable( R.drawable.send_button_small));
+            sendButton.setBackground(activity.getDrawable( R.drawable.rounded_corners_orange));
         } else {
-            sendButton.setBackground(activity.getResources().getDrawable(R.drawable.send_button_small));
+            sendButton.setBackground(activity.getResources().getDrawable(R.drawable.rounded_corners_orange));
         }
 
         sendButton.setLayoutParams(layoutParams);
@@ -123,7 +127,7 @@ public class LayoutOutput {
     }
     public static void hideSendButton(Activity activity)
     {
-        RelativeLayout insertionPoint = (RelativeLayout) activity.findViewById(R.id.layout_text_field_insertion);
+        LinearLayout insertionPoint = (LinearLayout) activity.findViewById(R.id.layout_text_field_insertion);
         insertionPoint.removeAllViews();
     }
 
@@ -140,6 +144,7 @@ public class LayoutOutput {
     {
         Log.e("COMMENT_ERROR", "changing comment");
         TextView commentView = (TextView) activity.findViewById(R.id.comment_show_text_student);
+        commentView.setTextColor(Color.parseColor("#ffffff"));
         commentView.setText(text);
     }
     public static void updateStudentListenComment (MediaPlayer mediaPlayer, Activity activity)

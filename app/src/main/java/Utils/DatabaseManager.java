@@ -298,6 +298,27 @@ public class DatabaseManager {
         }
         return results;
     }
+    public static boolean isCommented (int soundId)
+    {
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("Sound");
+        query.whereEqualTo("SoundId", soundId);
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(results.size() > 0)
+        {
+            if(results.get(0).getInt("CommentId") != -1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static ParseObject getRequest (int tutorId, int studentId)
     {

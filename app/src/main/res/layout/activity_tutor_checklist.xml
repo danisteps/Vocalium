@@ -13,11 +13,11 @@
         android:layout_width="fill_parent"
         android:layout_height="60dp"
         android:id="@+id/CheckList"
-        android:background="#3134fd"
+        android:background="#00afff"
         android:layout_gravity="fill"
         android:adjustViewBounds="false"
         android:layout_alignParentLeft="true"
-        android:tint="#009bff"
+        android:tint="#00afff"
         android:layout_alignRight="@+id/Check"
         android:layout_alignParentTop="true" />
 
@@ -27,7 +27,6 @@
         android:id="@+id/Check"
         android:layout_gravity="left|top"
         android:text="Check List"
-        android:background="#00ffffff"
         android:layout_alignParentRight="false"
         android:layout_alignParentTop="false"
         android:layout_alignParentLeft="false"
@@ -104,7 +103,7 @@
             android:layout_height="wrap_content"
             android:text="enviar"
             android:id="@+id/send_button_tutor_checklist"
-            android:background="@drawable/rounded_corners"
+            android:background="@drawable/rounded_corners_blue"
             android:backgroundTint="#fe6012"
             android:textColor="#fdfcfc"
             android:layout_gravity="bottom"
@@ -132,7 +131,7 @@
             android:layout_height="wrap_content"
             android:text="  add fator  "
             android:id="@+id/fator"
-            android:background="@drawable/rounded_corners"
+            android:background="@drawable/rounded_corners_blue"
             android:textColor="#fdfdfd"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
@@ -143,7 +142,7 @@
             android:layout_marginEnd="100dp"
             android:layout_marginLeft="100dp"
             android:layout_marginRight="100dp"
-            android:backgroundTint="#484cfc"
+            android:backgroundTint="#00afff"
             android:textAllCaps="false"
             android:textSize="30dp" />
     </LinearLayout>

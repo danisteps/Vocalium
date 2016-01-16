@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#009cff"
+        android:background="#00afff"
         android:minHeight="80dp">
 
         <TextView
@@ -93,7 +93,7 @@
                     android:layout_alignParentEnd="true"
                     android:textSize="25dp"
                     android:paddingRight="10dp"
-                    android:textColor="@color/background_floating_material_dark" />
+                    android:textColor="#00afff" />
             </RelativeLayout>
 
             <LinearLayout
@@ -121,7 +121,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.19"
                 android:weightSum="100"
-                android:minHeight="60dp">
+                android:minHeight="130dp">
 
 
                 <Space
@@ -143,15 +143,22 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="30" />
 
-                <ImageButton
+                <Button
+                    android:text="Commentar"
+                    android:textAllCaps="false"
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
                     android:id="@+id/comment_button_tutor_hear"
-                    android:background="@drawable/comment_button_small"
-                    android:src="@null"
-                    android:layout_marginTop="40dp"
+                    android:background="@drawable/rounded_corners_orange"
                     android:contentDescription="comment"
-                    android:layout_weight="28.99" />
+                    android:layout_weight="28.99"
+                    android:layout_height="match_parent"
+                    android:textColor="#ffffff"
+                    android:textSize="35dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:minHeight="100dp" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -160,21 +167,18 @@
 
 
             </LinearLayout>
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/layout_text_field_insertion"
                 android:layout_weight="0.18"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:minHeight="60dp">
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/send_button_small"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
-            </RelativeLayout>
+                android:minHeight="150dp"
+                android:weightSum="1">
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

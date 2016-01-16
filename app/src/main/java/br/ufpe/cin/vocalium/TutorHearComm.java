@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -77,7 +78,7 @@ public class TutorHearComm extends AppCompatActivity {
             }
         });
 
-        ImageButton commentButton = (ImageButton) findViewById(R.id.comment_button_tutor_hear);
+        Button commentButton = (Button) findViewById(R.id.comment_button_tutor_hear);
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +144,7 @@ public class TutorHearComm extends AppCompatActivity {
         }
     }
     private void showSendButton() {
-        ImageButton sendButton = LayoutOutput.showSendButton(this);
+        Button sendButton = LayoutOutput.showSendButton(this);
         sendButton.setOnClickListener(sendButtonListener);
     }
 

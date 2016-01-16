@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#009cff"
+        android:background="#ff5a00"
         android:minHeight="80dp">
 
         <TextView

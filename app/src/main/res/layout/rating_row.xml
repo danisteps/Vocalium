@@ -9,7 +9,7 @@
         android:id="@+id/RatingText"
         android:text="Afinação"
         android:background="#05ffffff"
-        android:textColor="#0fcdff"
+        android:textColor="#00afff"
         android:textSize="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -24,6 +24,9 @@
         android:id="@+id/RatingBar"
         android:background="#00ffffff"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:progressTint="#00afff"
+        android:progressBackgroundTint="#00afff"
+        android:secondaryProgressTint="#00afff" />
 
 </RelativeLayout>

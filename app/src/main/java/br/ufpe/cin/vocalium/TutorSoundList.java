@@ -65,7 +65,7 @@ public class TutorSoundList extends AppCompatActivity {
 
         }
 
-        listView.setAdapter(new SoundRowAdapter(this, elementsPair));
+        listView.setAdapter(new SoundRowAdapter(this, elementsPair, true));
     }
 
     private void changeActivity(int itemSelected)
