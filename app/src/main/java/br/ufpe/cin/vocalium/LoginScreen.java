@@ -14,6 +14,7 @@ import android.widget.EditText;
 import Utils.DatabaseManager;
 import Utils.FileManager;
 import Utils.UserInformation;
+import android.widget.TextView;
 
 public class LoginScreen extends AppCompatActivity {
     private final static Class nextTutorActivity = TutorStudentList.class;
@@ -39,7 +40,7 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
-        Button signupButton = (Button) findViewById(R.id.signup_button);
+        TextView signupButton = (TextView) findViewById(R.id.signup_button);
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
