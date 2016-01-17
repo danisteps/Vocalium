@@ -15,7 +15,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cadastro"
-            android:id="@+id/audio_name_student_textview"
             android:background="@android:color/transparent"
             android:textAlignment="center"
             android:textColor="#ffffff"
@@ -34,13 +33,15 @@
         android:ems="10"
         android:id="@+id/nameSignup"
         android:layout_gravity="center_horizontal"
-        android:hint="Nome" />
+        android:hint="Nome"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/usernameSignup"
-        android:hint="username" />
+        android:hint="username"
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -48,7 +49,8 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/senhaSignup"
-        android:hint="Senha" />
+        android:hint="Senha"
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -56,16 +58,18 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/confirmaSenha"
-        android:hint="Confirma senha" />
+        android:hint="Confirma senha"
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/emailSignup"
-        android:hint="e-mail" />
+        android:hint="e-mail"
+        android:layout_marginTop="10dp" />
 
     <RadioGroup
-        android:id="@+id/radioSex"
+        android:id="@+id/radioFuncao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
@@ -75,21 +79,25 @@
         android:id="@+id/radioProfessorSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Professor" />
+        android:text="Professor"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp" />
 
     <RadioButton
         android:id="@+id/radioAlunoSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Aluno"
-        android:checked="true" />
+        android:checked="true"
+        android:layout_marginLeft="20dp" />
 
     <Button
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="Confirmar"
-        android:id="@+id/button3"
+        android:id="@+id/confirmarSignup"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.06" />
+        android:layout_weight="0.06"
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>
