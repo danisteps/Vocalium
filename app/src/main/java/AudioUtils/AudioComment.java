@@ -2,10 +2,13 @@ package AudioUtils;
 
 import android.support.v4.util.Pair;
 import android.util.Log;
+import android.widget.ListAdapter;
 import android.widget.RatingBar;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Vector;
 
 import br.ufpe.cin.vocalium.RatingRowAdapter;
@@ -17,13 +20,16 @@ public class AudioComment implements Serializable {
     private int audioId;
     private Vector<Integer> commentTime;
     private Vector<String> commentText;
-    private Pair<String, Float>[] ratings;
+    private float[] ratingValue;
+    private String[] ratingName;
+    private boolean ratingEnabled;
 
     public AudioComment(int id)
     {
         audioId = id;
         commentTime = new Vector<>();
         commentText = new Vector<>();
+        ratingEnabled = true;
     }
     public void addComment(int time, String text)
     {
@@ -36,10 +42,34 @@ public class AudioComment implements Serializable {
         commentText.removeElementAt(index);
         commentTime.removeElementAt(index);
     }
-    public void setRatings(RatingRowAdapter ratings)
+    public void setRatings(ListAdapter adapter)
     {
-
+        ratingName = new String[adapter.getCount()];
+        ratingValue = new float[adapter.getCount()];
+        for(int i = 0; i < adapter.getCount(); i ++)
+        {
+            Pair<Float, String> rating = (Pair<Float, String>) adapter.getItem(i);
+            ratingName[i] = rating.second;
+            ratingValue[i] = rating.first;
+        }
     }
+    public void setEnabled (boolean enabled)
+    {
+        ratingEnabled = enabled;
+    }
+    public boolean isEnabled ()
+    {
+        return ratingEnabled;
+    }
+    public float[] getRatingValues()
+    {
+        return ratingValue;
+    }
+    public String[] getRatingNames()
+    {
+        return ratingName;
+    }
+
 
     public int getAudioId () { return audioId; }
     public int getCommentTime (int index)

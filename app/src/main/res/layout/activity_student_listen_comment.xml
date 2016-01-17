@@ -1,43 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aw="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#ffffff">
 
-    <!--<android.support.design.widget.AppBarLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar2"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.90"
-        android:background="#009cff">
+        android:background="#ff5a00"
+        android:minHeight="80dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="nada"
-            android:id="@+id/studentCommentText"
+            android:text="@string/audio_name_tutor"
+            android:id="@+id/audio_name_student_textview"
             android:background="@android:color/transparent"
             android:textAlignment="center"
             android:textColor="#ffffff"
-            android:textSize="50dp"
+            android:textSize="50sp"
             android:layout_gravity="center"
-            android:layout_centerInParent="true" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:minHeight="40dp"
+            android:maxHeight="60dp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView"
+        android:fillViewport="true"
+        android:measureAllChildren="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/linear_layout_base_size"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.18"
+                android:minHeight="60dp">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"/>
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/student_hear_comment_progress_bar"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_weight="8"
+                    android:max="1000" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"/>
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.23"
+                android:weightSum="1"
+                android:minHeight="20dp">
+
+                <Chronometer
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/audio_end_time"
+                    android:id="@+id/audio_end_time_chronometer_student"
+                    android:layout_weight="0.20"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="25dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/background_floating_material_dark" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.22"
+                android:paddingLeft="40dp"
+                android:weightSum="1"
+                android:minHeight="40dp">
+
+                <Chronometer
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/audio_current_time"
+                    android:id="@+id/audio_current_time_chronometer_student"
+                    android:layout_weight="0.16"
+                    android:textSize="45dp"
+                    android:textColor="@color/material_deep_teal_500" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.19"
+                android:weightSum="100"
+                android:minHeight="60dp">
+
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"/>
+
+                <ImageButton
+                    android:layout_width="83dp"
+                    android:layout_height="76dp"
+                    android:id="@+id/play_button_student"
+                    android:background="@drawable/play_button_tutor"
+                    android:contentDescription="play"
+                    android:layout_marginTop="25dp"/>
+
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:id="@+id/next_button_student_listen"
+                    android:text="Próximo"
+                    android:layout_marginTop="40dp"
+                    android:contentDescription="comment"
+                    android:layout_weight="28.99"
+                    android:background="@drawable/rounded_corners_orange"
+                    android:textColor="#ffffff"
+                    android:textAllCaps="false"
+                    android:textSize="30dp" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/layout_text_field_insertion_student"
+                android:layout_weight="0.18"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/rounded_corners_blue"
+                android:minHeight="60dp"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/comment_show_text_student"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="5dp"
+                    android:textSize="23dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

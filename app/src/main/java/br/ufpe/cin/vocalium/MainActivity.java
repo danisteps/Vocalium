@@ -38,36 +38,7 @@ public final class MainActivity extends AppCompatActivity {
                 new Thread() {
                     @Override
                     public void run() {
-                        android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);
-
-                        int bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
-
-                        short[] buffer = new short[bufferSize / 2];
-
-                        try {
-                            _track = new VorbisFileOutputStream("/mnt/sdcard/voz.ogg");
-                        } catch (IOException ignored) {
-                        }
-                        //_track = new AudioTrack(AudioUtils.AudioPlayerManager.STREAM_MUSIC, SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
-                        //_track.play();
-
-                        _record = new AudioRecord(MediaRecorder.AudioSource.VOICE_RECOGNITION, SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize);
-
-                        NoiseSuppressor.create(_record.getAudioSessionId()).setEnabled(true);
-                        AcousticEchoCanceler.create(_record.getAudioSessionId()).setEnabled(true);
-                        AutomaticGainControl.create(_record.getAudioSessionId()).setEnabled(true);
-
-                        _record.startRecording();
-
-                        while (!_stop) {
-                            _record.read(buffer, 0, buffer.length);
-
-                            try {
-                                _track.write(buffer, 0, buffer.length);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                        startRecording();
                     }
                 }.start();
             }
@@ -76,16 +47,62 @@ public final class MainActivity extends AppCompatActivity {
         stopRecordingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _stop = true;
-
-                _record.stop();
-                _record.release();
-
-                try {
-                    _track.close();
-                } catch (IOException ignored) {
-                }
+                stopRecording();
             }
         });
+
+
+    }
+    private void startRecording()
+    {
+        android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);
+
+        int bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+
+        short[] buffer = new short[bufferSize / 2];
+
+        try {
+            _track = new VorbisFileOutputStream("/mnt/sdcard/voz.ogg");
+        } catch (IOException ignored) {
+        }
+        //_track = new AudioTrack(AudioUtils.AudioPlayerManager.STREAM_MUSIC, SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
+        //_track.play();
+
+        _record = new AudioRecord(MediaRecorder.AudioSource.VOICE_RECOGNITION, SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize);
+
+        NoiseSuppressor.create(_record.getAudioSessionId()).setEnabled(true);
+        AcousticEchoCanceler.create(_record.getAudioSessionId()).setEnabled(true);
+        AutomaticGainControl.create(_record.getAudioSessionId()).setEnabled(true);
+
+        _record.startRecording();
+
+        while (!_stop) {
+            _record.read(buffer, 0, buffer.length);
+
+            try {
+                _track.write(buffer, 0, buffer.length);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void stopRecording()
+    {
+        _stop = true;
+
+        _record.stop();
+        _record.release();
+
+        try {
+            _track.close();
+        } catch (IOException ignored) {
+        }
+    }
+    private void deletePreviousFile()
+    {
+        if(_track != null)
+        {
+
+        }
     }
 }

@@ -15,15 +15,8 @@ public class StudentSound1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_sound1);
 
-        Parse.enableLocalDatastore(this);
 
-        Parse.initialize(this);
-
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
 
     }
 

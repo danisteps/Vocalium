@@ -3,7 +3,9 @@ package Utils;
 import android.content.Context;
 import android.util.Log;
 
+import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -18,7 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
+import java.net.Proxy;
 
 /**
  * Created by Délio on 02/01/2016.
@@ -35,6 +37,18 @@ public class ServerConnection {
     private ServerConnection() {
         client = new OkHttpClient();
 
+        client.setAuthenticator(new Authenticator() {
+            @Override
+            public Request authenticate(Proxy proxy, Response response) throws IOException {
+                String credential = Credentials.basic("root", "JustCause");
+                return response.request().newBuilder().header("Authorization", credential).build();
+            }
+
+            @Override
+            public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
+                return null;
+            }
+        });
     }
 
     private Method callbackFunction;
@@ -44,6 +58,8 @@ public class ServerConnection {
     private Method failureCallbackFunction;
     private Object failureCallbackObject;
     private boolean failureCallbackSet = false;
+
+    private int lastIdSet = -1;
     //----------------------------------------------------------
 
     public static enum FileType
@@ -53,7 +69,7 @@ public class ServerConnection {
     }
 
     private final OkHttpClient client;
-    private final String soundUrl = "http://192.168.1.113/Vocalium/";
+    private final String soundUrl = "http://104.236.69.4/";
     public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");
 
     //this must be called inside a thread!!!
@@ -63,11 +79,11 @@ public class ServerConnection {
 
         if(fileType == FileType.Sound)
         {
-            filePath = soundUrl + "Sound/" + FileManager.GetRelativeFilePath()+ fileName + ".mp3";
+            filePath = soundUrl + "Sound/" + FileManager.GetRelativeFilePath()+ fileName + FileManager.getExtension(FileType.Sound);
         }
         else if(fileType == FileType.Comment)
         {
-            filePath = soundUrl + "Comment/" + FileManager.GetRelativeFilePath()+ fileName + ".txt";
+            filePath = soundUrl + "Comment/" + FileManager.GetRelativeFilePath()+ fileName + FileManager.getExtension(FileType.Comment);
         }
 
         Request request = new Request.Builder().url(filePath).build();
@@ -110,21 +126,33 @@ public class ServerConnection {
         String fileServerName = "";
         if(fileType == FileType.Sound)
         {
-            filePath = context.getFilesDir() + "/"+ fileName + ".mp3";
+            filePath = context.getFilesDir() + "/"+ fileName + FileManager.getExtension(FileType.Sound);
             fileTypeString = "sound";
             fileServerName = "sound";
         }
         else if(fileType == FileType.Comment)
         {
-            filePath = context.getFilesDir() + "/"+ fileName + ".txt";
+            filePath = context.getFilesDir() + "/"+ fileName + FileManager.getExtension(FileType.Comment);
             fileTypeString = "comment";
             fileServerName = "comment";
         }
 
         UserInformation user = UserInformation.getInstance();
 
-        //still have to find the id of the file
+        //still have to find the id of the file;
         final File file = new File(filePath);
+
+        int size = (int) file.length();
+        byte[] bytes = new byte[size];
+        try {
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            bis.read(bytes, 0, bytes.length);
+            bis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //verifyFileExists(file);
 
@@ -159,9 +187,10 @@ public class ServerConnection {
                 else
                 {
                     int newId = Integer.parseInt(responseString);
+                    lastIdSet = newId;
 
                     if(fileType == FileType.Sound)
-                        DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId);
+                        DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId, filePath, bytes);
                     else
                         DatabaseManager.saveComment(user.GetAudioId(), newId);
                     callback();
@@ -194,6 +223,7 @@ public class ServerConnection {
             } catch (InvocationTargetException e) {
                 Log.e("POST_ERROR", "Error on callback");
             }
+            callbackSet = false;
             failureCallbackSet = false;
         }
     }
@@ -216,7 +246,12 @@ public class ServerConnection {
             } catch (InvocationTargetException e) {
                 Log.e("POST_ERROR", "Error on callback");
             }
+            failureCallbackSet = false;
             callbackSet = false;
         }
+    }
+    public int getLastIdSet()
+    {
+        return lastIdSet;
     }
 }

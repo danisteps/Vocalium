@@ -1,5 +1,8 @@
 package br.ufpe.cin.vocalium;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -28,9 +31,11 @@ import Utils.UserInformation;
 public class StudentSoundList extends AppCompatActivity {
 
     //private final static Class backActivity = StudentSoundList.class;
-    private final static Class nextActivity = DownloadTutor.class;
+    private final static Class commentSoundActivity = DownloadStudent.class;
+    private final static Class recordSoundActivity = MainActivity.class;
     public final static String EXTRA_INTENT_MESSAGE = "br.ufpe.cin.vocalium.AUDIO_NUMBER_MESSAGE";
     private int status;
+    FloatingActionButton floatingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +60,20 @@ public class StudentSoundList extends AppCompatActivity {
                 Log.e("POST_ERROR", "Clicado no item: " + position + ", com id : " + soundId);
 
                 UserInformation.getInstance().SetAudioId(soundId);
-                changeActivity(position + 1);
+                changeCommentActivity(position);
             }
         });
 
-        FloatingActionButton floatingButton = (FloatingActionButton) findViewById(R.id.fab);
+
+        //needed to access button in checkstatus
+        floatingButton = (FloatingActionButton) findViewById(R.id.fab);
+
+        createThreadUpdateFloatButton();
+    }
+
+    private void checkStatus ()
+    {
+        UserInformation user = UserInformation.getInstance();
         if (user.GetTutorId() == -1){
             if (DatabaseManager.getFirstRequestFromStudent(user.GetStudentId()) != null){
                 changeIcon(floatingButton, android.R.drawable.ic_dialog_email);
@@ -72,7 +86,6 @@ public class StudentSoundList extends AppCompatActivity {
             changeIcon(floatingButton, android.R.drawable.ic_input_add);
             status = 2;
         }
-
     }
 
     private void changeIcon (FloatingActionButton floatingButton, int icone){
@@ -88,17 +101,17 @@ public class StudentSoundList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (status == 1){
-                    setActivity(StudentListenComment.class); //MUDAR PARA ADICIONAR TUTOR!!!
+                    showRequestDialog();
                 }
                 else if (status == 2){
-                    setActivity(MainActivity.class);
+                    changeRecordActivity();
                 }
             }
         });
     }
 
-    private void setActivity (Class activity){
-        Intent intent = new Intent(this, activity);
+    private void changeRecordActivity (){
+        Intent intent = new Intent(this, recordSoundActivity);
         startActivity(intent);
     }
 
@@ -108,7 +121,7 @@ public class StudentSoundList extends AppCompatActivity {
         Pair<Integer, String>[] elementsPair;
 
         UserInformation user = UserInformation.getInstance();
-        List<ParseObject> results = DatabaseManager.getSounds(user.GetTutorId(), user.GetStudentId());
+        List<ParseObject> results = DatabaseManager.getSoundsCommented(user.GetTutorId(), user.GetStudentId());
         elementsPair = new Pair[results.size()];
 
         for(int i = 0; i < results.size(); i ++)
@@ -118,14 +131,83 @@ public class StudentSoundList extends AppCompatActivity {
 
         }
 
-        listView.setAdapter(new SoundRowAdapter(this, elementsPair));
+        listView.setAdapter(new SoundRowAdapter(this, elementsPair, true));
     }
 
-    private void changeActivity(int itemSelected)
+    private void changeCommentActivity(int soundNumber)
     {
-        Intent intent = new Intent(this, nextActivity);
-        intent.putExtra(EXTRA_INTENT_MESSAGE, itemSelected);
+        Intent intent = new Intent(this, commentSoundActivity);
+        intent.putExtra(EXTRA_INTENT_MESSAGE, soundNumber);
         startActivity(intent);
     }
 
+    private void showRequestDialog()
+    {
+        final ParseObject request = DatabaseManager.getFirstRequestFromStudent(UserInformation.getInstance().GetStudentId());
+        final ParseObject tutor = DatabaseManager.getTutorObjectFromRequest(request);
+        String tutorName = DatabaseManager.getTutorNameFromObject(tutor);
+
+        Log.e("COMMENT_ERROR", "calling dialog");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage("Tutor " + tutorName + " deseja lhe adicionar como estudante");
+
+
+        builder.setPositiveButton("Aceitar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                acceptRequest(request, tutor);
+            }
+        });
+        builder.setNegativeButton("Recusar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                refuseRequest(request);
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void acceptRequest(ParseObject request, ParseObject tutor)
+    {
+        UserInformation user = UserInformation.getInstance();
+        int tutorId = DatabaseManager.getTutorIdFromObject(tutor);
+        DatabaseManager.setStudentTutor(user.GetStudentId(), tutorId);
+        user.populateTutorInformationForStudent(tutor);
+        DatabaseManager.deleteRequest(request);
+    }
+    private void refuseRequest(ParseObject request)
+    {
+        floatingButton.setVisibility(View.INVISIBLE);
+        DatabaseManager.deleteRequest(request);
+    }
+
+    private void createThreadUpdateFloatButton ()
+    {
+        final Activity activity = this;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //only runs if there is no tutor yet
+                while (status != 2)
+                {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            checkStatus();
+                        }
+                    });
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        Log.e("UPDATE_ERROR", "thread stopped");
+                    }
+                }
+            }
+        }).start();    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

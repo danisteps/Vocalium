@@ -16,6 +16,7 @@ import java.util.Calendar;
 
 import Utils.LayoutOutput;
 import Utils.UserInformation;
+import br.ufpe.cin.vocalium.StudentListenComment;
 import br.ufpe.cin.vocalium.TutorChecklist;
 import br.ufpe.cin.vocalium.TutorHearComm;
 
@@ -24,9 +25,13 @@ public class AudioPlayerManager {
     private Context context;
     private Calendar videoLength;
     private AudioComment comments;
+    private int commentPosition;
     private Activity activity;
     private boolean released;
     private boolean inUse;
+
+    private boolean showNextMessage = false;
+    private String nextComment = "";
 
     private UpdateType updateType;
 
@@ -57,11 +62,20 @@ public class AudioPlayerManager {
     public void setCompletionListenerTutorHearComment(final TutorHearComm activity)
     {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer arg0) {
-            activity.changeActivity();
-        }
-    });
+            @Override
+            public void onCompletion(MediaPlayer arg0) {
+                activity.changeActivity();
+            }
+        });
+    }
+    public void setCompletionListenerStudentListenComment(final StudentListenComment activity)
+    {
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer arg0) {
+                activity.changeActivity();
+            }
+        });
     }
 
     public void start ()
@@ -118,16 +132,26 @@ public class AudioPlayerManager {
         {
             updateTutorHearComment();
         }
+        else if(updateType == UpdateType.StudentListenComment)
+        {
+            Log.e("COMMENT_ERROR", "updating student");
+            updateStudentListenComment();
+        }
     }
-    public void startUpdateTutorHearComment(Activity activity)
+    public void startUpdate(Activity activity, UpdateType type)
     {
+        Log.e("COMMENT_ERROR", "update setted to: " + type.name());
         this.activity = activity;
-        updateType = UpdateType.TutorHearComment;
+        updateType = type;
         update();
     }
     public AudioComment getComments ()
     {
         return comments;
+    }
+    public void enqueueComments(AudioComment comment)
+    {
+        this.comments = comment;
     }
 
 
@@ -150,7 +174,8 @@ public class AudioPlayerManager {
     //------------------Class for update functions-------------
     public enum UpdateType
     {
-        TutorHearComment
+        TutorHearComment,
+        StudentListenComment
     }
 
     public void updateTutorHearComment()
@@ -164,17 +189,65 @@ public class AudioPlayerManager {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            LayoutOutput.getInstance().UpdateTutorHearComment(mediaPlayer, activity);
+                            LayoutOutput.UpdateTutorHearComment(mediaPlayer, activity);
                         }
                     });
                     inUse = false;
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(900);
                     } catch (InterruptedException e) {
                         Log.e("UPDATE_ERROR", "thread stopped");
                     }
                 }
             }
         }).start();
+    }
+    public void updateStudentListenComment ()
+    {
+        Log.e("COMMENT_ERROR", "starting update thread");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!released && mediaPlayer.isPlaying())
+                {
+                    inUse = true;
+                    getNextComment();
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            LayoutOutput.updateStudentListenComment(mediaPlayer, activity);
+                            if(showNextMessage)
+                            {
+                                showNextMessage = false;
+                                LayoutOutput.changeCommentText(nextComment, activity);
+                            }
+                        }
+                    });
+                    inUse = false;
+                    try {
+                        Thread.sleep(900);
+                    } catch (InterruptedException e) {
+                        Log.e("UPDATE_ERROR", "thread stopped");
+                    }
+                }
+            }
+        }).start();
+    }
+    private void getNextComment()
+    {
+        if(commentPosition < comments.size())
+        {
+            int milisec = comments.getCommentTime(commentPosition);
+            if(mediaPlayer.getCurrentPosition() > milisec)
+            {
+                int seconds = (int)(milisec / 1000) % 60;
+                int minutes = (int)(milisec / 60000);
+                nextComment = String.format("%02d:%02d", minutes, seconds);
+                nextComment = nextComment + "   " + comments.getCommentText(commentPosition);
+                showNextMessage = true;
+
+                commentPosition ++;
+            }
+        }
     }
 }

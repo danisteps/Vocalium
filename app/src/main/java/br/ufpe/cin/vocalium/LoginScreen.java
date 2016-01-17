@@ -27,7 +27,9 @@ public class LoginScreen extends AppCompatActivity {
 
         DatabaseManager.initializeParse(this);
 
-        DatabaseManager.createDefaultRatingNames(1);
+
+        //DatabaseManager.unsetTutor(DatabaseManager.getIdByUsername("danisteps"));
+        //DatabaseManager.requestFriendship(1, DatabaseManager.getIdByUsername("danisteps"));
 
         Button loginButton = (Button) findViewById(R.id.login_button);
         final EditText userText = (EditText) findViewById(R.id.text_user_login);
@@ -106,6 +108,7 @@ public class LoginScreen extends AppCompatActivity {
     {
         Intent intent = new Intent(this, activity);
         startActivity(intent);
+        finish();
     }
 
 }

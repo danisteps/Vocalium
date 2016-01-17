@@ -21,13 +21,13 @@ public class UserInformation {
     //-----------------------Attributes--------------
     private String login;
 
-    private String tutorName;
-    private int tutorId;
+    private String tutorName = "";
+    private int tutorId = -1;
 
-    private String curStudentName;
-    private int curStudentId;
+    private String curStudentName = "";
+    private int curStudentId = -1;
 
-    private int audioId;
+    private int audioId = -1;
     private int numberOfAudios;
     private UserType userType;
 
@@ -93,7 +93,6 @@ public class UserInformation {
         SetStudentId(object.getInt("StudentId"));
         SetStudentName(object.getString("StudentName"));
 
-
         Log.e("DATABASE_ERROR", "login data student: " + this.tutorName + " " + tutorId +" / " +  curStudentName + " " + curStudentId);
     }
     public void populateTutorInformation(ParseObject object) {
@@ -104,10 +103,25 @@ public class UserInformation {
 
         Log.e("DATABASE_ERROR", "login data tutor: " +tutorName + " " + tutorId);
     }
+    public void populateTutorInformationForStudent(ParseObject object) {
+
+        SetTutorId(object.getInt("TutorId"));
+        SetTutorName(object.getString("Name"));
+
+        Log.e("DATABASE_ERROR", "populated data tutor: " +tutorName + " " + tutorId);
+    }
 
     public enum UserType
     {
         Tutor,
         Student
+    }
+
+    public void debugUser()
+    {
+        Log.e("USER_ERROR", ""+ tutorId);
+        Log.e("USER_ERROR", ""+ tutorName);
+        Log.e("USER_ERROR", ""+ curStudentId);
+        Log.e("USER_ERROR", ""+ curStudentName);
     }
 }

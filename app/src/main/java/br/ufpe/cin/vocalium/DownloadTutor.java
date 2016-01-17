@@ -40,7 +40,7 @@ public class DownloadTutor extends AppCompatActivity {
         String path = getFilesDir() + "/";
         path += user.GetAudioId() + FileManager.getExtension(ServerConnection.FileType.Sound);
 
-        FileManager.verifyOrCreateTutor(path, ""+user.GetAudioId(), this, callFunction, errorFunction);
+        FileManager.verifyOrCreate(path, "" + user.GetAudioId(), ServerConnection.FileType.Sound, this, callFunction, errorFunction);
     }
 
     public void changeActivity ()

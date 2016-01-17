@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.content.Intent;
 import android.util.Log;
 
+import Utils.FileManager;
+import Utils.ServerConnection;
 import br.ufpe.cin.vocalium.R;
 
 import java.io.IOException;
@@ -34,7 +36,7 @@ public class AudioCommentPlayer implements Runnable{
         this.activity = activity;
 
         //this one is temporary
-        audioPath = context.getFilesDir() + "/1.mp3";
+        audioPath = context.getFilesDir() + "/1" + FileManager.getExtension(ServerConnection.FileType.Sound);
 
         Uri audioPathUri = Uri.parse(audioPath);
 

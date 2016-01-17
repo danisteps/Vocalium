@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    tools:context="br.ufpe.cin.vocalium.StudentRatingList"
+    android:layout_weight="1">
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Check"
+        android:layout_gravity="left|top"
+        android:text="Check List"
+        android:background="#ff5a00"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentLeft="false"
+        android:gravity="center"
+        android:textColor="#fcf9f9"
+        android:textSize="40dp"
+        android:layout_above="@+id/scrollView_CheckList"
+        android:inputType="none"
+        android:editable="false"
+        android:enabled="false"
+        android:layout_below="@+id/CheckList"
+        android:layout_weight="0"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp" />
+
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView_CheckList"
+        android:fillViewport="true"
+        android:layout_weight="0.3">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ListView_CheckList_student"
+            android:layout_below="@+id/CheckList"
+            android:layout_alignParentLeft="true">
+
+
+        </ListView>
+    </ScrollView>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7">
+        <Button
+            style="@android:style/DeviceDefault.Light.SegmentedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="  Concluir  "
+            android:id="@+id/next_button_rating_student"
+            android:textColor="#fdfdfd"
+            android:layout_weight="0.4"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:textAllCaps="false"
+            android:textSize="30dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:backgroundTint="#ff5a00"
+            android:background="@drawable/rounded_corners_blue" />
+    </RelativeLayout>
+
+
+</LinearLayout>

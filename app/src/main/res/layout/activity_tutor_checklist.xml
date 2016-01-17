@@ -9,32 +9,27 @@
     android:paddingTop="0dp"
     tools:context="com.example.danielesoarespassos.telachecklist.CheckList">
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:id="@+id/CheckList"
-        android:background="#3134fd"
-        android:layout_gravity="fill"
-        android:adjustViewBounds="false"
-        android:layout_alignParentLeft="true"
-        android:tint="#009bff"
-        android:layout_alignRight="@+id/Check"
-        android:layout_alignParentTop="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00afff"
+        android:minHeight="80dp"
+        android:id="@+id/title_layout">
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/Check"
-        android:layout_gravity="left|top"
-        android:text="Check List"
-        android:background="#00ffffff"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentLeft="false"
-        android:gravity="center"
-        android:textColor="#fcf9f9"
-        android:textSize="40dp"
-        android:layout_above="@+id/Ativar" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/audio_name_tutor"
+            android:id="@+id/audio_name_tutor_textview_checklist"
+            android:background="@android:color/transparent"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:minHeight="40dp"
+            android:maxHeight="60dp" />
+    </RelativeLayout>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -46,16 +41,15 @@
         android:layout_alignParentLeft="true"
         android:tint="#ff8000"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="60dp"
-        android:layout_alignTop="@+id/CheckList" />
+        android:layout_below="@+id/title_layout" />
 
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ativar"
-        android:id="@+id/Ativar"
+        android:id="@+id/switch_tutor_checklist"
         android:layout_gravity="center_horizontal|top"
-        android:checked="false"
+        android:checked="true"
         android:layout_alignTop="@+id/editText4"
         android:layout_alignBottom="@+id/editText4"
         android:layout_alignRight="@+id/editText4"
@@ -75,7 +69,7 @@
         android:layout_height="match_parent"
         android:id="@+id/scrollView_CheckList"
         android:layout_below="@+id/editText4"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="170dp"
         android:fillViewport="true">
 
         <ListView
@@ -83,33 +77,67 @@
             android:layout_height="match_parent"
             android:id="@+id/ListView_CheckList"
             android:layout_below="@+id/editText4"
-            android:layout_alignParentLeft="true">
+            android:layout_alignParentLeft="true"
+            android:descendantFocusability="blocksDescendants"
+            android:longClickable="true">
 
         </ListView>
     </ScrollView>
-
-    <Button
-        style="@android:style/DeviceDefault.Light.SegmentedButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="        enviar         "
-        android:id="@+id/enviar"
-        android:background="#fe6012"
-        android:textColor="#fdfcfc"
+        android:orientation="horizontal"
+        android:id="@+id/layout_send_button"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/Ativar"
-        android:layout_marginRight="34dp" />
+        android:layout_centerHorizontal="true"
+        android:weightSum="1">
+        <Button
+            style="@android:style/DeviceDefault.Light.SegmentedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="enviar"
+            android:id="@+id/send_button_tutor_checklist"
+            android:background="@drawable/rounded_corners_orange"
+            android:textColor="#fdfcfc"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="55dp"
+            android:textAllCaps="false"/>
+    </LinearLayout>
 
-    <Button
-        style="@android:style/DeviceDefault.Light.SegmentedButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="  add fator  "
-        android:id="@+id/fator"
-        android:background="#484cfc"
-        android:textColor="#fdfdfd"
-        android:layout_alignTop="@+id/enviar"
-        android:layout_toLeftOf="@+id/enviar"
-        android:layout_marginRight="28dp" />
+        android:orientation="horizontal"
+        android:layout_above="@+id/layout_send_button"
+        android:weightSum="1"
+        android:layout_marginBottom="20dp">
+        <Button
+            style="@android:style/DeviceDefault.Light.SegmentedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  add fator  "
+            android:id="@+id/add_rating_checklist"
+            android:background="@drawable/rounded_corners_blue"
+            android:textColor="#fdfdfd"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="0dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:backgroundTint="#00afff"
+            android:textAllCaps="false"
+            android:textSize="30dp" />
+    </LinearLayout>
 
 </RelativeLayout>
