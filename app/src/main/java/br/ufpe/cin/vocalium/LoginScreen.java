@@ -22,14 +22,8 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login_screen);
-
-
-        DatabaseManager.initializeParse(this);
-
-
-        //DatabaseManager.unsetTutor(DatabaseManager.getIdByUsername("danisteps"));
-        //DatabaseManager.requestFriendship(1, DatabaseManager.getIdByUsername("danisteps"));
 
         Button loginButton = (Button) findViewById(R.id.login_button);
         final EditText userText = (EditText) findViewById(R.id.text_user_login);
@@ -51,13 +45,10 @@ public class LoginScreen extends AppCompatActivity {
                 changeActivity(SignupScreen.class);
             }
         });
-
-
     }
 
     private void validateLogin(String userName, String password)
     {
-
         if(DatabaseManager.login(userName, password.hashCode()))
         {
             UserInformation user = UserInformation.getInstance();
