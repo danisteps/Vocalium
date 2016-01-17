@@ -51,7 +51,7 @@ public class SignupScreen extends AppCompatActivity {
 
                 if (verifyPassword(passwordText.getText().toString(), confirmpasswordText.getText().toString())) {
 
-                    if (radioButton_professor.isActivated()) {
+                    if (true){//radioButton_professor.isActivated()) {
                         status = DatabaseManager.signUpTutor(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
                     } else {
                         status = DatabaseManager.signUpStudent(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());

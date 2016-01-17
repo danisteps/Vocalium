@@ -40,7 +40,7 @@
             android:layout_gravity="center_horizontal|bottom"
             android:background="@null"
             android:paddingTop="20dip"
-            android:src="@drawable/play_button"
+            android:src="@drawable/play"
             android:layout_weight="30"/>
 
 

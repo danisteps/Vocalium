@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.ideaheap.io.VorbisFileOutputStream;
 
@@ -44,6 +45,7 @@ public class StudentRecord extends AppCompatActivity {
         private Chronometer chronometer;
         private int bytesWritten = 0;
         private long chrnBase;
+        private ImageButton startRecordingButton;
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,16 +56,18 @@ public class StudentRecord extends AppCompatActivity {
             chronometer = (Chronometer) findViewById(R.id.student_record_chronometer);
             chrnBase = chronometer.getBase();
 
-            ImageButton startRecordingButton = (ImageButton) findViewById(R.id.button_play_record);
+            startRecordingButton = (ImageButton) findViewById(R.id.button_play_record);
             startRecordingButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     if (!_stop) {
                         _stop = true;
+                        changeButtonImage(false);
                         stopRecording();
                     }
                     else if(!hasRecorded) {
+                        changeButtonImage(true);
                         _stop = false;
                         hasRecorded = true;
                         chronometer.setBase(SystemClock.elapsedRealtime());
@@ -83,6 +87,7 @@ public class StudentRecord extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (!_stop) {
+                        changeButtonImage(false);
                         _stop = true;
                         stopRecording();
                     }
@@ -95,6 +100,7 @@ public class StudentRecord extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (hasRecorded) {
+                        changeButtonImage(false);
                         if (!_stop) {
                             _stop = true;
                             stopRecording();
@@ -216,6 +222,20 @@ public class StudentRecord extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    private void changeButtonImage(boolean playing)
+    {
+        int buttonResource;
+        if(!playing)
+        {
+             buttonResource = R.drawable.play;
+        }
+        else
+        {
+            buttonResource = R.drawable.pause;
+        }
+        startRecordingButton.setImageResource(buttonResource);
     }
 
     @Override
