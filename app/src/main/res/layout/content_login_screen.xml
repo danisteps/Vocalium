@@ -11,7 +11,8 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="70dp"
             android:orientation="vertical"
-            android:weightSum="1">
+            android:weightSum="1"
+        android:id="@+id/linearLayout">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -24,44 +25,15 @@
                 android:minHeight="200dp"
                 android:minWidth="200dp" />
 
-            <com.cengalabs.flatui.views.FlatEditText
-                android:id="@+id/text_user_login"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-<<<<<<< HEAD
-                android:layout_marginBottom="34dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="70dp"
-                android:layout_marginStart="70dp" />
+        <com.cengalabs.flatui.views.FlatEditText
+            android:id="@+id/text_user_login"
+            android:layout_width="343dp"
+            android:layout_height="wrap_content"
+            android:hint="username"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cadastro"
-                android:id="@+id/signup_button"
-                android:layout_gravity="center_horizontal"
-                android:clickable="true"
-                android:layout_alignTop="@+id/login_button"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="62dp"
-                android:layout_marginEnd="62dp" />
-=======
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="50dp"
-                android:gravity="bottom"
-                android:hint="Usuário"
-                android:inputType="text"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                flatui:fl_fieldStyle="fl_box" />
->>>>>>> 1de51b61a0d2d6919f6c6d0ea59906f67417b9e8
-
-            <com.cengalabs.flatui.views.FlatEditText
+        <com.cengalabs.flatui.views.FlatEditText
                 android:id="@+id/text_password_login"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -85,7 +57,18 @@
             android:layout_marginTop="10dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
             android:text="Entrar" />
-        </LinearLayout>
+        <com.cengalabs.flatui.views.FlatButton
+            android:id="@+id/signup_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="Cadastrar" />
+
+    </LinearLayout>
+
 </RelativeLayout>
