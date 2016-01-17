@@ -45,7 +45,7 @@ public class LoginScreen extends AppCompatActivity {
         });
 
         Button signupButton = (Button) findViewById(R.id.signup_button);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeActivity(SignupScreen.class);

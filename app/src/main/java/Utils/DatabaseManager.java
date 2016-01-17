@@ -393,12 +393,12 @@ public class DatabaseManager {
 
     //------------------------------------------------------------------------------------
 
-    public static void signUpTutor(String userName, String name, int passwordHash)
+    public static boolean signUpTutor(String userName, String name, int passwordHash)
     {
         if(!checkUsernameAvailable(userName))
         {
             Log.e("DATABASE_ERROR", "username already exists");
-            return;
+            return false;
         }
         int tutorId = getLastId(LoginType.Tutor);
 
@@ -410,13 +410,14 @@ public class DatabaseManager {
         signUpInformation(userName, passwordHash, tutorId, LoginType.Tutor);
 
         increaseLastId(LoginType.Tutor);
+        return true;
     }
-    public static void signUpStudent(String userName, String name, int passwordHash)
+    public static boolean signUpStudent(String userName, String name, int passwordHash)
     {
         if(!checkUsernameAvailable(userName))
         {
             Log.e("DATABASE_ERROR", "username already exists");
-            return;
+            return false;
         }
         int studentId = getLastId(LoginType.Student);
 
@@ -429,6 +430,7 @@ public class DatabaseManager {
         signUpInformation(userName, passwordHash, studentId, LoginType.Student);
 
         increaseLastId(LoginType.Student);
+        return true;
     }
     public static void setStudentTutor (int studentId, int tutorId)
     {
