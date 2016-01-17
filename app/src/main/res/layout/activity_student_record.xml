@@ -16,24 +16,14 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|bottom">
 
-            <TextView android:id="@+id/audio_minutes"
+            <Chronometer
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="100sp"
-                android:hint="@string/audio_minutes"
-                android:layout_gravity="bottom|center_horizontal"/>
-            <TextView android:id="@+id/time_divider"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="100sp"
-                android:hint=":"
-                android:layout_gravity="bottom|center_horizontal"/>
-            <TextView android:id="@+id/audio_seconds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="100sp"
-                android:hint="@string/audio_seconds"
-                android:layout_gravity="bottom|center_horizontal" />
+                android:id="@+id/student_record_chronometer"
+                android:layout_gravity="bottom"
+                android:textColor="#59656b" />
+
         </LinearLayout>
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -44,7 +34,7 @@
         android:layout_weight="50">
 
         <ImageButton
-            android:id="@+id/imageButtonplay"
+            android:id="@+id/button_play_record"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|bottom"
@@ -56,44 +46,47 @@
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:baselineAligned="false"
-            android:layout_weight="70">
+            android:layout_weight="70"
+            android:weightSum="1">
 
 
-            <ImageButton
-                android:id="@+id/imageButtondelete"
-                android:layout_width="wrap_content"
+            <Button
+                android:text="Deletar"
+                android:textColor="#ffffff"
+                android:textAllCaps="false"
+                android:textSize="40dp"
+                android:id="@+id/button_delete_record"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal|bottom"
-                android:paddingLeft="30dip"
-                android:paddingRight="20dip"
-                android:background="@null"
+                android:background="@drawable/rounded_corners_orange"
                 android:scaleType="fitCenter"
-                android:layout_marginBottom="-20dp"
-                android:layout_marginLeft="-20dp"
-                android:layout_marginRight="-20dp"
-                android:layout_marginTop="-20dp"
                 android:src="@drawable/delete_button"
-                android:layout_weight="1"/>
+                android:layout_weight="0.5"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginRight="20dp" />
 
 
-            <ImageButton
-                android:id="@+id/imageButtonsend"
-                android:layout_width="wrap_content"
+            <Button
+                android:text="Enviar"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="40dp"
+                android:id="@+id/button_send_record"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal|bottom"
-                android:paddingLeft="20dip"
-                android:paddingRight="30dip"
-                android:background="@null"
+                android:background="@drawable/rounded_corners_orange"
                 android:scaleType="fitCenter"
-                android:layout_marginBottom="-20dp"
-                android:layout_marginLeft="-20dp"
-                android:layout_marginRight="-20dp"
-                android:layout_marginTop="-20dp"
                 android:src="@drawable/send_button"
-                android:layout_weight="1"/>
+                android:layout_weight="0.5"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="30dp" />
 
         </LinearLayout>
 

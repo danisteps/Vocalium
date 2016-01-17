@@ -32,7 +32,7 @@ public class StudentSoundList extends AppCompatActivity {
 
     //private final static Class backActivity = StudentSoundList.class;
     private final static Class commentSoundActivity = DownloadStudent.class;
-    private final static Class recordSoundActivity = MainActivity.class;
+    private final static Class recordSoundActivity = StudentRecord.class;
     public final static String EXTRA_INTENT_MESSAGE = "br.ufpe.cin.vocalium.AUDIO_NUMBER_MESSAGE";
     private int status;
     FloatingActionButton floatingButton;

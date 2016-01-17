@@ -1,6 +1,7 @@
 package br.ufpe.cin.vocalium;
 
 import android.content.Intent;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,11 +41,12 @@ public class SignupScreen extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (radioButton_professor.isActivated()){
-                    user.signUpTutor(userText.getText(), nameText.getText(), passwordText.getText());
+                    DatabaseManager.signUpTutor(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
                 }
                 else{
-                    user.signUpStudent(userText.getText(), nameText.getText(), passwordText.getText());
+                    DatabaseManager.signUpStudent(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
                 }
             }
         });

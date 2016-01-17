@@ -473,17 +473,13 @@ public class DatabaseManager {
         obj.put("LoginType", typeName);
         obj.saveInBackground();
     }
-    public static void saveSound(int tutorId, int studentId, int soundId, String filePath, byte[] bytes)
+    public static void saveSound(int tutorId, int studentId, int soundId)
     {
-        ParseFile file = new ParseFile(filePath, bytes);
-        file.saveInBackground();
-
         ParseObject obj = new ParseObject("Sound");
         obj.put("TutorId", tutorId);
         obj.put("StudentId", studentId);
         obj.put("SoundId", soundId);
         obj.put("CommentId", -1);
-        obj.put("SoundFile", file);
         obj.saveInBackground();
     }
     public static void saveComment(int soundId, int commentId)

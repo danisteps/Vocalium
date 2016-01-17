@@ -142,18 +142,6 @@ public class ServerConnection {
         //still have to find the id of the file;
         final File file = new File(filePath);
 
-        int size = (int) file.length();
-        byte[] bytes = new byte[size];
-        try {
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-            bis.read(bytes, 0, bytes.length);
-            bis.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         //verifyFileExists(file);
 
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
@@ -190,7 +178,7 @@ public class ServerConnection {
                     lastIdSet = newId;
 
                     if(fileType == FileType.Sound)
-                        DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId, filePath, bytes);
+                        DatabaseManager.saveSound(user.GetTutorId(), user.GetStudentId(), newId);
                     else
                         DatabaseManager.saveComment(user.GetAudioId(), newId);
                     callback();
@@ -219,9 +207,9 @@ public class ServerConnection {
             try {
                 failureCallbackFunction.invoke(failureCallbackObject, null);
             } catch (IllegalAccessException e) {
-                Log.e("POST_ERROR", "Error on callback");
+                Log.e("POST_ERROR", "Error on failure callback");
             } catch (InvocationTargetException e) {
-                Log.e("POST_ERROR", "Error on callback");
+                Log.e("POST_ERROR", "Error on failure callback");
             }
             callbackSet = false;
             failureCallbackSet = false;

@@ -81,11 +81,13 @@ public class FileManager {
         tempCom.delete();
     }
 
-    public static void RenameFile (Context context, File file, String name, ServerConnection.FileType type)
+    public static void RenameFile (Context context, String currentName, String newName, ServerConnection.FileType type)
     {
         String extension = getExtension(type);
 
-        File newFile = new File(context.getFilesDir() + "/"+ name + extension);
+        File file = new File(context.getFilesDir() + "/" + currentName + extension);
+
+        File newFile = new File(context.getFilesDir() + "/"+ newName + extension);
         file.renameTo(newFile);
     }
 
@@ -152,8 +154,8 @@ public class FileManager {
     {
         String extension = "";
         if(type == ServerConnection.FileType.Comment) extension = ".txt";
-        else if (type == ServerConnection.FileType.Sound) extension = ".mp3";
-        //else if (type == ServerConnection.FileType.Sound) extension = ".ogg";
+        //else if (type == ServerConnection.FileType.Sound) extension = ".mp3";
+        else if (type == ServerConnection.FileType.Sound) extension = ".ogg";
 
         return extension;
     }
