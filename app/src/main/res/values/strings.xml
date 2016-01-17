@@ -2,8 +2,7 @@
     <string name="app_name">Vocalium</string>
     <string name="title_activity_main">Vocalium</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="cadastrar"><u><b>Cadastrar</b></u></string>
 
 
     <string name="audio_name_tutor">Áudio 1</string>
