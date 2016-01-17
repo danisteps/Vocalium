@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,12 +55,21 @@ public class LoginScreen extends AppCompatActivity {
                 changeActivity(SignupScreen.class);
             }
         });
-
-
     }
 
     private void validateLogin(String userName, String password)
     {
+        if (TextUtils.isEmpty(userName)) {
+            showError("Usuário em branco");
+
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            showError("Senha em branco");
+
+            return;
+        }
 
         if(DatabaseManager.login(userName, password.hashCode()))
         {
@@ -78,13 +88,14 @@ public class LoginScreen extends AppCompatActivity {
         }
         else
         {
-            loginFailed();
+            showError("O usuário e a senha não coincidem");
         }
     }
-    private void loginFailed ()
+
+    private void showError (String message)
     {
         final AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-        alertbox.setMessage("Nome de usuário e senha não combinam");
+        alertbox.setMessage(message);
         final AlertDialog alert = alertbox.create();
         alert.show();
 
@@ -107,6 +118,7 @@ public class LoginScreen extends AppCompatActivity {
 
         handler.postDelayed(runnable, 3000);
     }
+
     private void changeActivity(Class activity)
     {
         Intent intent = new Intent(this, activity);
