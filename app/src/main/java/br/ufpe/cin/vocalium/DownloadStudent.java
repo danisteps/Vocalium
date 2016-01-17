@@ -57,7 +57,7 @@ public class DownloadStudent extends AppCompatActivity {
             callFunction = this.getClass().getMethod("changeActivity", null);
             errorFunction = this.getClass().getMethod("backActivity", null);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Log.e("UPDATE_ERROR", "could not find method downloadStudent");
         }
 
         int commentId = DatabaseManager.getCommentId(UserInformation.getInstance().GetAudioId());

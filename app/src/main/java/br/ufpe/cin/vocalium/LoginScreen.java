@@ -27,7 +27,10 @@ public class LoginScreen extends AppCompatActivity {
 
         DatabaseManager.initializeParse(this);
 
+        //DatabaseManager.invalidateAllComments();
 
+
+        FileManager.deleteLocalFile(this);
         //DatabaseManager.unsetTutor(DatabaseManager.getIdByUsername("danisteps"));
         //DatabaseManager.requestFriendship(1, DatabaseManager.getIdByUsername("danisteps"));
 

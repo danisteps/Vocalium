@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 
 import Utils.FileManager;
+import Utils.ServerConnection;
 
 public class StudentRecord extends AppCompatActivity {
     private final static Class nextActivity = SendRecord.class;
@@ -40,6 +41,7 @@ public class StudentRecord extends AppCompatActivity {
         private volatile boolean _stop = true;
         private boolean hasRecorded = false;
         private Chronometer chronometer;
+        private int bytesWritten = 0;
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,11 +86,8 @@ public class StudentRecord extends AppCompatActivity {
             sendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(hasRecorded)
-                    {
-                        if(!_stop)
-                        {
-                            _stop = true;
+                    if (hasRecorded) {
+                        if (!_stop) {
                             stopRecording();
                         }
                         sendRecord();
@@ -103,8 +102,9 @@ public class StudentRecord extends AppCompatActivity {
 
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
 
+        bytesWritten = 0;
         try {
-            _track = new VorbisFileOutputStream(getFilesDir() + FileManager.SOUND_TEMP_NAME);
+            _track = new VorbisFileOutputStream(getFilesDir()+"/" + FileManager.SOUND_TEMP_NAME + FileManager.getExtension(ServerConnection.FileType.Sound));
         } catch (IOException ignored) {
         }
 
@@ -141,13 +141,13 @@ public class StudentRecord extends AppCompatActivity {
         _record.startRecording();
 
         while (!_stop) {
-            _record.read(buffer, 0, buffer.length);
-
+            _record.read(buffer, buffer.length/2, buffer.length);
             try {
                 _track.write(buffer, 0, buffer.length);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            bytesWritten += buffer.length;
         }
     }
     private void stopRecording()
@@ -160,13 +160,14 @@ public class StudentRecord extends AppCompatActivity {
             _track.close();
         } catch (IOException ignored) {
         }
+
     }
     private void deletePreviousFile()
     {
         chronometer.setBase(SystemClock.elapsedRealtime());
         hasRecorded = false;
 
-        File tempFile = new File(getFilesDir() + FileManager.SOUND_TEMP_NAME);
+        File tempFile = new File(getFilesDir()+"/" + FileManager.SOUND_TEMP_NAME + FileManager.getExtension(ServerConnection.FileType.Sound));
         if(tempFile.exists())
         {
             tempFile.delete();

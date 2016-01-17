@@ -28,9 +28,9 @@ public class FileManager {
     }
 
     public final static String SOUND_TEMP_NAME = "temp_sound";
-    private final static String SOUND_TEMP_PATH = "/" + SOUND_TEMP_NAME + FileManager.getExtension(ServerConnection.FileType.Sound);
+    public final static String SOUND_TEMP_PATH = "/" + SOUND_TEMP_NAME + FileManager.getExtension(ServerConnection.FileType.Sound);
     public final static String COMMENT_TEMP_NAME = "temp_comment";
-    private final static String COMMENT_TEMP_PATH = "/" + COMMENT_TEMP_NAME + FileManager.getExtension(ServerConnection.FileType.Comment);
+    public final static String COMMENT_TEMP_PATH = "/" + COMMENT_TEMP_NAME + FileManager.getExtension(ServerConnection.FileType.Comment);
 
 
     public static void SaveFile(Context context, byte[] fileBytes, String fileName, ServerConnection.FileType type) throws IOException {
@@ -166,7 +166,7 @@ public class FileManager {
         File[] files = file.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
-                return filename.endsWith(getExtension(ServerConnection.FileType.Sound));
+                return filename.endsWith(getExtension(ServerConnection.FileType.Sound)) || filename.endsWith(getExtension(ServerConnection.FileType.Comment));
             }
         });
         for(File toDelete : files)
