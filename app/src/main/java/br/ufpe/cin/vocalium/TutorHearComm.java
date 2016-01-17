@@ -30,6 +30,8 @@ public class TutorHearComm extends AppCompatActivity {
     private View.OnClickListener sendButtonListener;
     public final static String EXTRA_INTENT_MESSAGE = "br.ufpe.cin.vocalium.COMMENT_MESSAGE";
 
+    private ImageButton playButton;
+
     int itemNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,7 @@ public class TutorHearComm extends AppCompatActivity {
         LayoutOutput.ChangeEndTimeChronometer(player.getDuration(), this);
 
 
-        ImageButton playButton = (ImageButton) findViewById(R.id.play_button_tutor);
+        playButton = (ImageButton) findViewById(R.id.play_button_tutor);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +88,10 @@ public class TutorHearComm extends AppCompatActivity {
             public void onClick(View v) {
                 changeCommentViewVisibility();
                 if(player.isPlaying())
+                {
+                    changeButtonImage(false);
                     player.pause();
+                }
             }
         });
 
@@ -131,11 +136,13 @@ public class TutorHearComm extends AppCompatActivity {
     {
         if(player.isPlaying())
         {
+            changeButtonImage(false);
             //change button as well
             player.pause();
         }
         else
         {
+            changeButtonImage(true);
             //change button as well
             player.start();
             if(commentViewEnabled) {
@@ -152,6 +159,7 @@ public class TutorHearComm extends AppCompatActivity {
 
     private void createSendDialog()
     {
+        changeButtonImage(false);
         player.pause();
         Log.e("COMMENT_ERROR", "calling dialog");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -181,7 +189,23 @@ public class TutorHearComm extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
+    private void changeButtonImage(boolean playing)
+    {
+        int buttonResource;
+        if(!playing)
+        {
+            buttonResource = R.drawable.asd;
+        }
+        else
+        {
+            buttonResource = R.drawable.pausee;
+        }
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            playButton.setBackground(getDrawable(buttonResource));
+        } else {
+            playButton.setBackground(getResources().getDrawable(buttonResource));
+        }
+    }
 
     @Override
     public void onBackPressed() {

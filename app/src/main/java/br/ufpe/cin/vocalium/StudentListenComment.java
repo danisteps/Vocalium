@@ -32,6 +32,8 @@ public class StudentListenComment extends AppCompatActivity {
     AudioPlayerManager player;
     AudioComment comment;
 
+    private ImageButton playButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,7 @@ public class StudentListenComment extends AppCompatActivity {
         textView.setText("Áudio " + (itemNumber+1));
 
         LayoutOutput.changeEndTimeChronometerStudent(player.getDuration(), this);
-        ImageButton playButton = (ImageButton) findViewById(R.id.play_button_student);
+        playButton = (ImageButton) findViewById(R.id.play_button_student);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +88,7 @@ public class StudentListenComment extends AppCompatActivity {
 
     private void playButtonPress()
     {
+        changeButtonImage(!player.isPlaying());
         if(player.isPlaying())
         {
             player.pause();
@@ -93,6 +96,23 @@ public class StudentListenComment extends AppCompatActivity {
         else
         {
             player.start();
+        }
+    }
+    private void changeButtonImage(boolean playing)
+    {
+        int buttonResource;
+        if(!playing)
+        {
+            buttonResource = R.drawable.asd;
+        }
+        else
+        {
+            buttonResource = R.drawable.pausee;
+        }
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            playButton.setBackground(getDrawable(buttonResource));
+        } else {
+            playButton.setBackground(getResources().getDrawable(buttonResource));
         }
     }
     public void changeActivity ()

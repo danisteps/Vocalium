@@ -130,12 +130,11 @@
                     android:layout_weight="30"/>
 
                 <ImageButton
-                    android:layout_width="83dp"
-                    android:layout_height="76dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:id="@+id/play_button_student"
-                    android:background="@drawable/play_button_tutor"
-                    android:contentDescription="play"
-                    android:layout_marginTop="25dp"/>
+                    android:background="@drawable/pausee"
+                    android:contentDescription="play" />
 
 
                 <Space
