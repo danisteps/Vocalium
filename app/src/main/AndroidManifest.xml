@@ -12,11 +12,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".Vocalium"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="Vocalium">
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="@string/parse_app_id" />
@@ -100,6 +100,10 @@
         <activity android:name=".StudentRatingList" >
         </activity>
         <activity android:name=".SignupScreen" >
+        </activity>
+        <activity
+            android:name=".SignupScreenActivity"
+            android:label="@string/title_activity_signup_screen" >
         </activity>
     </application>
 

@@ -26,12 +26,11 @@ import Utils.UserInformation;
  */
 
 public class SignupScreen extends AppCompatActivity {
-    private final static Class nextActivitySucesss = LoginScreen.class;
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.signup_screen);
+        setContentView(R.layout.activity_signup_screen);
 
         final EditText nameText = (EditText) findViewById(R.id.nameSignup);
         final EditText userText = (EditText) findViewById(R.id.usernameSignup);
@@ -59,7 +58,7 @@ public class SignupScreen extends AppCompatActivity {
                     }
 
                     if (status)
-                        changeActivity(nextActivitySucesss);
+                        finish();
                     else
                         operationFailed("O nome de usuário escolhido já existe no sistema.");
                 }
@@ -102,10 +101,4 @@ public class SignupScreen extends AppCompatActivity {
         handler.postDelayed(runnable, 3000);
     }
 
-    private void changeActivity(Class activity)
-    {
-        Intent intent = new Intent(this, activity);
-        startActivity(intent);
-        finish();
-    }
 }
