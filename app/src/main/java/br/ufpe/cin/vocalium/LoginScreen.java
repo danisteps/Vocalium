@@ -1,6 +1,6 @@
 package br.ufpe.cin.vocalium;
 
-import android.app.Activity;
+import Utils.LayoutOutput;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,15 +25,8 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login_screen);
-
-
-        //DatabaseManager.invalidateAllComments();
-
-
-        //FileManager.deleteLocalFile(this);
-        //DatabaseManager.unsetTutor(DatabaseManager.getIdByUsername("danisteps"));
-        //DatabaseManager.requestFriendship(1, DatabaseManager.getIdByUsername("danisteps"));
 
         Button loginButton = (Button) findViewById(R.id.login_button);
         final EditText userText = (EditText) findViewById(R.id.text_user_login);
@@ -48,13 +41,11 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
-        final Activity activity = this;
-        Button signupButton = (Button) findViewById(R.id.signup_button);
+        TextView signupButton = (TextView) findViewById(R.id.signup_button);
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, SignupScreen.class);
-                startActivity(intent);
+                changeActivity(SignupScreen.class);
             }
         });
     }
@@ -62,13 +53,13 @@ public class LoginScreen extends AppCompatActivity {
     private void validateLogin(String userName, String password)
     {
         if (TextUtils.isEmpty(userName)) {
-            showError("Usuário em branco");
+            LayoutOutput.showErrorDialog(this, "Usuário em branco");
 
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            showError("Senha em branco");
+            LayoutOutput.showErrorDialog(this, "Senha em branco");
 
             return;
         }
@@ -90,35 +81,8 @@ public class LoginScreen extends AppCompatActivity {
         }
         else
         {
-            showError("O usuário e a senha não coincidem");
+            LayoutOutput.showErrorDialog(this, "O usuário e a senha não coincidem");
         }
-    }
-
-    private void showError (String message)
-    {
-        final AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-        alertbox.setMessage(message);
-        final AlertDialog alert = alertbox.create();
-        alert.show();
-
-        final Handler handler  = new Handler();
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (alert.isShowing()) {
-                    alert.dismiss();
-                }
-            }
-        };
-
-        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                handler.removeCallbacks(runnable);
-            }
-        });
-
-        handler.postDelayed(runnable, 3000);
     }
 
     private void changeActivity(Class activity)
@@ -127,5 +91,4 @@ public class LoginScreen extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 }

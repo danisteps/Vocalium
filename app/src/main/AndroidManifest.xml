@@ -25,10 +25,6 @@
             android:value="@string/parse_client_key" />
 
         <activity
-            android:name=".MainActivity"
-            android:label="Main Activity"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".StudentRecord"
             android:label="@string/title_activity_student_record"
             android:theme="@style/AppTheme" />
@@ -100,10 +96,6 @@
         <activity android:name=".StudentRatingList" >
         </activity>
         <activity android:name=".SignupScreen" >
-        </activity>
-        <activity
-            android:name=".SignupScreenActivity"
-            android:label="@string/title_activity_signup_screen" >
         </activity>
     </application>
 

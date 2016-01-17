@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1"
-    android:id="@+id/confirmarCadastroButton"
-    tools:showIn="@layout/activity_signup_screen"
-    tools:context="br.ufpe.cin.vocalium.SignupScreenActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:flatui="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="1"
+              android:id="@+id/confirmarCadastroButton"
+              tools:showIn="@layout/activity_signup_screen"
+              tools:context="br.ufpe.cin.vocalium.SignupScreenActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,47 +30,66 @@
             android:maxHeight="60dp" />
     </RelativeLayout>
 
-    <EditText
+    <com.cengalabs.flatui.views.FlatEditText
+        flatui:fl_theme="@array/sea"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="40dp"
+        flatui:fl_fieldStyle="fl_box"
         android:inputType="textPersonName"
-        android:text="Nome"
         android:ems="10"
         android:id="@+id/nameSignup"
         android:layout_gravity="center_horizontal"
         android:hint="Nome"
         android:layout_marginTop="20dp" />
 
-    <EditText
+    <com.cengalabs.flatui.views.FlatEditText
+        flatui:fl_theme="@array/sea"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="40dp"
+        flatui:fl_fieldStyle="fl_box"
         android:id="@+id/usernameSignup"
-        android:hint="username"
+        android:hint="Username"
         android:layout_marginTop="10dp" />
 
-    <EditText
+    <com.cengalabs.flatui.views.FlatEditText
+        flatui:fl_theme="@array/sea"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="40dp"
+        flatui:fl_fieldStyle="fl_box"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/senhaSignup"
         android:hint="Senha"
         android:layout_marginTop="10dp" />
 
-    <EditText
+    <com.cengalabs.flatui.views.FlatEditText
+        flatui:fl_theme="@array/sea"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        flatui:fl_fieldStyle="fl_box"
         android:inputType="textPassword"
         android:ems="10"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:id="@+id/confirmaSenha"
         android:hint="Confirma senha"
         android:layout_marginTop="10dp" />
 
-    <EditText
+    <com.cengalabs.flatui.views.FlatEditText
+        flatui:fl_theme="@array/sea"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        flatui:fl_fieldStyle="fl_box"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:id="@+id/emailSignup"
-        android:hint="e-mail"
+        android:hint="E-mail"
         android:layout_marginTop="10dp"
         android:inputType="textEmailAddress" />
 
@@ -77,26 +97,33 @@
         android:id="@+id/radioFuncao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
+        <com.cengalabs.flatui.views.FlatRadioButton
+            flatui:fl_theme="@array/sea"
+            flatui:fl_size="16dp"
+            flatui:fl_dotMargin="2dp"
+            android:id="@+id/radioProfessorSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Professor"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp" />
 
+        <com.cengalabs.flatui.views.FlatRadioButton
+            flatui:fl_theme="@array/sea"
+            flatui:fl_size="16dp"
+            flatui:fl_dotMargin="2dp"
+            android:id="@+id/radioAlunoSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Aluno"
+            android:checked="true"
+            android:layout_marginLeft="20dp" />
     </RadioGroup>
 
-    <RadioButton
-        android:id="@+id/radioProfessorSignup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Professor"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp" />
-
-    <RadioButton
-        android:id="@+id/radioAlunoSignup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aluno"
-        android:checked="true"
-        android:layout_marginLeft="20dp" />
-
-    <Button
+    <com.cengalabs.flatui.views.FlatButton
+        flatui:fl_theme="@array/sea"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="Confirmar"

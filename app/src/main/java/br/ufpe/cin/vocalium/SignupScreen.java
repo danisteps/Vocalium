@@ -1,25 +1,15 @@
 package br.ufpe.cin.vocalium;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import Utils.DatabaseManager;
+import Utils.LayoutOutput;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.PersistableBundle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
-
-import java.lang.reflect.Method;
-
-import Utils.DatabaseManager;
-import Utils.FileManager;
-import Utils.ServerConnection;
-import Utils.UserInformation;
+import android.widget.RadioGroup;
 
 /**
  * Created by danielesoarespassos on 16/01/2016.
@@ -27,8 +17,11 @@ import Utils.UserInformation;
 
 public class SignupScreen extends AppCompatActivity {
 
+    private final static Class nextActivity = LoginScreen.class;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_screen);
 
@@ -36,10 +29,8 @@ public class SignupScreen extends AppCompatActivity {
         final EditText userText = (EditText) findViewById(R.id.usernameSignup);
         final EditText passwordText = (EditText) findViewById(R.id.senhaSignup);
         final EditText confirmpasswordText = (EditText) findViewById(R.id.confirmaSenha);
-        //final EditText emailText = (EditText) findViewById(R.id.emailSignup);
 
-        final RadioButton radioButton_professor = (RadioButton) findViewById(R.id.radioProfessorSignup);
-        //RadioButton radioButton_student = (RadioButton) findViewById(R.id.radioAlunoSignup);
+        final RadioGroup radioFuncao = (RadioGroup) findViewById(R.id.radioFuncao);
 
         //botão de confirmar cadastro
         Button signupButton = (Button) findViewById(R.id.confirmarSignup);
@@ -50,17 +41,21 @@ public class SignupScreen extends AppCompatActivity {
                 boolean status = false;
 
                 if (verifyPassword(passwordText.getText().toString(), confirmpasswordText.getText().toString())) {
+                    switch (radioFuncao.getCheckedRadioButtonId()) {
+                        case R.id.radioAlunoSignup:
+                            status = DatabaseManager.signUpStudent(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
 
-                    if (radioButton_professor.isActivated()) {
-                        status = DatabaseManager.signUpTutor(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
-                    } else {
-                        status = DatabaseManager.signUpStudent(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
+                            break;
+                        case R.id.radioProfessorSignup:
+                            status = DatabaseManager.signUpTutor(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
+
+                            break;
                     }
 
                     if (status)
-                        finish();
+                        changeActivity(nextActivity);
                     else
-                        operationFailed("O nome de usuário escolhido já existe no sistema.");
+                        LayoutOutput.showErrorDialog(SignupScreen.this, "O nome de usuário escolhido já existe no sistema.");
                 }
             }
         });
@@ -68,37 +63,16 @@ public class SignupScreen extends AppCompatActivity {
 
     private boolean verifyPassword (String pass1, String pass2){
         if (!pass1.equals(pass2)){
-            operationFailed("Senhas diferentes. Por favor, verifique a senha e digite novamente!");
+            LayoutOutput.showErrorDialog(this, "Senhas diferentes. Por favor, verifique a senha e digite novamente!");
             return false;
         }
         return true;
     }
 
-    private void operationFailed (String message)
+    private void changeActivity(Class activity)
     {
-        final AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-        alertbox.setMessage(message);
-        final AlertDialog alert = alertbox.create();
-        alert.show();
-
-        final Handler handler  = new Handler();
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (alert.isShowing()) {
-                    alert.dismiss();
-                }
-            }
-        };
-
-        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                handler.removeCallbacks(runnable);
-            }
-        });
-
-        handler.postDelayed(runnable, 3000);
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+        finish();
     }
-
 }
