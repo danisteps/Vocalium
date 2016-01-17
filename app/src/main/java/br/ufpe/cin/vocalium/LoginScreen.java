@@ -1,5 +1,6 @@
 package br.ufpe.cin.vocalium;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,8 +25,15 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login_screen);
+
+
+        //DatabaseManager.invalidateAllComments();
+
+
+        //FileManager.deleteLocalFile(this);
+        //DatabaseManager.unsetTutor(DatabaseManager.getIdByUsername("danisteps"));
+        //DatabaseManager.requestFriendship(1, DatabaseManager.getIdByUsername("danisteps"));
 
         Button loginButton = (Button) findViewById(R.id.login_button);
         final EditText userText = (EditText) findViewById(R.id.text_user_login);
@@ -40,11 +48,13 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
-        TextView signupButton = (TextView) findViewById(R.id.signup_button);
+        final Activity activity = this;
+        Button signupButton = (Button) findViewById(R.id.signup_button);
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeActivity(SignupScreen.class);
+                Intent intent = new Intent(activity, SignupScreen.class);
+                startActivity(intent);
             }
         });
     }

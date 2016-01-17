@@ -141,6 +141,10 @@ public class ServerConnection {
 
         //still have to find the id of the file;
         final File file = new File(filePath);
+        if(file.exists())
+            Log.d("PLAYER_ERROR", "Vorbis found");
+        else
+            Log.d("PLAYER_ERROR", "Vorbis not found!!!");
 
         //verifyFileExists(file);
 
@@ -154,6 +158,10 @@ public class ServerConnection {
         Request request = new Request.Builder().url(soundUrl).post(requestBody).build();
 
 
+        if(request == null)
+        {
+            Log.e("POST_ERROR", "request null");
+        }
 
         Response response;
         try {

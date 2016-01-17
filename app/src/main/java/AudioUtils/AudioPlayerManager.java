@@ -235,7 +235,7 @@ public class AudioPlayerManager {
     }
     private void getNextComment()
     {
-        if(commentPosition < comments.size())
+        if(comments != null && commentPosition < comments.size())
         {
             int milisec = comments.getCommentTime(commentPosition);
             if(mediaPlayer.getCurrentPosition() > milisec)
