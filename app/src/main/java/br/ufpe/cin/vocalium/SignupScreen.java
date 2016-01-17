@@ -28,8 +28,8 @@ import Utils.UserInformation;
 public class SignupScreen extends AppCompatActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_screen);
 
         final EditText nameText = (EditText) findViewById(R.id.nameSignup);
