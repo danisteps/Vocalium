@@ -56,9 +56,9 @@ public class StudentListenComment extends AppCompatActivity {
         try {
             comment = FileManager.readComment(this, "" + DatabaseManager.getCommentId(user.GetAudioId()));
         } catch (IOException e) {
-            Log.e("PLAYER_ERROR", "Problem loading comment");
+            Log.e("COMMENT_ERROR", "Problem loading comment" + user.GetAudioId());
         } catch (ClassNotFoundException e) {
-            Log.e("PLAYER_ERROR", "Problem loading comment");
+            Log.e("COMMENT_ERROR", "Problem loading comment");
         }
         player.enqueueComments(comment);
 

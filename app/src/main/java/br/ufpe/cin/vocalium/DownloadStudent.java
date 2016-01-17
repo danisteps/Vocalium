@@ -24,7 +24,7 @@ public class DownloadStudent extends AppCompatActivity {
         Method callFunction = null;
         Method errorFunction = null;
         try {
-            callFunction = this.getClass().getMethod("changeActivity", null);
+            callFunction = this.getClass().getMethod("nextStep", null);
             errorFunction = this.getClass().getMethod("backActivity", null);
         } catch (NoSuchMethodException e) {
             backActivity();

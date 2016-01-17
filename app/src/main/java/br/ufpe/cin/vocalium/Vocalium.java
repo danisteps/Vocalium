@@ -1,6 +1,8 @@
 package br.ufpe.cin.vocalium;
 
 import Utils.DatabaseManager;
+import Utils.FileManager;
+
 import android.app.Application;
 import com.cengalabs.flatui.FlatUI;
 
@@ -16,5 +18,7 @@ public final class Vocalium extends Application {
         FlatUI.setDefaultTheme(FlatUI.ORANGE);
 
         DatabaseManager.initializeParse(this);
+
+        FileManager.deleteLocalFile(this);
     }
 }
