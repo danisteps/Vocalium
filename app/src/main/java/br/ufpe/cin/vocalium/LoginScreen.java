@@ -15,6 +15,7 @@ import android.widget.EditText;
 import Utils.DatabaseManager;
 import Utils.FileManager;
 import Utils.UserInformation;
+import android.widget.TextView;
 
 public class LoginScreen extends AppCompatActivity {
     private final static Class nextTutorActivity = TutorStudentList.class;
