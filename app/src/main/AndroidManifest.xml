@@ -100,6 +100,8 @@
         </activity>
         <activity android:name=".StudentRatingList" >
         </activity>
+        <activity android:name=".SignupScreen" >
+        </activity>
     </application>
 
 </manifest>
