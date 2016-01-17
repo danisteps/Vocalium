@@ -25,14 +25,15 @@ import com.ideaheap.io.VorbisFileOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+import AudioUtils.AudioPlayerManager;
 import Utils.FileManager;
 import Utils.ServerConnection;
 
 public class StudentRecord extends AppCompatActivity {
     private final static Class nextActivity = SendRecord.class;
 
-    private static int[] mSampleRates = new int[] { 8000, 11025, 22050, 44100 };
-    //justo to be sure....
+    private static int[] mSampleRates = new int[] {44100, 22050, 11025,  8000};
+    //just to to be sure....
     private int bufferSize = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
 
         private MediaCodec _codec;
@@ -42,6 +43,7 @@ public class StudentRecord extends AppCompatActivity {
         private boolean hasRecorded = false;
         private Chronometer chronometer;
         private int bytesWritten = 0;
+        private long chrnBase;
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class StudentRecord extends AppCompatActivity {
             setContentView(R.layout.activity_student_record);
 
             chronometer = (Chronometer) findViewById(R.id.student_record_chronometer);
+            chrnBase = chronometer.getBase();
 
             ImageButton startRecordingButton = (ImageButton) findViewById(R.id.button_play_record);
             startRecordingButton.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +66,7 @@ public class StudentRecord extends AppCompatActivity {
                     else if(!hasRecorded) {
                         _stop = false;
                         hasRecorded = true;
+                        chronometer.setBase(SystemClock.elapsedRealtime());
                         chronometer.start();
 
                         new Thread() {
@@ -78,6 +82,10 @@ public class StudentRecord extends AppCompatActivity {
             deleteRecordingButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (!_stop) {
+                        _stop = true;
+                        stopRecording();
+                    }
                     deletePreviousFile();
                 }
             });
@@ -88,6 +96,7 @@ public class StudentRecord extends AppCompatActivity {
                 public void onClick(View v) {
                     if (hasRecorded) {
                         if (!_stop) {
+                            _stop = true;
                             stopRecording();
                         }
                         sendRecord();
@@ -141,13 +150,12 @@ public class StudentRecord extends AppCompatActivity {
         _record.startRecording();
 
         while (!_stop) {
-            _record.read(buffer, buffer.length/2, buffer.length);
+            _record.read(buffer, 0, buffer.length);
             try {
                 _track.write(buffer, 0, buffer.length);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            bytesWritten += buffer.length;
         }
     }
     private void stopRecording()
@@ -183,8 +191,8 @@ public class StudentRecord extends AppCompatActivity {
 
     public AudioRecord findAudioRecord() {
         for (int rate : mSampleRates) {
-            for (short audioFormat : new short[] { AudioFormat.ENCODING_PCM_8BIT, AudioFormat.ENCODING_PCM_16BIT }) {
-                for (short channelConfig : new short[] { AudioFormat.CHANNEL_IN_MONO, AudioFormat.CHANNEL_IN_STEREO }) {
+            for (short audioFormat : new short[] { AudioFormat.ENCODING_PCM_16BIT, AudioFormat.ENCODING_PCM_8BIT}) {
+                for (short channelConfig : new short[] { AudioFormat.CHANNEL_IN_MONO, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.CHANNEL_OUT_MONO }) {
                     try {
                         Log.d("PLAYER_ERROR", "Attempting rate " + rate + "Hz, bits: " + audioFormat + ", channel: "
                                 + channelConfig);
