@@ -1,8 +1,11 @@
 package Utils;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -160,6 +163,29 @@ public class LayoutOutput {
         currentChronometer.setText(String.format("%02d:%02d", minutes, seconds));
     }
 
+    public static void showErrorDialog(Context context, String error) {
+        final AlertDialog.Builder alertbox = new AlertDialog.Builder(context);
+        alertbox.setMessage(error);
+        final AlertDialog alert = alertbox.create();
+        alert.show();
 
+        final Handler handler  = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (alert.isShowing()) {
+                    alert.dismiss();
+                }
+            }
+        };
 
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                handler.removeCallbacks(runnable);
+            }
+        });
+
+        handler.postDelayed(runnable, 3000);
+    }
 }
