@@ -1,6 +1,9 @@
 package br.ufpe.cin.vocalium;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +24,10 @@ import Utils.UserInformation;
 /**
  * Created by danielesoarespassos on 16/01/2016.
  */
+
 public class SignupScreen extends AppCompatActivity {
+    private final static Class nextActivitySucesss = LoginScreen.class;
+
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -30,10 +36,11 @@ public class SignupScreen extends AppCompatActivity {
         final EditText nameText = (EditText) findViewById(R.id.nameSignup);
         final EditText userText = (EditText) findViewById(R.id.usernameSignup);
         final EditText passwordText = (EditText) findViewById(R.id.senhaSignup);
-        final EditText emailText = (EditText) findViewById(R.id.emailSignup);
+        final EditText confirmpasswordText = (EditText) findViewById(R.id.confirmaSenha);
+        //final EditText emailText = (EditText) findViewById(R.id.emailSignup);
 
         final RadioButton radioButton_professor = (RadioButton) findViewById(R.id.radioProfessorSignup);
-        RadioButton radioButton_student = (RadioButton) findViewById(R.id.radioAlunoSignup);
+        //RadioButton radioButton_student = (RadioButton) findViewById(R.id.radioAlunoSignup);
 
         //botão de confirmar cadastro
         Button signupButton = (Button) findViewById(R.id.confirmarSignup);
@@ -41,16 +48,64 @@ public class SignupScreen extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean status = false;
 
-                if (radioButton_professor.isActivated()){
-                    DatabaseManager.signUpTutor(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
-                }
-                else{
-                    DatabaseManager.signUpStudent(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
+                if (verifyPassword(passwordText.getText().toString(), confirmpasswordText.getText().toString())) {
+
+                    if (radioButton_professor.isActivated()) {
+                        status = DatabaseManager.signUpTutor(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
+                    } else {
+                        status = DatabaseManager.signUpStudent(userText.getText().toString(), nameText.getText().toString(), passwordText.getText().hashCode());
+                    }
+
+                    if (status)
+                        changeActivity(nextActivitySucesss);
+                    else
+                        operationFailed("O nome de usuário escolhido já existe no sistema.");
                 }
             }
         });
+    }
 
+    private boolean verifyPassword (String pass1, String pass2){
+        if (!pass1.equals(pass2)){
+            operationFailed("Senhas diferentes. Por favor, verifique a senha e digite novamente!");
+            return false;
+        }
+        return true;
+    }
 
+    private void operationFailed (String message)
+    {
+        final AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+        alertbox.setMessage(message);
+        final AlertDialog alert = alertbox.create();
+        alert.show();
+
+        final Handler handler  = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (alert.isShowing()) {
+                    alert.dismiss();
+                }
+            }
+        };
+
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                handler.removeCallbacks(runnable);
+            }
+        });
+
+        handler.postDelayed(runnable, 3000);
+    }
+
+    private void changeActivity(Class activity)
+    {
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+        finish();
     }
 }
